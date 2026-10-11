@@ -6,6 +6,7 @@ import com.shariftechnologies.scammonitor.data.db.ScanEntity
 import com.shariftechnologies.scammonitor.data.db.SecurityDatabase
 import com.shariftechnologies.scammonitor.data.db.StringList
 import com.shariftechnologies.scammonitor.domain.model.Severity
+import com.shariftechnologies.scammonitor.monitoring.pipeline.EventOrigin
 import com.shariftechnologies.scammonitor.monitoring.pipeline.RecordStatus
 import com.shariftechnologies.scammonitor.monitoring.pipeline.ScanOutcome
 import com.shariftechnologies.scammonitor.monitoring.pipeline.ScanRecord
@@ -61,7 +62,9 @@ class ScanRepository(
     /** Stores the scan and, if flagged, its flagged item, atomically. Duplicate events are ignored. */
     override suspend fun record(record: ScanRecord): RecordStatus = db.withTransaction {
         val result = record.result
-        val label = labels.labelOrNull(record.packageName)
+        // Findings from on-screen text are labelled so the user can tell them from notification findings.
+        val base = labels.labelOrNull(record.packageName)
+        val label = if (record.origin == EventOrigin.SCREEN) "${base ?: record.packageName} (on screen)" else base
         val scan = ScanEntity(
             scanId = UUID.randomUUID().toString(),
             eventId = record.eventId,

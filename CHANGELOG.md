@@ -2,6 +2,10 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## Unreleased
+
+- Groundwork for opt-in screen monitoring (inert; no Accessibility service exists yet and nothing reads the screen): per-app, per-chat and per-website scope rules, a screen analyzer, a never-monitor list (system screens, keyboards, password managers, finance apps) and storage for the user's choices. Findings from on-screen text will be labelled "(on screen)" and are the only thing stored.
+
 ## 1.1.0 - 2026-10-11
 
 - **Phone security checks (new Security tab).** Reads the protection state Android exposes (Play Protect when readable, screen lock, encryption, USB debugging, developer options, security-patch age, apps with Accessibility / notification access / device-admin rights) and rates every installed app from its permissions, install source and special accesses, explaining in plain language what each can cause and what to do.
