@@ -7,6 +7,7 @@ Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git t
 - **Phone security checks (new Security tab).** Reads the protection state Android exposes (Play Protect when readable, screen lock, encryption, USB debugging, developer options, security-patch age, apps with Accessibility / notification access / device-admin rights) and rates every installed app from its permissions, install source and special accesses, explaining in plain language what each can cause and what to do.
 - **Alerts for security changes and risky installs:** Play Protect turned off, screen lock removed, USB debugging or developer options turned on, a new Accessibility / notification-reading / device-admin app; and right after a new app is installed (before it has run) if it asks for dangerous permissions, especially outside an app store. Android cannot block an install or a settings change in advance, so alerts come immediately afterwards. A daily background check (WorkManager) covers times when the app is not running.
 - New permission `QUERY_ALL_PACKAGES` (app metadata only) and editable `permission_risks.json`; 73 engine tests.
+- Bootloader state (unlocked / locked / unreadable) and unofficial-build detection; developer options turned on is now a medium alert that explains USB debugging, OEM unlocking and scammer instructions.
 - Settings switch for these alerts.
 
 ## 1.0.1 - 2026-10-11

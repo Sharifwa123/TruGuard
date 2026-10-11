@@ -22,6 +22,8 @@ class SecuritySettingsReader(
             storageEncrypted = encrypted(),
             usbDebuggingOn = globalFlag(Settings.Global.ADB_ENABLED),
             developerOptionsOn = globalFlag(Settings.Global.DEVELOPMENT_SETTINGS_ENABLED),
+            bootloaderUnlocked = bootloaderUnlocked(),
+            unofficialBuild = Build.TAGS?.contains("test-keys"),
             securityPatchAgeDays = patchAgeDays(),
             accessibilityApps = power.accessibilityApps.filter { !scanner.isSystemPackage(it) && it != ownPackage }.sorted(),
             notificationListenerApps = power.notificationListenerApps.filter { it != ownPackage && !scanner.isSystemPackage(it) }.sorted(),
@@ -40,6 +42,37 @@ class SecuritySettingsReader(
             enabled == 0 || consent == -1 -> false
             enabled == 1 || consent == 1 -> true
             else -> null
+        }
+    }
+
+    /**
+     * Reads the verified-boot state the bootloader hands to Android ("orange" = unlocked). Android has no public
+     * API for it, so a system property is read; if the phone blocks that, the answer is simply unknown.
+     */
+    private fun bootloaderUnlocked(): Boolean? {
+        when (systemProperty("ro.boot.verifiedbootstate")?.lowercase()) {
+            "orange" -> return true
+            "green", "yellow" -> return false
+        }
+        return when (systemProperty("ro.boot.flash.locked")) {
+            "0" -> true
+            "1" -> false
+            else -> null
+        }
+    }
+
+    private fun systemProperty(key: String): String? {
+        val viaReflection = try {
+            Class.forName("android.os.SystemProperties").getMethod("get", String::class.java).invoke(null, key) as? String
+        } catch (e: Exception) {
+            null
+        }
+        if (!viaReflection.isNullOrEmpty()) return viaReflection
+        return try {
+            val p = ProcessBuilder("getprop", key).redirectErrorStream(true).start()
+            p.inputStream.bufferedReader().use { it.readLine()?.trim() }.also { p.destroy() }?.takeIf { it.isNotEmpty() }
+        } catch (e: Exception) {
+            null
         }
     }
 

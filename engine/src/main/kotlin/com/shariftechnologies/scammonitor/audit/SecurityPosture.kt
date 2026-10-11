@@ -15,6 +15,10 @@ data class PostureSnapshot(
     val storageEncrypted: Boolean? = null,
     val usbDebuggingOn: Boolean? = null,
     val developerOptionsOn: Boolean? = null,
+    /** True when the bootloader is unlocked (verified boot "orange"), false when locked, null when unreadable. */
+    val bootloaderUnlocked: Boolean? = null,
+    /** True when the system is a test/unofficial build ("test-keys"), typical of custom ROMs. */
+    val unofficialBuild: Boolean? = null,
     val securityPatchAgeDays: Int? = null,
     /** Package names of non-system apps that currently have Accessibility access. */
     val accessibilityApps: List<String> = emptyList(),
@@ -68,6 +72,18 @@ object SecurityPostureEvaluator {
             "If the phone is lost or stolen, the data on it can be read without your screen lock.",
             "Open Settings > Security and turn on encryption if your phone offers it.",
         )
+        if (s.bootloaderUnlocked == true) out += PostureFinding(
+            "bootloader_unlocked", Severity.HIGH, "The bootloader is unlocked",
+            "The bootloader is the first program that starts your phone and checks that Android has not been tampered with. Unlocking it switches that check off.",
+            "Modified or booby-trapped system software can be installed that hides spyware, steals data and survives resets, and anyone with the phone and a computer can copy its data. Scammers sometimes push people to unlock it. If you did not unlock it yourself (for example on a second-hand phone), do not trust the phone with banking or mobile money.",
+            "If you did not choose this, stop using the phone for sensitive tasks and ask the maker or a trusted technician to re-lock it. Re-locking erases the phone, so back up first.",
+        )
+        if (s.unofficialBuild == true) out += PostureFinding(
+            "unofficial_build", Severity.MEDIUM, "The phone runs an unofficial Android build",
+            "The system software was not signed by the phone's maker (a custom ROM or test build).",
+            "It may lack the maker's security updates and checks, and could contain changes you cannot see.",
+            "If you did not install it on purpose, get the phone checked or reinstall the official software.",
+        )
         if (s.usbDebuggingOn == true) out += PostureFinding(
             "usb_debugging", Severity.MEDIUM, "USB debugging is on", "A developer feature that lets a connected computer control the phone.",
             "Someone with your phone and a cable, or malware on a computer you plug into, could copy data or install apps. Scammers sometimes ask people to enable it.",
@@ -75,7 +91,7 @@ object SecurityPostureEvaluator {
         )
         if (s.developerOptionsOn == true && s.usbDebuggingOn != true) out += PostureFinding(
             "developer_options", Severity.LOW, "Developer options are on", "Advanced settings meant for app developers are switched on.",
-            "They make it easier to weaken your phone's protections by accident, or by following a scammer's instructions.",
+            "They are where USB debugging and \"OEM unlocking\" (the first step to unlocking the bootloader) live, so they make it easier to weaken your phone's protections by accident, or by following a scammer's instructions.",
             "Turn them off in Settings > System > Developer options if you do not need them.",
         )
         s.securityPatchAgeDays?.let { age ->
@@ -129,9 +145,14 @@ object SecurityPostureEvaluator {
             "If you did not choose this, turn it off in Settings > Developer options.",
         )
         if (old.developerOptionsOn != true && new.developerOptionsOn == true && new.usbDebuggingOn != true) out += PostureFinding(
-            "developer_options_turned_on", Severity.LOW, "Developer options were just turned on", "Advanced settings for app developers are now available.",
-            "They make it easier to weaken your phone's protections, sometimes on a scammer's instructions.",
-            "If you did not do this, turn them off in Settings > System > Developer options.",
+            "developer_options_turned_on", Severity.MEDIUM, "Developer options were just turned on", "Advanced settings for app developers are now available.",
+            "This is the doorway to USB debugging and \"OEM unlocking\" (the first step to unlocking the bootloader, which switches off the check that Android has not been tampered with). Scammers and people who want to spy on a phone ask for this step. If someone told you to do it, stop and do not follow their other instructions.",
+            "If you did not do this on purpose, turn developer options off in Settings > System > Developer options, and do not turn on \"OEM unlocking\" or USB debugging.",
+        )
+        if (old.bootloaderUnlocked != true && new.bootloaderUnlocked == true) out += PostureFinding(
+            "bootloader_turned_unlocked", Severity.HIGH, "The bootloader is now unlocked", "The check that Android has not been tampered with is switched off.",
+            "Modified system software, including spyware, can now be installed and survive resets.",
+            "If you did not do this, stop using the phone for sensitive tasks and have it checked.",
         )
         for (pkg in new.accessibilityApps - old.accessibilityApps.toSet()) out += PostureFinding(
             "accessibility_granted:$pkg", Severity.HIGH, "${labelOf(pkg)} was just given Accessibility access",

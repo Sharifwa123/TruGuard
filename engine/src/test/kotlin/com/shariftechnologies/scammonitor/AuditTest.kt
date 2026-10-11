@@ -113,6 +113,32 @@ class SecurityPostureTest {
         assertEquals(setOf("accessibility_granted:b.new", "listener_granted:c.new", "device_admin_added:d.new"), ids.toSet())
     }
 
+    @Test fun `unlocked bootloader and unofficial build are reported with consequences`() {
+        val f = SecurityPostureEvaluator.evaluate(safe.copy(bootloaderUnlocked = true, unofficialBuild = true))
+        val unlocked = f.first { it.id == "bootloader_unlocked" }
+        assertEquals(Severity.HIGH, unlocked.severity)
+        assertTrue(unlocked.risk.contains("spyware"))
+        assertTrue(unlocked.action.contains("erases"))
+        assertTrue(f.any { it.id == "unofficial_build" })
+    }
+
+    @Test fun `locked or unknown bootloader produces no finding`() {
+        assertTrue(SecurityPostureEvaluator.evaluate(safe.copy(bootloaderUnlocked = false, unofficialBuild = false)).isEmpty())
+        assertTrue(SecurityPostureEvaluator.evaluate(safe.copy(bootloaderUnlocked = null, unofficialBuild = null)).isEmpty())
+    }
+
+    @Test fun `enabling developer options is a medium alert explaining oem unlocking and scams`() {
+        val c = SecurityPostureEvaluator.changes(safe, safe.copy(developerOptionsOn = true)).single()
+        assertEquals("developer_options_turned_on", c.id)
+        assertEquals(Severity.MEDIUM, c.severity)
+        assertTrue(c.risk.contains("OEM unlocking"))
+        assertTrue(c.risk.contains("Scammers"))
+    }
+
+    @Test fun `bootloader becoming unlocked is a high alert`() {
+        assertEquals("bootloader_turned_unlocked", SecurityPostureEvaluator.changes(safe.copy(bootloaderUnlocked = false), safe.copy(bootloaderUnlocked = true)).single().id)
+    }
+
     @Test fun `improvements and a first run produce no alerts`() {
         assertTrue(SecurityPostureEvaluator.changes(null, safe.copy(playProtectEnabled = false)).isEmpty())
         assertTrue(SecurityPostureEvaluator.changes(safe.copy(playProtectEnabled = false), safe).isEmpty())
