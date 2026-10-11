@@ -1,0 +1,105 @@
+name: Release
+
+# Publishes a permanent GitHub Release with installable APKs when a version tag is pushed.
+#   1. Edit version.properties (VERSION_NAME=1.2.3) and commit it.
+#   2. git tag v1.2.3 && git push origin v1.2.3
+# The tag must equal "v" + VERSION_NAME or the run fails, so release versions can never drift
+# from the version compiled into the app (versionName and the derived versionCode).
+on:
+  push:
+    tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify tag matches version.properties
+        id: version
+        run: |
+          VERSION="$(grep '^VERSION_NAME=' version.properties | cut -d= -f2 | tr -d '[:space:]')"
+          if [ "v${VERSION}" != "${GITHUB_REF_NAME}" ]; then
+            echo "::error::Tag ${GITHUB_REF_NAME} does not match version.properties (VERSION_NAME=${VERSION}). Fix one of them and re-tag."
+            exit 1
+          fi
+          IFS=. read -r MAJOR MINOR PATCH <<< "${VERSION%%-*}"
+          echo "name=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "code=$((MAJOR * 10000 + MINOR * 100 + PATCH))" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Prepare signing key
+        id: signing
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          if [ -n "${KEYSTORE_B64}" ] && [ -n "${KEYSTORE_PASSWORD}" ] && [ -n "${KEY_ALIAS}" ] && [ -n "${KEY_PASSWORD}" ]; then
+            echo "${KEYSTORE_B64}" | base64 --decode > "${RUNNER_TEMP}/release.jks"
+            {
+              echo "SIGNING_KEYSTORE_PATH=${RUNNER_TEMP}/release.jks"
+              echo "SIGNING_KEYSTORE_PASSWORD=${KEYSTORE_PASSWORD}"
+              echo "SIGNING_KEY_ALIAS=${KEY_ALIAS}"
+              echo "SIGNING_KEY_PASSWORD=${KEY_PASSWORD}"
+            } >> "$GITHUB_ENV"
+            echo "signed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::No signing secrets configured. Publishing debug-signed APKs as a pre-release; they cannot update a release-signed install."
+            echo "signed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Test
+        run: ./gradlew :engine:test :app:testDebugUnitTest --no-daemon
+
+      - name: Build APKs
+        run: |
+          mkdir -p dist
+          VERSION="${{ steps.version.outputs.name }}"
+          if [ "${{ steps.signing.outputs.signed }}" = "true" ]; then
+            ./gradlew :app:assembleRelease :testsender:assembleRelease --no-daemon
+            cp app/build/outputs/apk/release/app-release.apk "dist/ScamMonitor-${VERSION}.apk"
+            cp testsender/build/outputs/apk/release/testsender-release.apk "dist/ScamMonitor-TestSender-${VERSION}.apk"
+          else
+            ./gradlew :app:assembleDebug :testsender:assembleDebug --no-daemon
+            cp app/build/outputs/apk/debug/app-debug.apk "dist/ScamMonitor-${VERSION}-debug.apk"
+            cp testsender/build/outputs/apk/debug/testsender-debug.apk "dist/ScamMonitor-TestSender-${VERSION}-debug.apk"
+          fi
+          (cd dist && sha256sum *.apk > SHA256SUMS.txt)
+
+      - name: Write release notes
+        run: |
+          {
+            echo "Scam Monitor ${{ steps.version.outputs.name }} (versionCode ${{ steps.version.outputs.code }})"
+            echo
+            echo "Commit: ${GITHUB_SHA}"
+            echo
+            if [ "${{ steps.signing.outputs.signed }}" = "true" ]; then
+              echo "APKs are signed with the project release key; later releases signed with the same key install as updates."
+            else
+              echo "**Pre-release:** built without the release signing key, so these APKs are debug-signed. Uninstall before installing a differently signed build."
+            fi
+            echo
+            echo "Install: \`adb install -r ScamMonitor-*.apk\`, then enable notification access (see README). Verify downloads with \`SHA256SUMS.txt\`."
+            echo "The Test Sender APK is an optional helper that posts synthetic notifications for testing."
+          } > release-notes.md
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Scam Monitor ${{ steps.version.outputs.name }}
+          body_path: release-notes.md
+          generate_release_notes: true
+          prerelease: ${{ steps.signing.outputs.signed != 'true' || contains(steps.version.outputs.name, '-') }}
+          files: dist/*
+          fail_on_unmatched_files: true

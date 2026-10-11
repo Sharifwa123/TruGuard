@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": "2026.10.1",
+  "thresholds": {
+    "low": 15,
+    "medium": 35,
+    "high": 60,
+    "flagMinSeverity": "LOW"
+  },
+  "linkSignals": {
+    "blocklistedDomain": 60,
+    "suspiciousLink": 20
+  },
+  "rules": [
+    {
+      "id": "pin_otp_request",
+      "description": "Asks the recipient to disclose a PIN, OTP, verification code or password.",
+      "category": "credential_request",
+      "score": 60,
+      "patterns": [
+        "(?<!not )(?<!never )(?<!n't )(?<!n’t )(?<!dont )\\b(?:send|share|give|tell|provide|enter|confirm|reply with|forward|read out|disclose|text me)\\b.{0,40}\\b(?:momo pin|mobile money pin|pin number|pin|otp|one[- ]time (?:pin|password|code)|verification code|secret code|password)\\b",
+        "\\b(?:your|ur)\\b.{0,15}\\b(?:momo pin|pin number|pin|otp)\\b.{0,25}\\b(?:is required|is needed|to continue|to proceed|to verify|to confirm|to reverse|to receive)\\b"
+      ],
+      "explanation": "This message asks you to reveal a PIN, OTP or password. Genuine mobile money providers and banks never ask you to disclose these secrets.",
+      "enabled": true
+    },
+    {
+      "id": "fake_reversal",
+      "description": "Claims a transfer was sent in error and asks for it to be reversed or returned.",
+      "category": "reversal_scam",
+      "score": 35,
+      "patterns": [
+        "\\b(?:please|pls|kindly)\\b.{0,30}\\b(?:reverse|revert|refund|return|send back)\\b.{0,40}\\b(?:money|amount|cash|momo|transaction|transfer|payment|ghs|gh₵|₵|cedis)\\b",
+        "\\b(?:sent|transferred|deposited|credited)\\b.{0,50}\\b(?:by mistake|in error|wrongly|to the wrong)\\b",
+        "\\b(?:mistakenly|accidentally|wrongly)\\b.{0,20}\\b(?:sent|transferred|credited)\\b",
+        "\\b(?:reverse|reversal)\\b.{0,40}\\b(?:by sending|send|dial|enter|share|code|pin)\\b"
+      ],
+      "explanation": "This message claims money was sent to you by mistake and asks you to reverse or return it. This is a common mobile money reversal scam; check your real balance and transaction history with your provider.",
+      "enabled": true
+    },
+    {
+      "id": "account_block_threat",
+      "description": "Threatens that an account or wallet will be blocked or suspended.",
+      "category": "urgency_threat",
+      "score": 30,
+      "patterns": [
+        "\\b(?:account|wallet|momo|sim|line|card|number)\\b.{0,50}\\b(?:will be|has been|is being|would be|been|to be)\\b.{0,15}\\b(?:blocked|suspended|deactivated|closed|locked|frozen|barred|terminated)\\b",
+        "\\b(?:blocked|suspended|deactivated|closed|locked|frozen|barred)\\b.{0,40}\\b(?:unless|if you do not|if you don['’]?t|within \\d+ ?(?:hours|hrs|minutes|mins)|until you)\\b"
+      ],
+      "explanation": "This message threatens that your account or wallet will be blocked. Scammers use this pressure to rush you; confirm with your provider using its official contact details.",
+      "enabled": true
+    },
+    {
+      "id": "fake_reward",
+      "description": "Unexpected prize, giveaway, free airtime or bonus.",
+      "category": "fake_reward",
+      "score": 25,
+      "patterns": [
+        "\\byou(?:['’]?ve| have|['’]re| are)?\\s(?:won|been selected|been chosen)\\b",
+        "\\b(?:lucky winner|lucky draw|jackpot|free airtime|free data|cash prize|cash reward|bonus of)\\b"
+      ],
+      "explanation": "This message promises an unexpected prize, reward or free airtime. Unsolicited rewards are a common lure for scams.",
+      "enabled": true
+    },
+    {
+      "id": "advance_fee",
+      "description": "Requests an upfront fee to release a prize, loan or other benefit.",
+      "category": "advance_fee",
+      "score": 35,
+      "patterns": [
+        "\\b(?:pay|send|deposit|transfer)\\b.{0,40}\\b(?:processing|release|activation|unlock|unlocking|clearance|registration|delivery|claim|admin|handling|tax|insurance)\\s+(?:fee|charge|payment|cost)s?\\b",
+        "\\b(?:processing|release|activation|unlocking|clearance|claim|handling)\\s+(?:fee|charge)s?\\b.{0,40}\\b(?:required|must|before|to receive|to claim|to release)\\b"
+      ],
+      "explanation": "This message asks you to pay a fee before you can receive something. Legitimate prizes and loans do not require upfront payments to a personal number.",
+      "enabled": true
+    },
+    {
+      "id": "urgency",
+      "description": "Time-pressure wording.",
+      "category": "urgency_threat",
+      "score": 10,
+      "patterns": [
+        "\\b(?:urgent|urgently|immediately|right now|asap|act now|last warning|final warning|final notice|expires? (?:today|soon)|within \\d+ ?(?:hours?|hrs?|minutes?|mins?)|without delay|before it is too late|today only)\\b"
+      ],
+      "explanation": "The message pressures you to act quickly. Urgency alone is weak evidence, but scammers use it to stop you thinking.",
+      "enabled": true
+    },
+    {
+      "id": "impersonation",
+      "description": "Claims to be a provider, bank or support team.",
+      "category": "impersonation",
+      "score": 10,
+      "patterns": [
+        "\\b(?:this is|i am|i['’]?m|we are)\\b.{0,15}\\b(?:the |from |with )?(?:mtn|momo|mobile money|vodafone|telecel|airteltigo|at money|gcb|ecobank|stanbic|fidelity|absa|access bank|bank|customer (?:care|service|support)|support team|security team|help ?desk|official)\\b"
+      ],
+      "explanation": "The sender claims to be an official provider or support team. Anyone can claim this in a message; it does not prove who sent it.",
+      "enabled": true
+    },
+    {
+      "id": "payment_instruction",
+      "description": "Tells the recipient to send money to a phone number to fix a problem.",
+      "category": "payment_instruction",
+      "score": 30,
+      "patterns": [
+        "\\b(?:send|transfer|pay|deposit)\\b.{0,30}(?:ghs|gh₵|₵|cedis?|ghc)\\s?\\d[\\d,.]*.{0,40}\\bto\\b.{0,20}(?:\\b0\\d{9}\\b|\\+?233\\d{9}\\b)",
+        "\\b(?:send|transfer|pay|deposit)\\b.{0,25}\\bto\\b.{0,15}(?:\\b0\\d{9}\\b|\\+?233\\d{9}\\b)"
+      ],
+      "explanation": "This message tells you to transfer money to a phone number. Be very careful: official institutions do not ask you to send money to a personal number to resolve a problem.",
+      "enabled": true
+    },
+    {
+      "id": "credential_phishing",
+      "description": "Asks to verify or update account details through a link.",
+      "category": "phishing",
+      "score": 30,
+      "patterns": [
+        "\\b(?:verify|confirm|update|validate|re-?activate)\\b.{0,30}\\b(?:account|details|information|identity|bvn|ghana card|password|momo|wallet|kyc|card)\\b.{0,60}\\b(?:click|tap|visit|open|follow|log ?in|link|http|www\\.)",
+        "\\b(?:click|tap|visit|follow)\\b.{0,30}\\b(?:link|here|below)\\b.{0,50}\\b(?:verify|confirm|update|log ?in|reactivate|unlock)\\b"
+      ],
+      "explanation": "This message asks you to verify or update account details through a link. Open your provider's official app or website yourself instead of using links in messages.",
+      "enabled": true
+    },
+    {
+      "id": "secrecy_pressure",
+      "description": "Asks the recipient to keep it secret or avoid official support.",
+      "category": "social_engineering",
+      "score": 25,
+      "patterns": [
+        "\\b(?:do not|don['’]?t|dont|never)\\b.{0,15}\\b(?:tell|inform|disclose)\\b.{0,30}\\b(?:anyone|anybody|family|bank|staff|agent|customer care)\\b",
+        "\\b(?:do not|don['’]?t|dont)\\b.{0,15}\\b(?:call|contact|visit|talk to)\\b.{0,25}\\b(?:customer (?:care|service)|bank|branch|support|agent)\\b",
+        "\\bkeep (?:this|it)\\b.{0,15}\\b(?:secret|confidential|private)\\b"
+      ],
+      "explanation": "This message asks you to keep quiet or avoid official support. Scammers isolate victims so nobody can warn them.",
+      "enabled": true
+    }
+  ],
+  "combinations": [
+    {
+      "id": "combo.urgency_suspicious_link",
+      "requiresAll": [
+        "urgency",
+        "signal.suspicious_link"
+      ],
+      "score": 20,
+      "explanation": "Time pressure combined with a suspicious link is a typical phishing pattern.",
+      "enabled": true,
+      "description": "Time pressure combined with a suspicious link is a typical phishing pattern."
+    },
+    {
+      "id": "combo.block_threat_link",
+      "requiresAll": [
+        "account_block_threat",
+        "signal.suspicious_link"
+      ],
+      "score": 20,
+      "explanation": "A threat to block your account together with a suspicious link strongly resembles phishing.",
+      "enabled": true,
+      "description": "A threat to block your account together with a suspicious link strongly resembles phishing."
+    },
+    {
+      "id": "combo.pin_with_pretext",
+      "requiresAll": [
+        "pin_otp_request"
+      ],
+      "requiresAny": [
+        "fake_reversal",
+        "fake_reward",
+        "account_block_threat",
+        "advance_fee",
+        "secrecy_pressure"
+      ],
+      "score": 25,
+      "explanation": "A request for your PIN or code, backed by a story about a reversal, prize, fee or blocked account, is a classic mobile money scam.",
+      "enabled": true,
+      "description": "A request for your PIN or code, backed by a story about a reversal, prize, fee or blocked account, is a classic mobile money scam."
+    },
+    {
+      "id": "combo.impersonation_sensitive",
+      "requiresAll": [
+        "impersonation"
+      ],
+      "requiresAny": [
+        "pin_otp_request",
+        "credential_phishing",
+        "payment_instruction"
+      ],
+      "score": 20,
+      "explanation": "Someone claiming to be an official party while asking for secrets, details or payment is a serious warning sign.",
+      "enabled": true,
+      "description": "Someone claiming to be an official party while asking for secrets, details or payment is a serious warning sign."
+    },
+    {
+      "id": "combo.reversal_payment",
+      "requiresAll": [
+        "fake_reversal",
+        "payment_instruction"
+      ],
+      "score": 25,
+      "explanation": "A claimed mistaken transfer plus instructions to send money elsewhere matches a known reversal scam.",
+      "enabled": true,
+      "description": "A claimed mistaken transfer plus instructions to send money elsewhere matches a known reversal scam."
+    },
+    {
+      "id": "combo.reward_fee",
+      "requiresAll": [
+        "fake_reward",
+        "advance_fee"
+      ],
+      "score": 20,
+      "explanation": "A surprise reward that requires you to pay a fee first is a well-known advance-fee scam.",
+      "enabled": true,
+      "description": "A surprise reward that requires you to pay a fee first is a well-known advance-fee scam."
+    },
+    {
+      "id": "combo.urgency_secrecy",
+      "requiresAll": [
+        "urgency",
+        "secrecy_pressure"
+      ],
+      "score": 10,
+      "explanation": "Pressure to hurry and stay silent together is a social-engineering warning sign.",
+      "enabled": true,
+      "description": "Pressure to hurry and stay silent together is a social-engineering warning sign."
+    }
+  ]
+}

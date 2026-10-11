@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "shorteners": [
+    "bit.ly",
+    "tinyurl.com",
+    "t.co",
+    "goo.gl",
+    "is.gd",
+    "cutt.ly",
+    "rb.gy",
+    "ow.ly",
+    "buff.ly",
+    "shorturl.at",
+    "tiny.cc",
+    "rebrand.ly",
+    "bit.do",
+    "s.id",
+    "v.gd",
+    "t.ly"
+  ],
+  "multiPartSuffixes": [
+    "com.gh",
+    "org.gh",
+    "edu.gh",
+    "gov.gh",
+    "net.gh",
+    "co.uk",
+    "org.uk",
+    "com.ng",
+    "org.ng",
+    "co.za",
+    "com.au",
+    "co.ke",
+    "com.ke",
+    "co.in"
+  ],
+  "brands": [
+    {
+      "token": "mtn",
+      "officialDomains": [
+        "mtn.com.gh",
+        "mtn.com",
+        "mtn.com.ng",
+        "mtn.co.za"
+      ]
+    },
+    {
+      "token": "momo",
+      "officialDomains": [
+        "mtn.com.gh",
+        "mtn.com"
+      ]
+    },
+    {
+      "token": "vodafone",
+      "officialDomains": [
+        "vodafone.com.gh",
+        "vodafone.com"
+      ]
+    },
+    {
+      "token": "telecel",
+      "officialDomains": [
+        "telecel.com.gh",
+        "telecel.com"
+      ]
+    },
+    {
+      "token": "airteltigo",
+      "officialDomains": [
+        "airteltigo.com.gh",
+        "at.com.gh"
+      ]
+    },
+    {
+      "token": "ecobank",
+      "officialDomains": [
+        "ecobank.com"
+      ]
+    },
+    {
+      "token": "stanbic",
+      "officialDomains": [
+        "stanbicbank.com.gh",
+        "stanbic.com"
+      ]
+    },
+    {
+      "token": "paypal",
+      "officialDomains": [
+        "paypal.com"
+      ]
+    }
+  ]
+}

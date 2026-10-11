@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-11",
+  "description": "STARTER DATA ONLY. Entries use reserved example domains (RFC 2606) so that no real site is accused. A local blocklist goes stale unless it is deliberately updated.",
+  "entries": [
+    {
+      "domain": "blocked.example",
+      "matchSubdomains": false,
+      "type": "PHISHING",
+      "source": "synthetic-test-data",
+      "reason": "Synthetic test entry for exact-match behaviour",
+      "addedAt": "2026-10-11"
+    },
+    {
+      "domain": "scam-test.example",
+      "matchSubdomains": true,
+      "type": "PHISHING",
+      "source": "synthetic-test-data",
+      "reason": "Synthetic test entry that also blocks its subdomains",
+      "addedAt": "2026-10-11"
+    },
+    {
+      "domain": "fake-momo-reward.example",
+      "matchSubdomains": false,
+      "type": "FAKE_REWARD",
+      "source": "synthetic-test-data",
+      "reason": "Synthetic fake-reward test domain",
+      "addedAt": "2026-10-11"
+    }
+  ]
+}
