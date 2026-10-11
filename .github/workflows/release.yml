@@ -8,6 +8,9 @@ name: Release
 on:
   push:
     tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
+  # Manual alternative to pushing a tag: run from the main branch and the release tag
+  # "v" + VERSION_NAME is created on that commit automatically.
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -22,8 +25,12 @@ jobs:
         id: version
         run: |
           VERSION="$(grep '^VERSION_NAME=' version.properties | cut -d= -f2 | tr -d '[:space:]')"
-          if [ "v${VERSION}" != "${GITHUB_REF_NAME}" ]; then
+          if [ "${GITHUB_REF_TYPE}" = "tag" ] && [ "v${VERSION}" != "${GITHUB_REF_NAME}" ]; then
             echo "::error::Tag ${GITHUB_REF_NAME} does not match version.properties (VERSION_NAME=${VERSION}). Fix one of them and re-tag."
+            exit 1
+          fi
+          if [ "${GITHUB_REF_TYPE}" != "tag" ] && [ "${GITHUB_REF_NAME}" != "main" ]; then
+            echo "::error::Manual releases must be run from the main branch."
             exit 1
           fi
           IFS=. read -r MAJOR MINOR PATCH <<< "${VERSION%%-*}"
@@ -96,6 +103,8 @@ jobs:
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: v${{ steps.version.outputs.name }}
+          target_commitish: ${{ github.sha }}
           name: Scam Monitor ${{ steps.version.outputs.name }}
           body_path: release-notes.md
           generate_release_notes: true

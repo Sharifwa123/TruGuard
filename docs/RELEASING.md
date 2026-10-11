@@ -14,6 +14,8 @@ git commit -am "Release 1.0.1"
 git tag v1.0.1
 git push origin main v1.0.1
 ```
+Alternatively, run the `Release` workflow manually from the `main` branch (Actions tab → Release → Run workflow); it creates the tag `v<VERSION_NAME>` itself.
+
 The `Release` workflow then runs engine and app unit tests, builds the APKs, writes `SHA256SUMS.txt`, and publishes the release with generated notes. Do not delete or move published tags.
 
 ## Signing (one-time setup, required for update-compatible releases)
