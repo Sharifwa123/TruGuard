@@ -101,6 +101,7 @@ class ScreenTextAccessibilityService : AccessibilityService() {
     private fun trackForeground(pkg: String) {
         val c = container
         if (pkg == "com.android.systemui" || pkg in c.screenController.extraExcluded) return
+        if (pkg == packageName && overlay?.recentlyChangedOwnWindows() == true) return // our own shield/panel appearing
         val monitorable = if (c.screenController.isMonitorable(pkg)) pkg else null
         c.screenController.setForeground(monitorable)
         overlay?.setCurrent(monitorable)

@@ -42,10 +42,21 @@ class ScreenShortcutOverlay(
     private var bubbleParams: WindowManager.LayoutParams? = null
     private var currentPackage: String? = null
     private var allowed = false
+    @Volatile private var lastOwnWindowChange = 0L
+
+    private fun noteOwnWindowChange() { lastOwnWindowChange = android.os.SystemClock.uptimeMillis() }
 
     fun setAllowed(on: Boolean) { allowed = on; refresh() }
 
-    fun setCurrent(packageName: String?) { currentPackage = packageName; hidePanel(); refresh() }
+    fun setCurrent(packageName: String?) {
+        if (packageName == currentPackage) return // same app: keep an open panel
+        currentPackage = packageName
+        hidePanel()
+        refresh()
+    }
+
+    /** True just after this overlay added or removed one of its own windows, whose events must not change the app in front. */
+    fun recentlyChangedOwnWindows(): Boolean = android.os.SystemClock.uptimeMillis() - lastOwnWindowChange < OWN_WINDOW_QUIET_MILLIS
 
     fun destroy() { hidePanel(); hideBubble() }
 
@@ -76,15 +87,18 @@ class ScreenShortcutOverlay(
             y = service.resources.displayMetrics.heightPixels / 3
         }
         view.setOnTouchListener(DragListener(params, view))
+        noteOwnWindowChange()
         try { wm.addView(view, params); bubble = view; bubbleParams = params } catch (e: RuntimeException) { bubble = null }
     }
 
     private fun hideBubble() {
+        noteOwnWindowChange()
         bubble?.let { try { wm.removeView(it) } catch (e: RuntimeException) { /* already gone */ } }
         bubble = null
     }
 
     private fun hidePanel() {
+        noteOwnWindowChange()
         panel?.let { try { wm.removeView(it) } catch (e: RuntimeException) { /* already gone */ } }
         panel = null
     }
@@ -124,6 +138,7 @@ class ScreenShortcutOverlay(
             x = dp(12)
             y = (bubbleParams?.y ?: dp(120)) + dp(52)
         }
+        noteOwnWindowChange()
         try { wm.addView(content, params); panel = content } catch (e: RuntimeException) { panel = null }
     }
 
@@ -167,9 +182,22 @@ class ScreenShortcutOverlay(
         column.addView(text(status))
         if (settings.screenPaused.value) column.addView(action("Resume monitoring") { container.screenController.setPaused(false) })
 
-        column.addView(action("Monitor the whole app") {
-            container.screenController.updateConfig { it.enableApp(pkg, ScopeMode.ENTIRE_APP) }
-            toast("Monitoring $label")
+        column.addView(android.widget.Switch(themed).apply {
+            this.text = "Monitor $label"
+            textSize = 14f
+            setTextColor(Color.parseColor("#1B1D20"))
+            isChecked = rule != null
+            setOnCheckedChangeListener { _, on ->
+                if (on) {
+                    container.screenController.updateConfig { it.enableApp(pkg, ScopeMode.ENTIRE_APP) }
+                    toast("Monitoring $label")
+                } else {
+                    container.screenController.updateConfig { it.disableApp(pkg) }
+                    container.screenController.tracker.forget(pkg)
+                    toast("Stopped monitoring $label")
+                }
+                hidePanel()
+            }
         })
         val context = readContext()
         context?.titleCandidates?.take(3)?.forEach { title ->
@@ -184,11 +212,6 @@ class ScreenShortcutOverlay(
                 toast("Monitoring only $host")
             })
         }
-        if (rule != null) column.addView(action("Stop monitoring this app") {
-            container.screenController.updateConfig { it.disableApp(pkg) }
-            container.screenController.tracker.forget(pkg)
-            toast("Stopped monitoring $label")
-        })
         column.addView(action("Settings") { openApp() })
         return column
     }
@@ -199,5 +222,9 @@ class ScreenShortcutOverlay(
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 .putExtra(MainActivity.EXTRA_OPEN_MONITORING, true),
         )
+    }
+
+    private companion object {
+        const val OWN_WINDOW_QUIET_MILLIS = 1000L
     }
 }

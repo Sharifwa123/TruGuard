@@ -2,6 +2,11 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.2.3 - 2026-10-12
+
+- **Fixed the floating shield only appearing to switch things on and off.** Opening the shield's panel made Android report a window change from TruGuard's own overlay, which was mistaken for "no app in front" and closed the panel and hid the shield straight away. Events from the overlay's own windows are now ignored, and an open panel stays open while the same app is in front.
+- The panel now leads with a switch, "Monitor <app>", for the app in front (the chat / website options and Settings stay below it).
+
 ## 1.2.2 - 2026-10-11
 
 - Fixed the bottom navigation label "Dashboard" wrapping onto two lines on narrow or large-font screens (labels are now one line, small style).
