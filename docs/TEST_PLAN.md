@@ -9,6 +9,11 @@
 
 Room migrations: schema version 1 has none. When the schema changes, add a `Migration`, commit the exported schema JSON from `app/schemas`, and add a `MigrationTestHelper` test.
 
+## Screen monitoring
+Engine tests cover config edits and persistence, scope matching (names, groups, broadcast lists, phone numbers across formats, websites and subdomains vs look-alikes, fail-closed cases), the analyzer (header title and host vs message text, editable text excluded), the never-monitor list, new-text tracking, a scam split across chat bubbles, and that ordinary screen text leaves no record.
+
+On a device: complete set-up in Settings (disclosure → Accessibility → "Allow restricted settings" if needed); open WhatsApp, tap the floating shield, choose "Only this chat"; have a synthetic scam text arrive in that chat and confirm a warning labelled "(on screen)"; open a different chat and confirm nothing is read; in a browser choose "Only this website" and confirm the same; confirm the status notification shows while active, that Pause stops reading immediately, and that password fields, the keyboard and finance apps are never read (no shield appears in them).
+
 ## Phone-security checks
 Engine tests cover app scoring (store chat app stays low; sideloaded app with SMS + notification + accessibility + overlay is high with the expected combinations; ungranted vs just-installed permissions; system apps skipped; unreadable table), protection findings (Play Protect off/unknown, no screen lock, USB debugging, old patch, powerful apps with labels) and change detection (only weakening changes, only newly added apps, none on first run, JSON round trip).
 
