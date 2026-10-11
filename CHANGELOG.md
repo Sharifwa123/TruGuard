@@ -2,6 +2,10 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.2.2 - 2026-10-11
+
+- Fixed the bottom navigation label "Dashboard" wrapping onto two lines on narrow or large-font screens (labels are now one line, small style).
+
 ## 1.2.1 - 2026-10-11
 
 - **Renamed the app to TruGuard** (launcher name, screens, notifications, Accessibility/notification-access labels, release asset names `TruGuard-<version>.apk`). The package id `com.shariftechnologies.scammonitor` is unchanged so existing installs update in place. Docs now suggest the key alias `truguard`.
