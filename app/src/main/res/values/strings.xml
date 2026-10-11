@@ -25,4 +25,6 @@
     <string name="security_app_from_store">This app was just installed.</string>
     <string name="security_app_action">Do not open it unless you trust it. To remove it: Settings > Apps, choose the app, then Uninstall.</string>
     <string name="security_alert_body">%1$s\n\nWhat it can cause: %2$s\n\nWhat to do: %3$s</string>
+
+    <string name="warning_on_screen">%1$s (on screen)</string>
 </resources>

@@ -15,7 +15,10 @@ data class RawNotificationFields(
     val messages: List<String> = emptyList(),
 )
 
-/** A notification reduced to what detection needs. */
+/** Where the analysed text came from. */
+enum class EventOrigin { NOTIFICATION, SCREEN }
+
+/** A notification (or a batch of newly visible on-screen text) reduced to what detection needs. */
 data class NotificationEvent(
     /** Stable id for this exact update; used as the database uniqueness key. */
     val eventId: String,
@@ -26,6 +29,7 @@ data class NotificationEvent(
     val input: ScanInput,
     /** Hash of package + title + body; two events with equal fingerprints carry the same content. */
     val fingerprint: String,
+    val origin: EventOrigin = EventOrigin.NOTIFICATION,
 )
 
 enum class ScanOutcome { FLAGGED, LOW_RISK, NO_CONTENT, ERROR }
@@ -37,6 +41,7 @@ data class ScanRecord(
     val scannedAtMillis: Long,
     val result: DetectionResult,
     val outcome: ScanOutcome,
+    val origin: EventOrigin = EventOrigin.NOTIFICATION,
 )
 
 /** What a [ScanSink] reports back so the processor knows whether this scan is new. */
@@ -52,6 +57,7 @@ data class WarningRequest(
     val result: DetectionResult,
     /** Notification title (usually the sender or chat name), so the warning says who it came from. */
     val sourceTitle: String = "",
+    val origin: EventOrigin = EventOrigin.NOTIFICATION,
 )
 
 interface WarningSink {

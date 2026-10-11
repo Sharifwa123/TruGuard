@@ -13,6 +13,7 @@ import com.shariftechnologies.scammonitor.R
 import com.shariftechnologies.scammonitor.app.MainActivity
 import com.shariftechnologies.scammonitor.data.AppLabelResolver
 import com.shariftechnologies.scammonitor.domain.model.Severity
+import com.shariftechnologies.scammonitor.monitoring.pipeline.EventOrigin
 import com.shariftechnologies.scammonitor.monitoring.pipeline.WarningRequest
 import com.shariftechnologies.scammonitor.monitoring.pipeline.WarningSink
 
@@ -60,7 +61,7 @@ class WarningNotificationManager(
         if (!canPostNotifications()) return
         ensureChannels()
         val severity = request.result.severity
-        val source = labels.labelOrPackage(request.packageName)
+        val source = labels.labelOrPackage(request.packageName).let { if (request.origin == EventOrigin.SCREEN) context.getString(R.string.warning_on_screen, it) else it }
         val title = when (severity) {
             Severity.HIGH -> context.getString(R.string.warning_title_high)
             Severity.MEDIUM -> context.getString(R.string.warning_title_medium)

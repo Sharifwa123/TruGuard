@@ -10,6 +10,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.shariftechnologies.scammonitor.domain.model.Severity
+import com.shariftechnologies.scammonitor.monitor.ScreenMonitorConfig
 import com.shariftechnologies.scammonitor.monitoring.pipeline.WarningPreferences
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
@@ -35,6 +36,21 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
     private val _disabledRuleIds = MutableStateFlow<Set<String>>(emptySet())
     val disabledRuleIds: StateFlow<Set<String>> = _disabledRuleIds.asStateFlow()
 
+    private val _screenConsent = MutableStateFlow(false)
+    /** The user has read the screen-monitoring disclosure and agreed. Screen monitoring does nothing without it. */
+    val screenConsent: StateFlow<Boolean> = _screenConsent.asStateFlow()
+
+    private val _screenPaused = MutableStateFlow(false)
+    val screenPaused: StateFlow<Boolean> = _screenPaused.asStateFlow()
+
+    private val _screenShortcut = MutableStateFlow(true)
+    /** Show the floating shortcut bubble over monitorable apps. */
+    val screenShortcut: StateFlow<Boolean> = _screenShortcut.asStateFlow()
+
+    private val _screenConfig = MutableStateFlow(ScreenMonitorConfig())
+    /** Which apps (and which chats / sites inside them) the user chose to monitor. Empty means none. */
+    val screenConfig: StateFlow<ScreenMonitorConfig> = _screenConfig.asStateFlow()
+
     private val _securityAlertsEnabled = MutableStateFlow(true)
     /** Alerts about Play Protect/other protection changes and risky newly installed apps. */
     val securityAlertsEnabled: StateFlow<Boolean> = _securityAlertsEnabled.asStateFlow()
@@ -54,6 +70,10 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
                     minSeverity = prefs[WARNING_MIN_SEVERITY]?.let { runCatching { Severity.valueOf(it) }.getOrNull() } ?: Severity.LOW,
                     showOnLockScreen = prefs[SHOW_ON_LOCK_SCREEN] ?: true,
                 )
+                _screenConsent.value = prefs[SCREEN_CONSENT] ?: false
+                _screenPaused.value = prefs[SCREEN_PAUSED] ?: false
+                _screenShortcut.value = prefs[SCREEN_SHORTCUT] ?: true
+                _screenConfig.value = ScreenMonitorConfig.fromJson(prefs[SCREEN_CONFIG])
                 _securityAlertsEnabled.value = prefs[SECURITY_ALERTS] ?: true
                 _disabledRuleIds.value = prefs[DISABLED_RULES] ?: emptySet()
                 _onboardingCompleted.value = prefs[ONBOARDING_DONE] ?: false
@@ -68,6 +88,15 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
     suspend fun setWarningsEnabled(enabled: Boolean) { store.edit { it[WARNINGS_ENABLED] = enabled } }
 
     suspend fun setWarningMinSeverity(severity: Severity) { store.edit { it[WARNING_MIN_SEVERITY] = severity.name } }
+
+    suspend fun setScreenConsent(consent: Boolean) { store.edit { it[SCREEN_CONSENT] = consent } }
+    suspend fun setScreenPaused(paused: Boolean) { store.edit { it[SCREEN_PAUSED] = paused } }
+    suspend fun setScreenShortcut(show: Boolean) { store.edit { it[SCREEN_SHORTCUT] = show } }
+
+    /** Applies [transform] to the stored screen-monitoring config atomically. */
+    suspend fun updateScreenConfig(transform: (ScreenMonitorConfig) -> ScreenMonitorConfig) {
+        store.edit { prefs -> prefs[SCREEN_CONFIG] = transform(ScreenMonitorConfig.fromJson(prefs[SCREEN_CONFIG])).toJson() }
+    }
 
     suspend fun setSecurityAlertsEnabled(enabled: Boolean) { store.edit { it[SECURITY_ALERTS] = enabled } }
 
@@ -90,6 +119,10 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
     private companion object {
         val WARNINGS_ENABLED = booleanPreferencesKey("warnings_enabled")
         val WARNING_MIN_SEVERITY = stringPreferencesKey("warning_min_severity")
+        val SCREEN_CONSENT = booleanPreferencesKey("screen_consent")
+        val SCREEN_PAUSED = booleanPreferencesKey("screen_paused")
+        val SCREEN_SHORTCUT = booleanPreferencesKey("screen_shortcut")
+        val SCREEN_CONFIG = stringPreferencesKey("screen_config")
         val SECURITY_ALERTS = booleanPreferencesKey("security_alerts")
         val LAST_POSTURE = stringPreferencesKey("last_posture")
         val SHOW_ON_LOCK_SCREEN = booleanPreferencesKey("show_on_lock_screen")

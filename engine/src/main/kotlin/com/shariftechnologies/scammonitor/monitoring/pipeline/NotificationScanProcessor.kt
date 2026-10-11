@@ -24,11 +24,14 @@ class NotificationScanProcessor(
 
     suspend fun process(event: NotificationEvent) {
         val result = engine.analyze(event.input)
+        // Screen text changes constantly; only findings are persisted so the log is not flooded and ordinary
+        // on-screen text leaves no trace at all.
+        if (event.origin == EventOrigin.SCREEN && !result.flagged) return
         val outcome = if (result.flagged) ScanOutcome.FLAGGED else ScanOutcome.LOW_RISK
-        val status = sink.record(ScanRecord(event.eventId, event.packageName, result.detectedAtMillis, result, outcome))
+        val status = sink.record(ScanRecord(event.eventId, event.packageName, result.detectedAtMillis, result, outcome, event.origin))
         // A DUPLICATE means this exact update was already stored (e.g. re-delivered after a reconnect).
         if (status == RecordStatus.DUPLICATE) return
-        if (shouldWarn(event, result)) warnings.show(WarningRequest(event.eventId, event.packageName, result, event.input.title))
+        if (shouldWarn(event, result)) warnings.show(WarningRequest(event.eventId, event.packageName, result, event.input.title, event.origin))
     }
 
     private fun shouldWarn(event: NotificationEvent, result: DetectionResult): Boolean {
