@@ -9,7 +9,7 @@ Releases are built by GitHub Actions and published as **permanent GitHub Release
 
 ## Cut a release
 ```bash
-# 1. edit version.properties, e.g. VERSION_NAME=1.0.1, then
+# 1. edit version.properties (e.g. VERSION_NAME=1.0.1) and add a CHANGELOG.md entry, then
 git commit -am "Release 1.0.1"
 git tag v1.0.1
 git push origin main v1.0.1
