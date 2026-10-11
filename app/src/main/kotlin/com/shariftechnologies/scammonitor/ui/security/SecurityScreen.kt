@@ -67,8 +67,7 @@ private fun SecurityContent(report: SecurityReport, onRefresh: () -> Unit) {
                 OutlinedAction("Check again", onRefresh)
             }
             Text(
-                "Checks the protection settings Android lets this app read and the permissions of your ${report.appsScanned} installed apps. " +
-                    "It cannot stop an install or a settings change in advance; it tells you right away.",
+                "Phone settings and the permissions of ${report.appsScanned} apps. A high score means “look closely”, not “proven harmful”.",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
@@ -86,22 +85,14 @@ private fun SecurityContent(report: SecurityReport, onRefresh: () -> Unit) {
             item { Text("None of your installed apps has a risky combination of permissions and sources.") }
         }
         items(report.appsToReview, key = { it.packageName }) { app ->
-            Column(Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch).clickable { selected = app }.padding(vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Column(Modifier.fillMaxWidth().heightIn(min = 40.dp).clickable { selected = app }.padding(top = 6.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     SeverityBadge(app.severity)
-                    Text(app.label, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
+                    Text(app.label, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f), maxLines = 1)
                     if (app.sideloaded) Text("not from a store", style = MaterialTheme.typography.labelSmall)
                 }
-                Text(app.topHarms.firstOrNull().orEmpty(), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
                 HorizontalDivider(Modifier.padding(top = 4.dp))
             }
-        }
-        item {
-            Text(
-                "A high score means \"worth a careful look\", not \"proven harmful\". Many genuine apps ask for powerful permissions; " +
-                    "the warning signs are powerful permissions in combination, apps from outside a store, and apps that hide.",
-                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
         }
     }
 
@@ -136,7 +127,7 @@ private fun FindingCard(f: PostureFinding, onOpenPlayStore: () -> Unit) {
             Text(f.title, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
             Text(if (open) "▴" else "▾", color = MaterialTheme.colorScheme.primary)
         }
-        Text("What it can cause: ${f.risk}", style = MaterialTheme.typography.bodySmall, maxLines = if (open) Int.MAX_VALUE else 2)
+        Text(f.risk, style = MaterialTheme.typography.bodySmall, maxLines = if (open) Int.MAX_VALUE else 1)
         if (open) {
             Text(f.whatItMeans, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Text("What to do: ${f.action}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)

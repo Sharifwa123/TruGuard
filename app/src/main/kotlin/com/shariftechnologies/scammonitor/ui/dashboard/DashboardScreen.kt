@@ -63,17 +63,15 @@ private fun DashboardContent(
     val permissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { vm.refresh() }
 
     Column(Modifier.verticalScroll(rememberScrollState()).padding(Dimens.ScreenPadding), verticalArrangement = Arrangement.spacedBy(Dimens.SectionGap)) {
-        Text("TruGuard", style = MaterialTheme.typography.titleLarge)
-
         Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
             Column(Modifier.fillMaxWidth().padding(Dimens.CardPadding), verticalArrangement = Arrangement.spacedBy(Dimens.ItemGap)) {
                 if (s.accessEnabled) {
                     Text(
-                        "Notification access on · " +
-                            if (s.serviceConnected) "listener connected" else "listener not connected right now. Android starts it on its own; if this persists, toggle access off and on in Settings.",
+                        if (s.serviceConnected) "Notification access on · listener connected"
+                        else "Notification access on · listener starting (if this persists, toggle access off and on in Settings)",
                     )
                 } else {
-                    Text("Notification access is NOT enabled. The app cannot see any notifications.")
+                    Text("Notification access is off, so no notifications can be checked.")
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Button(onClick = {
                             if (!vm.openAccessSettings(context)) Toast.makeText(context, "Open Settings > Notifications > Notification access manually.", Toast.LENGTH_LONG).show()
@@ -82,7 +80,7 @@ private fun DashboardContent(
                     }
                 }
                 if (Build.VERSION.SDK_INT >= 33 && !s.notificationsAllowed) {
-                    Text("Warning notifications are blocked. Allow this app to post notifications to receive alerts.", color = MaterialTheme.colorScheme.error)
+                    Text("Warning notifications are blocked.", color = MaterialTheme.colorScheme.error)
                     OutlinedAction("Allow warning notifications", { permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS) })
                 }
                 if (s.queueDropped > 0) {
@@ -106,14 +104,14 @@ private fun DashboardContent(
             }
             if (s.recentScans.isEmpty()) {
                 Text(
-                    "No notifications scanned yet. Scans appear here once an app posts a notification while access is enabled.",
+                    "Nothing scanned yet.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
             s.recentScans.forEach { scan ->
                 Row(
-                    Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch).clickable(onClick = onOpenLog).padding(vertical = 4.dp),
+                    Modifier.fillMaxWidth().heightIn(min = 40.dp).clickable(onClick = onOpenLog),
                     verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     SeverityBadge(scan.severity)
@@ -126,11 +124,5 @@ private fun DashboardContent(
             }
         }
 
-        Text(
-            "Analysed on this device only; nothing is uploaded and the app has no internet permission. " +
-                "Only scores, rule names and short masked excerpts are stored, never full messages.",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
     }
 }

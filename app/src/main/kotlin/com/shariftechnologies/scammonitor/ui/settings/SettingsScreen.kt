@@ -90,7 +90,7 @@ fun SettingsScreen() {
         SettingSwitch("Show warnings for suspicious notifications", null, prefs.enabled, vm::setWarningsEnabled)
         SettingSwitch(
             "Show warning text on the lock screen",
-            "Shows who sent a risky message and why without unlocking. Turn off if others can see your lock screen.",
+            "Who sent a risky message and why, without unlocking. Turn off if others can see your lock screen.",
             prefs.showOnLockScreen, vm::setShowOnLockScreen, enabled = prefs.enabled,
         )
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -105,7 +105,7 @@ fun SettingsScreen() {
         }
         SettingSwitch(
             "Alert me about Play Protect and risky apps",
-            "Tells you when Play Protect, your screen lock or Accessibility access changes, and when a newly installed app asks for dangerous permissions.",
+            "Warns when Play Protect, screen lock or Accessibility access changes, or a new app asks for dangerous permissions.",
             securityAlerts, vm::setSecurityAlertsEnabled,
         )
 
@@ -132,14 +132,14 @@ fun SettingsScreen() {
                 Text(
                     when {
                         screenPaused -> "Paused. Nothing is being read."
-                        monitored.isEmpty() -> "On, but no app is chosen yet. Open an app, tap the floating shield and choose the whole app, one chat or one website."
+                        monitored.isEmpty() -> "On, but no app chosen yet. Open an app and tap the floating shield to monitor it."
                         screenConnected -> "Checking ${monitored.joinToString(", ")}. Nothing is stored or sent."
                         else -> "Waiting for Android to start the service…"
                     },
                     style = MaterialTheme.typography.bodySmall,
                 )
                 SettingSwitch("Pause screen monitoring", null, screenPaused, vm::setScreenPaused)
-                SettingSwitch("Floating shield shortcut over apps", "Opens a panel to start or stop monitoring the app in front, or just its open chat or website.", screenShortcut, vm::setScreenShortcut)
+                SettingSwitch("Floating shield shortcut over apps", "Tap it over an app to monitor that app; tap again for options.", screenShortcut, vm::setScreenShortcut)
                 if (monitored.isNotEmpty()) OutlinedAction("Stop monitoring all apps", { vm.stopAllScreenMonitoring() })
             }
         }
@@ -165,10 +165,10 @@ fun SettingsScreen() {
                 Text(if (rulesExpanded) "Hide ▴" else "Show ▾", color = MaterialTheme.colorScheme.primary)
             }
             if (rulesExpanded) rules.rules.forEach { rule ->
-                Row(Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch), verticalAlignment = Alignment.CenterVertically) {
+                Row(Modifier.fillMaxWidth().heightIn(min = 44.dp), verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
                         Text(rule.id, style = MaterialTheme.typography.bodyMedium)
-                        Text(rule.description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
+                        Text(rule.description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
                         if (!rule.enabledInFile) Text("Disabled in the rule file", style = MaterialTheme.typography.labelSmall)
                     }
                     Switch(checked = rule.enabledInFile && rule.userEnabled, enabled = rule.enabledInFile, onCheckedChange = { vm.setRuleEnabled(rule.id, it) })
@@ -180,10 +180,8 @@ fun SettingsScreen() {
         SectionTitle("Data and privacy")
         OutlinedAction("Clear scan history and flagged items", { confirmClear = true })
         Text(
-            "All analysis happens on this device. The app has no internet permission and sends nothing anywhere. " +
-                "Ordinary scans store only scores and rule names. Flagged items also store short excerpts with digit runs masked. " +
-                "Data is kept in app-private storage but is not encrypted by this app; history is pruned automatically " +
-                "(scans after 30 days, flagged items after 180 days).",
+            "Everything is analysed on this phone; the app has no internet permission. Scans keep only scores and rule names; " +
+                "flagged items add masked excerpts. Stored unencrypted in app-private storage; pruned after 30 days (scans) and 180 days (flagged).",
             style = MaterialTheme.typography.bodySmall,
         )
 
@@ -234,10 +232,10 @@ fun SettingsScreen() {
 /** A switch row with an optional one-line explanation, at least a full touch target tall. */
 @Composable
 private fun SettingSwitch(title: String, description: String?, checked: Boolean, onChange: (Boolean) -> Unit, enabled: Boolean = true) {
-    Row(Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch), verticalAlignment = Alignment.CenterVertically) {
+    Row(Modifier.fillMaxWidth().heightIn(min = 44.dp), verticalAlignment = Alignment.CenterVertically) {
         Column(Modifier.weight(1f).padding(end = 8.dp)) {
             Text(title)
-            if (description != null) Text(description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (description != null) Text(description, maxLines = 2, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
         Switch(checked = checked, onCheckedChange = onChange, enabled = enabled)
     }
