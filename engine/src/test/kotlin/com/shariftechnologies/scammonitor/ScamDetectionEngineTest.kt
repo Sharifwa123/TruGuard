@@ -12,11 +12,11 @@ class ScamDetectionEngineTest {
     private val engine = TestSupport.engine()
     private fun scan(body: String, title: String = "") = engine.analyze(ScanInput(title, body))
 
-    @Test fun `bundled rules load cleanly with ten starter rules`() {
+    @Test fun `bundled rules load cleanly with eleven starter rules`() {
         val rules = TestSupport.rules()
         assertFalse("bundled rules must not fall back", rules.isFallback)
         assertEquals(emptyList<String>(), rules.warnings)
-        assertEquals(10, rules.rules.size)
+        assertEquals(11, rules.rules.size)
     }
 
     @Test fun `pin request is high severity`() {
@@ -60,6 +60,27 @@ class ScamDetectionEngineTest {
         assertTrue("signal.blocked_domain" in scan("see https://a.scam-test.example/").matchedRuleIds)
         assertFalse("signal.blocked_domain" in scan("see https://notscam-test.example/").matchedRuleIds)
         assertFalse("signal.blocked_domain" in scan("see https://a.blocked.example/").matchedRuleIds) // exact-only entry
+    }
+
+    @Test fun `whatsapp code forwarding request is flagged`() {
+        for (text in listOf(
+            "Please we have sent you a code,send it to me so we can add you to the group",
+            "I sent you a code by mistake, forward it back to me please",
+            "Send me the 6 digit code you just received",
+        )) {
+            val r = scan(text, "@SOMEONE")
+            assertTrue("code_forwarding for [$text]", "code_forwarding" in r.matchedRuleIds)
+            assertTrue(text, r.flagged && r.severity.atLeast(Severity.MEDIUM))
+        }
+    }
+
+    @Test fun `ordinary talk about codes is not flagged`() {
+        for (text in listOf(
+            "Your verification code is 123456. Do not share it with anyone.",
+            "I will send you the gate code tomorrow",
+            "The promo code is SAVE10, use it at checkout",
+            "Can you send me the report when ready?",
+        )) assertFalse("[$text]", scan(text).matchedRuleIds.contains("code_forwarding"))
     }
 
     @Test fun `normal transaction notification is not high risk`() {

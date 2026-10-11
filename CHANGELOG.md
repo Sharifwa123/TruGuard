@@ -2,6 +2,11 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.0.1 - 2026-10-11
+
+- New rule `code_forwarding`: flags messages asking you to forward a code you were just sent (the WhatsApp/SMS account-takeover scam, e.g. "we sent you a code, send it to me so we can add you to the group"). Found on a real device, where such a message was previously scored 0.
+- Rule set version 2026.10.2 (11 rules); 47 engine tests.
+
 ## 1.0.0 - 2026-10-11
 
 - Notification listener that scores accessible notifications locally for scam indicators.

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "rulesVersion": "2026.10.1",
+  "rulesVersion": "2026.10.2",
   "thresholds": {
     "low": 15,
     "medium": 35,
@@ -132,6 +132,19 @@
       ],
       "explanation": "This message asks you to keep quiet or avoid official support. Scammers isolate victims so nobody can warn them.",
       "enabled": true
+    },
+    {
+      "id": "code_forwarding",
+      "description": "Asks the recipient to forward a code that was just sent to them (WhatsApp/SMS account takeover).",
+      "category": "credential_request",
+      "enabled": true,
+      "score": 45,
+      "patterns": [
+        "\\bcode\\b.{0,80}\\b(?:send|forward|share|give|read out)\\b.{0,10}\\b(?:it|the code|that code)\\b.{0,10}\\b(?:to me|back|here|to us)\\b",
+        "\\b(?:send|forward|share|give|read out)\\b.{0,10}\\b(?:me )?(?:the |that |this )?(?:6[- ]?digit |whatsapp |verification |login |sms )(?:code|number)\\b"
+      ],
+      "matchMode": "ANY",
+      "explanation": "This message asks you to pass on a code that was sent to you. Scammers use this to take over WhatsApp and other accounts (often with a story about adding you to a group). Never share a code you received, even with someone who seems to know you."
     }
   ],
   "combinations": [
@@ -221,6 +234,21 @@
       "explanation": "Pressure to hurry and stay silent together is a social-engineering warning sign.",
       "enabled": true,
       "description": "Pressure to hurry and stay silent together is a social-engineering warning sign."
+    },
+    {
+      "id": "combo.code_forwarding_pretext",
+      "description": "Asking for a code you received, together with pressure or a claimed identity, is a typical account-takeover scam.",
+      "enabled": true,
+      "requiresAll": [
+        "code_forwarding"
+      ],
+      "requiresAny": [
+        "urgency",
+        "secrecy_pressure",
+        "impersonation"
+      ],
+      "score": 15,
+      "explanation": "Asking for a code you received, together with pressure or a claimed identity, is a typical account-takeover scam."
     }
   ]
 }

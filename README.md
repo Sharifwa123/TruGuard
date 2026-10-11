@@ -87,6 +87,6 @@ Not requested: internet, accessibility, SMS, contacts, call log, overlay (`SYSTE
 
 ## Verification status
 
-- **Verified in CI (GitHub Actions, commit `1d4ab9f`):** `:engine` unit tests (45 passing); full Android build of `:app` and `:testsender` (Kotlin/Compose compile, Room KSP, resource and manifest merge); app unit tests; lint; debug APKs produced and uploaded as workflow artifacts.
+- **Verified in CI (GitHub Actions, commit `1d4ab9f`):** `:engine` unit tests (47 passing); full Android build of `:app` and `:testsender` (Kotlin/Compose compile, Room KSP, resource and manifest merge); app unit tests; lint; debug APKs produced and uploaded as workflow artifacts.
 - **Not yet verified:** the instrumented tests (`instrumented.yml`, manual) and the whole on-device checklist in [docs/TEST_PLAN.md](docs/TEST_PLAN.md): the real listener receiving notifications, warning display, lock-screen privacy, reconnect after reboot, OEM battery behaviour. No physical-device test has been performed.
 - The `release.yml` workflow has not yet been exercised (no tag has been pushed), and no signing secrets are configured yet.
