@@ -117,7 +117,7 @@ fun SettingsScreen() {
                 Button(onClick = { showScreenDisclosure = true }) { Text("Set up screen monitoring") }
             }
             !screenServiceEnabled -> {
-                Text("Last step: turn on “Scam Monitor” under Accessibility. If the switch is greyed out, open App info › ⋮ › Allow restricted settings first.", style = MaterialTheme.typography.bodySmall)
+                Text("Last step: turn on “TruGuard” under Accessibility. If the switch is greyed out, open App info › ⋮ › Allow restricted settings first.", style = MaterialTheme.typography.bodySmall)
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     OutlinedAction("Accessibility settings", {
                         if (!vm.openAccessibilitySettings(context)) Toast.makeText(context, "Open Settings › Accessibility manually.", Toast.LENGTH_LONG).show()
@@ -201,7 +201,7 @@ fun SettingsScreen() {
             title = { Text("Before you turn this on") },
             text = {
                 Column(Modifier.heightIn(max = 360.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text("Scam Monitor can read the text shown on your screen in the apps you choose (for example WhatsApp, Instagram or a browser) to warn you about scams in real time. Android requires its Accessibility service for this and shows its own warning.", style = MaterialTheme.typography.bodySmall)
+                    Text("TruGuard can read the text shown on your screen in the apps you choose (for example WhatsApp, Instagram or a browser) to warn you about scams in real time. Android requires its Accessibility service for this and shows its own warning.", style = MaterialTheme.typography.bodySmall)
                     Text("• Only apps you switch on are read. You can limit an app to chosen chats, groups, numbers or websites. Nothing else is read.", style = MaterialTheme.typography.bodySmall)
                     Text("• Text is analysed on this phone only. Screen text is never uploaded or saved. If something is flagged, only a short excerpt with digits masked is kept.", style = MaterialTheme.typography.bodySmall)
                     Text("• Password fields, what you type, keyboards, system screens, password managers and banking or money apps are never read.", style = MaterialTheme.typography.bodySmall)

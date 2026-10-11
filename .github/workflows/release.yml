@@ -74,19 +74,19 @@ jobs:
           VERSION="${{ steps.version.outputs.name }}"
           if [ "${{ steps.signing.outputs.signed }}" = "true" ]; then
             ./gradlew :app:assembleRelease :testsender:assembleRelease --no-daemon
-            cp app/build/outputs/apk/release/app-release.apk "dist/ScamMonitor-${VERSION}.apk"
-            cp testsender/build/outputs/apk/release/testsender-release.apk "dist/ScamMonitor-TestSender-${VERSION}.apk"
+            cp app/build/outputs/apk/release/app-release.apk "dist/TruGuard-${VERSION}.apk"
+            cp testsender/build/outputs/apk/release/testsender-release.apk "dist/TruGuard-TestSender-${VERSION}.apk"
           else
             ./gradlew :app:assembleDebug :testsender:assembleDebug --no-daemon
-            cp app/build/outputs/apk/debug/app-debug.apk "dist/ScamMonitor-${VERSION}-debug.apk"
-            cp testsender/build/outputs/apk/debug/testsender-debug.apk "dist/ScamMonitor-TestSender-${VERSION}-debug.apk"
+            cp app/build/outputs/apk/debug/app-debug.apk "dist/TruGuard-${VERSION}-debug.apk"
+            cp testsender/build/outputs/apk/debug/testsender-debug.apk "dist/TruGuard-TestSender-${VERSION}-debug.apk"
           fi
           (cd dist && sha256sum *.apk > SHA256SUMS.txt)
 
       - name: Write release notes
         run: |
           {
-            echo "Scam Monitor ${{ steps.version.outputs.name }} (versionCode ${{ steps.version.outputs.code }})"
+            echo "TruGuard ${{ steps.version.outputs.name }} (versionCode ${{ steps.version.outputs.code }})"
             echo
             echo "Commit: ${GITHUB_SHA}"
             echo
@@ -96,7 +96,7 @@ jobs:
               echo "**Pre-release:** built without the release signing key, so these APKs are debug-signed. Uninstall before installing a differently signed build."
             fi
             echo
-            echo "Install: \`adb install -r ScamMonitor-*.apk\`, then enable notification access (see README). Verify downloads with \`SHA256SUMS.txt\`."
+            echo "Install: \`adb install -r TruGuard-*.apk\`, then enable notification access (see README). Verify downloads with \`SHA256SUMS.txt\`."
             echo "The Test Sender APK is an optional helper that posts synthetic notifications for testing."
           } > release-notes.md
 
@@ -105,7 +105,7 @@ jobs:
         with:
           tag_name: v${{ steps.version.outputs.name }}
           target_commitish: ${{ github.sha }}
-          name: Scam Monitor ${{ steps.version.outputs.name }}
+          name: TruGuard ${{ steps.version.outputs.name }}
           body_path: release-notes.md
           generate_release_notes: true
           prerelease: ${{ steps.signing.outputs.signed != 'true' || contains(steps.version.outputs.name, '-') }}

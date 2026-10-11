@@ -36,7 +36,7 @@ fun OnboardingScreen(onDone: () -> Unit) {
 
     Column(Modifier.verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(Dimens.ItemGap)) {
         Text("Before you start", style = MaterialTheme.typography.titleLarge)
-        Text("Scam Monitor reads the notifications other apps show on this phone and checks them for signs of scams, then warns you before you act on them.")
+        Text("TruGuard reads the notifications other apps show on this phone and checks them for signs of scams, then warns you before you act on them.")
         Text("• Analysis runs locally on this device. Nothing is uploaded, and the app has no internet permission.")
         Text("• Android may expose notifications that contain sensitive information, such as messages or one-time codes. Only scores, rule names and short masked excerpts of flagged messages are stored.")
         Text("• Notifications whose content is hidden by the sender or by your lock-screen settings cannot be fully analysed.")

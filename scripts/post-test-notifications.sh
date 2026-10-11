@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Posts synthetic test notifications through the Android shell (no helper app needed).
-# They appear to come from the shell package, so Scam Monitor treats them as another app's notifications.
+# They appear to come from the shell package, so TruGuard treats them as another app's notifications.
 # Requires: adb with a connected device/emulator. Best effort: `cmd notification post` options vary by Android version;
 # the Test Sender app (testsender module) is the primary, reproducible method.
 set -euo pipefail

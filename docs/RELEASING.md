@@ -21,7 +21,7 @@ The `Release` workflow then runs engine and app unit tests, builds the APKs, wri
 ## Signing (one-time setup, required for update-compatible releases)
 Create a keystore **once** and keep it safe; losing it means users must uninstall to take later releases.
 ```bash
-keytool -genkeypair -v -keystore release.jks -alias scammonitor -keyalg RSA -keysize 4096 -validity 10000
+keytool -genkeypair -v -keystore release.jks -alias truguard -keyalg RSA -keysize 4096 -validity 10000
 base64 -w0 release.jks     # paste into the secret below
 ```
 Add repository secrets: `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`. Never commit the keystore (`.gitignore` blocks `*.jks`/`*.keystore`).

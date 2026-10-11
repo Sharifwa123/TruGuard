@@ -1,4 +1,4 @@
-# Scam Monitor
+# TruGuard
 
 A personal Android security assistant that reads the notifications Android exposes to it, scores them locally for scam indicators (with a focus on Ghanaian mobile-money fraud patterns), and posts a warning explaining *why* a message looks risky. It is a risk assessor, **not an antivirus and not a guarantee**.
 
@@ -42,12 +42,12 @@ adb install -r testsender/build/outputs/apk/debug/testsender-debug.apk   # optio
 
 ## First run and real-device test
 
-1. Open **Scam Monitor** and read the onboarding screen.
-2. Tap **Open notification access settings** and switch **Scam Monitor** on. Opening Settings does not grant anything; you must toggle it.
+1. Open **TruGuard** and read the onboarding screen.
+2. Tap **Open notification access settings** and switch **TruGuard** on. Opening Settings does not grant anything; you must toggle it.
    - *Greyed-out toggle (Android 13+, sideloaded APK):* tap **Open app info (restricted settings)**, open the ⋮ menu, choose **Allow restricted settings**, then return and enable access.
 3. Return to the app and tap **Recheck access**. The dashboard shows "enabled" and, once Android binds the service, "Listener service: connected".
 4. Android 13+: allow the app's *own* notifications when prompted (or via the dashboard button). This is separate from notification access: one lets the app read other apps' notifications, the other lets it show its own warnings.
-5. Open **Scam Monitor Test Sender** and tap **PIN request**. Within a second you should get a *High-risk message detected* warning; the item appears under **Flagged**, and the scan under **Log**.
+5. Open **TruGuard Test Sender** and tap **PIN request**. Within a second you should get a *High-risk message detected* warning; the item appears under **Flagged**, and the scan under **Log**.
 6. Tap **Normal transaction** and **Legit OTP notice**: they appear in the Log as low risk, with no warning.
 7. Tap **Burst: 12 notifications at once**: all are processed without UI lag; repeated identical findings are warning-suppressed.
 8. Turn on airplane mode and repeat step 5: detection is identical (no network is involved).
@@ -68,9 +68,9 @@ Not requested: internet, SMS, contacts, call log, overlay permission (`SYSTEM_AL
 
 ## Screen monitoring (optional, off by default)
 
-Notifications often hide their content, and many conversations (Instagram, LinkedIn, Snapchat, Facebook, Meet chat, forums, web pages) never produce one. With your explicit consent, Scam Monitor can read the text visible in **apps you choose** and run the same scam checks on it, in real time.
+Notifications often hide their content, and many conversations (Instagram, LinkedIn, Snapchat, Facebook, Meet chat, forums, web pages) never produce one. With your explicit consent, TruGuard can read the text visible in **apps you choose** and run the same scam checks on it, in real time.
 
-- **Set up:** Settings → Screen monitoring → read the disclosure → turn on “Scam Monitor” under Android's Accessibility settings (sideloaded: App info › ⋮ › Allow restricted settings first).
+- **Set up:** Settings → Screen monitoring → read the disclosure → turn on “TruGuard” under Android's Accessibility settings (sideloaded: App info › ⋮ › Allow restricted settings first).
 - **Choose what to monitor with the floating shield:** open an app (say WhatsApp), tap the shield, and pick **the whole app**, **only this chat / group / broadcast list / number**, or in a browser **only this website**. Stop the same way, or use “Stop monitoring all apps” in Settings. Nothing is monitored until you pick it.
 - **Scope rules:** a chat- or site-restricted app is read only while a chosen chat (matched by the name or number shown in the header) or website (matched by host in the address bar) is open; if it cannot tell, it reads nothing.
 - **Never read, whatever you choose:** password fields, text you are typing, the address bar's text as a message, keyboards, system screens, password managers, and banking or money apps.

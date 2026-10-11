@@ -26,7 +26,7 @@ On a device: open the Security tab and compare with Settings; sideload the Test 
 4. Flagged item detail shows explanations, masked excerpts, suspicious domains (never opened).
 5. Log filters (severity, flagged only) and scan detail dialog.
 6. Burst button: UI stays responsive; Settings → diagnostics shows processed/skipped counts.
-7. Lock the phone and trigger a warning: by default the lock screen shows the app, sender and reason. Turn off Settings → "Show warning text on the lock screen" and repeat: only the generic "Possible scam detected" text shows. Without opening Scam Monitor, confirm you can tell which message is risky and why.
+7. Lock the phone and trigger a warning: by default the lock screen shows the app, sender and reason. Turn off Settings → "Show warning text on the lock screen" and repeat: only the generic "Possible scam detected" text shows. Without opening TruGuard, confirm you can tell which message is risky and why.
 8. Airplane mode: same results.
 9. Settings: toggle a rule off, resend its scenario, confirm it no longer contributes; clear history; deny notification permission and confirm warnings are suppressed but scans still recorded.
 10. Reboot the phone: listener reconnects without reopening the app (OEM battery managers may prevent this; note the device).
