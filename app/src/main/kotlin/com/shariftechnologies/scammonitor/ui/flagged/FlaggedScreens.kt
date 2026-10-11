@@ -50,7 +50,7 @@ fun FlaggedListScreen(onOpenItem: (String) -> Unit) {
             )
         } else LazyColumn(contentPadding = PaddingValues(horizontal = Dimens.ScreenPadding, vertical = 4.dp)) {
             items(s.value, key = { it.id }) { item ->
-                Column(Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch).clickable { onOpenItem(item.eventId) }.padding(vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Column(Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch).clickable { onOpenItem(item.eventId) }.padding(vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         SeverityBadge(item.severity)
                         Text(item.sourceLabel, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f), maxLines = 1)

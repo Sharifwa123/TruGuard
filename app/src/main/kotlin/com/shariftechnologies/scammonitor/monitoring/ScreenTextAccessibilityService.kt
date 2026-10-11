@@ -58,6 +58,9 @@ class ScreenTextAccessibilityService : AccessibilityService() {
                 }
         }
         s.launch {
+            combine(c.settings.screenConfig, c.settings.screenPaused, c.settings.screenConsent) { _, _, _ -> }.collect { shortcut.refreshState() }
+        }
+        s.launch {
             combine(c.settings.screenConsent, c.settings.screenShortcut) { consent, show -> consent && show }.collect { shortcut.setAllowed(it) }
         }
     }

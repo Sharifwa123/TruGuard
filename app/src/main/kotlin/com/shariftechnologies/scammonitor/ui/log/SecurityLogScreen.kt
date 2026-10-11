@@ -63,7 +63,7 @@ fun SecurityLogScreen(onOpenFlagged: (String) -> Unit) {
                 MessageState("No scans to show", "Completed scans appear here, including low-risk ones. Try clearing the filters.")
             } else LazyColumn(contentPadding = PaddingValues(horizontal = Dimens.ScreenPadding, vertical = 0.dp)) {
                 items(s.value, key = { it.scanId }) { scan ->
-                    Column(Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch).clickable { selected = scan }.padding(vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Column(Modifier.fillMaxWidth().heightIn(min = 44.dp).clickable { selected = scan }.padding(vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             SeverityBadge(scan.severity)
                             Text(scan.sourceLabel, modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium, maxLines = 1)

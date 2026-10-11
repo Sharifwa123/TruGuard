@@ -2,6 +2,17 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.3.0 - 2026-10-12
+
+- **Shield is now one tap.** Tapping the floating shield over an app that is not monitored switches monitoring on for it and says so ("TruGuard is now monitoring WhatsApp"). The shield turns green while the app in front is monitored; tapping it then opens the panel (only this chat / website, resume, settings, the "Monitor <app>" switch to turn it off).
+- **Much denser interface**, from a review of device screenshots where text and spacing were too large:
+  - Compact typography (13sp body, 12sp captions) and font scaling capped at 110% so layouts stay compact on phones set to a large font.
+  - Bottom bar is 60dp tall and shows a label only for the selected tab.
+  - Dashboard: removed the title row, shortened status text, removed the privacy paragraph (it is in Settings).
+  - Security: app rows are one line (details on tap), shorter intro, footer folded into it, finding consequences one line until opened.
+  - Settings: shorter copy, single-line rule descriptions, 44dp rows.
+  - Flagged and Log lists: tighter row padding.
+
 ## 1.2.3 - 2026-10-12
 
 - **Fixed the floating shield only appearing to switch things on and off.** Opening the shield's panel made Android report a window change from TruGuard's own overlay, which was mistaken for "no app in front" and closed the panel and hid the shield straight away. Events from the overlay's own windows are now ignored, and an open panel stays open while the same app is in front.

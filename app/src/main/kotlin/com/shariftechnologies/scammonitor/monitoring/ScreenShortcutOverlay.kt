@@ -26,8 +26,9 @@ import com.shariftechnologies.scammonitor.monitor.ScreenContext
 import com.shariftechnologies.scammonitor.monitor.TargetKind
 
 /**
- * A small draggable shield button drawn over monitorable apps (an accessibility overlay: no extra permission),
- * opening a panel to switch monitoring on for the app in front, or just for the open chat / website.
+ * A small draggable shield button drawn over monitorable apps (an accessibility overlay: no extra permission).
+ * One tap on an app that is not monitored switches monitoring on for it and says so; the shield is green while the
+ * app in front is monitored, and tapping it then opens a panel (only this chat / website, pause, stop).
  */
 class ScreenShortcutOverlay(
     private val service: AccessibilityService,
@@ -53,12 +54,28 @@ class ScreenShortcutOverlay(
         currentPackage = packageName
         hidePanel()
         refresh()
+        applyBubbleColor()
     }
 
     /** True just after this overlay added or removed one of its own windows, whose events must not change the app in front. */
     fun recentlyChangedOwnWindows(): Boolean = android.os.SystemClock.uptimeMillis() - lastOwnWindowChange < OWN_WINDOW_QUIET_MILLIS
 
     fun destroy() { hidePanel(); hideBubble() }
+
+    /** Re-colours the shield after monitoring settings changed: green while the app in front is monitored. */
+    fun refreshState() { applyBubbleColor() }
+
+    private fun isMonitored(): Boolean {
+        val pkg = currentPackage ?: return false
+        val settings = container.settings
+        return settings.screenConsent.value && !settings.screenPaused.value && settings.screenConfig.value.ruleFor(pkg) != null
+    }
+
+    private fun applyBubbleColor() {
+        val view = bubble ?: return
+        (view.background as? GradientDrawable)?.setColor(Color.parseColor(if (isMonitored()) "#E61E8E3E" else "#CC1A5FB4"))
+        view.contentDescription = if (isMonitored()) "TruGuard is monitoring this app" else "TruGuard shortcut: tap to monitor this app"
+    }
 
     private fun dp(v: Int) = (v * density).toInt()
 
@@ -88,7 +105,7 @@ class ScreenShortcutOverlay(
         }
         view.setOnTouchListener(DragListener(params, view))
         noteOwnWindowChange()
-        try { wm.addView(view, params); bubble = view; bubbleParams = params } catch (e: RuntimeException) { bubble = null }
+        try { wm.addView(view, params); bubble = view; bubbleParams = params; applyBubbleColor() } catch (e: RuntimeException) { bubble = null }
     }
 
     private fun hideBubble() {
@@ -124,10 +141,23 @@ class ScreenShortcutOverlay(
                         try { wm.updateViewLayout(view, params) } catch (ex: RuntimeException) { /* view removed meanwhile */ }
                     }
                 }
-                MotionEvent.ACTION_UP -> if (!moved) togglePanel()
+                MotionEvent.ACTION_UP -> if (!moved) onShieldTap()
             }
             return true
         }
+    }
+
+    /** First tap on an unmonitored app starts monitoring it, with a visible confirmation; otherwise open the panel. */
+    private fun onShieldTap() {
+        val pkg = currentPackage
+        val settings = container.settings
+        if (panel == null && pkg != null && settings.screenConsent.value && !settings.screenPaused.value && settings.screenConfig.value.ruleFor(pkg) == null) {
+            val label = container.labels.labelOrPackage(pkg)
+            container.screenController.updateConfig { it.enableApp(pkg, ScopeMode.ENTIRE_APP) }
+            Toast.makeText(service, "TruGuard is now monitoring $label. Tap the shield again for options.", Toast.LENGTH_LONG).show()
+            return
+        }
+        togglePanel()
     }
 
     private fun togglePanel() {
