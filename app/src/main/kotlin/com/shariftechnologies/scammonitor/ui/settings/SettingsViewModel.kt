@@ -38,6 +38,7 @@ class SettingsViewModel(private val container: AppContainer) : ViewModel() {
     fun openAppInfo(context: android.content.Context) = container.accessManager.openAppInfo(context)
 
     fun setWarningsEnabled(enabled: Boolean) { viewModelScope.launch { container.settings.setWarningsEnabled(enabled) } }
+    fun setShowOnLockScreen(show: Boolean) { viewModelScope.launch { container.settings.setShowOnLockScreen(show) } }
     fun setMinSeverity(severity: Severity) { viewModelScope.launch { container.settings.setWarningMinSeverity(severity) } }
     fun setRuleEnabled(id: String, enabled: Boolean) { viewModelScope.launch { container.settings.setRuleEnabled(id, enabled) } }
 

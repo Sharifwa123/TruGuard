@@ -18,11 +18,13 @@ import com.shariftechnologies.scammonitor.monitoring.pipeline.WarningSink
 
 /**
  * Posts ordinary local notifications. No overlays, no full-screen takeovers, no actions that change
- * data. Lock-screen visibility is private so message details are not exposed on a locked device.
+ * data. The warning text names the app, the sender and the reason, so the user can act on it without
+ * opening the app. Lock-screen visibility follows a user setting (default: shown).
  */
 class WarningNotificationManager(
     private val context: Context,
     private val labels: AppLabelResolver,
+    private val showOnLockScreen: () -> Boolean,
 ) : WarningSink {
     private val manager: NotificationManager = requireNotNull(context.getSystemService(NotificationManager::class.java))
 
@@ -30,6 +32,14 @@ class WarningNotificationManager(
         manager.createNotificationChannel(
             NotificationChannel(CHANNEL_HIGH, context.getString(R.string.channel_high_name), NotificationManager.IMPORTANCE_HIGH).apply {
                 description = context.getString(R.string.channel_high_description)
+                lockscreenVisibility = Notification.VISIBILITY_PRIVATE
+            },
+        )
+        // Medium risk also pops up on screen (heads-up). Channel importance cannot be raised after creation,
+        // so this is a separate channel rather than a change to the original standard one.
+        manager.createNotificationChannel(
+            NotificationChannel(CHANNEL_MODERATE, context.getString(R.string.channel_moderate_name), NotificationManager.IMPORTANCE_HIGH).apply {
+                description = context.getString(R.string.channel_moderate_description)
                 lockscreenVisibility = Notification.VISIBILITY_PRIVATE
             },
         )
@@ -56,7 +66,10 @@ class WarningNotificationManager(
             Severity.MEDIUM -> context.getString(R.string.warning_title_medium)
             else -> context.getString(R.string.warning_title_low)
         }
-        val text = context.getString(R.string.warning_text, source, request.result.summary)
+        val from = request.sourceTitle.trim().take(60).let { if (it.isEmpty()) source else "$source ($it)" }
+        val text = context.getString(R.string.warning_text, from, request.result.summary)
+        val details = text + "\n" + context.getString(R.string.warning_advice)
+        val visibility = if (showOnLockScreen()) Notification.VISIBILITY_PUBLIC else Notification.VISIBILITY_PRIVATE
 
         val open = Intent(context, MainActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -74,9 +87,9 @@ class WarningNotificationManager(
             .setSmallIcon(R.drawable.ic_stat_shield)
             .setContentTitle("$title · ${severity.name}")
             .setContentText(text)
-            .setStyle(Notification.BigTextStyle().bigText(text))
+            .setStyle(Notification.BigTextStyle().bigText(details))
             .setCategory(Notification.CATEGORY_MESSAGE)
-            .setVisibility(Notification.VISIBILITY_PRIVATE)
+            .setVisibility(visibility)
             .setPublicVersion(publicVersion)
             .setContentIntent(pending)
             .setAutoCancel(true)
@@ -85,10 +98,15 @@ class WarningNotificationManager(
         manager.notify(NOTIFICATION_TAG, request.eventId.hashCode(), notification)
     }
 
-    private fun channelFor(severity: Severity) = if (severity == Severity.HIGH) CHANNEL_HIGH else CHANNEL_STANDARD
+    private fun channelFor(severity: Severity) = when (severity) {
+        Severity.HIGH -> CHANNEL_HIGH
+        Severity.MEDIUM -> CHANNEL_MODERATE
+        else -> CHANNEL_STANDARD
+    }
 
     companion object {
         const val CHANNEL_HIGH = "warnings_high"
+        const val CHANNEL_MODERATE = "warnings_moderate"
         const val CHANNEL_STANDARD = "warnings_standard"
         private const val NOTIFICATION_TAG = "scam_warning"
     }

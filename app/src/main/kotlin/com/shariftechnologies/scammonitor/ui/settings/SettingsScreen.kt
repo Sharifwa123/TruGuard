@@ -73,6 +73,16 @@ fun SettingsScreen() {
             Text("Show warnings for suspicious notifications", Modifier.weight(1f))
             Switch(checked = prefs.enabled, onCheckedChange = vm::setWarningsEnabled)
         }
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f)) {
+                Text("Show warning text on the lock screen")
+                Text(
+                    "Lets you see who sent a risky message and why without unlocking or opening the app. Turn off if others can see your lock screen.",
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            Switch(checked = prefs.showOnLockScreen, onCheckedChange = vm::setShowOnLockScreen, enabled = prefs.enabled)
+        }
         Text("Warn from severity:", color = MaterialTheme.colorScheme.onSurfaceVariant)
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             listOf(Severity.LOW, Severity.MEDIUM, Severity.HIGH).forEach { sev ->

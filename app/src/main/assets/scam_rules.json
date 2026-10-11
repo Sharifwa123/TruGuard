@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "rulesVersion": "2026.10.1",
+  "rulesVersion": "2026.10.3",
   "thresholds": {
     "low": 15,
     "medium": 35,
@@ -22,7 +22,26 @@
         "\\b(?:your|ur)\\b.{0,15}\\b(?:momo pin|pin number|pin|otp)\\b.{0,25}\\b(?:is required|is needed|to continue|to proceed|to verify|to confirm|to reverse|to receive)\\b"
       ],
       "explanation": "This message asks you to reveal a PIN, OTP or password. Genuine mobile money providers and banks never ask you to disclose these secrets.",
-      "enabled": true
+      "enabled": true,
+      "conceptPatterns": [
+        {
+          "all": [
+            "disclose_verb",
+            "secret_noun"
+          ],
+          "window": 6,
+          "ordered": false
+        },
+        {
+          "all": [
+            "disclose_verb",
+            "verification_word",
+            "code_noun"
+          ],
+          "window": 6,
+          "ordered": false
+        }
+      ]
     },
     {
       "id": "fake_reversal",
@@ -36,7 +55,27 @@
         "\\b(?:reverse|reversal)\\b.{0,40}\\b(?:by sending|send|dial|enter|share|code|pin)\\b"
       ],
       "explanation": "This message claims money was sent to you by mistake and asks you to reverse or return it. This is a common mobile money reversal scam; check your real balance and transaction history with your provider.",
-      "enabled": true
+      "enabled": true,
+      "conceptPatterns": [
+        {
+          "all": [
+            "please_cue",
+            "reverse_verb",
+            "money_noun"
+          ],
+          "window": 9,
+          "ordered": false
+        },
+        {
+          "all": [
+            "delivered",
+            "money_noun",
+            "mistake_word"
+          ],
+          "window": 9,
+          "ordered": false
+        }
+      ]
     },
     {
       "id": "account_block_threat",
@@ -48,7 +87,27 @@
         "\\b(?:blocked|suspended|deactivated|closed|locked|frozen|barred)\\b.{0,40}\\b(?:unless|if you do not|if you don['’]?t|within \\d+ ?(?:hours|hrs|minutes|mins)|until you)\\b"
       ],
       "explanation": "This message threatens that your account or wallet will be blocked. Scammers use this pressure to rush you; confirm with your provider using its official contact details.",
-      "enabled": true
+      "enabled": true,
+      "conceptPatterns": [
+        {
+          "all": [
+            "account_noun",
+            "block_verb",
+            "verify_cue"
+          ],
+          "window": 12,
+          "ordered": false
+        },
+        {
+          "all": [
+            "account_noun",
+            "block_verb",
+            "link_cue"
+          ],
+          "window": 12,
+          "ordered": false
+        }
+      ]
     },
     {
       "id": "fake_reward",
@@ -60,7 +119,17 @@
         "\\b(?:lucky winner|lucky draw|jackpot|free airtime|free data|cash prize|cash reward|bonus of)\\b"
       ],
       "explanation": "This message promises an unexpected prize, reward or free airtime. Unsolicited rewards are a common lure for scams.",
-      "enabled": true
+      "enabled": true,
+      "conceptPatterns": [
+        {
+          "all": [
+            "prize_word",
+            "claim_cue"
+          ],
+          "window": 10,
+          "ordered": false
+        }
+      ]
     },
     {
       "id": "advance_fee",
@@ -72,7 +141,18 @@
         "\\b(?:processing|release|activation|unlocking|clearance|claim|handling)\\s+(?:fee|charge)s?\\b.{0,40}\\b(?:required|must|before|to receive|to claim|to release)\\b"
       ],
       "explanation": "This message asks you to pay a fee before you can receive something. Legitimate prizes and loans do not require upfront payments to a personal number.",
-      "enabled": true
+      "enabled": true,
+      "conceptPatterns": [
+        {
+          "all": [
+            "pay_verb",
+            "advance_cue",
+            "fee_noun"
+          ],
+          "window": 8,
+          "ordered": false
+        }
+      ]
     },
     {
       "id": "urgency",
@@ -83,7 +163,16 @@
         "\\b(?:urgent|urgently|immediately|right now|asap|act now|last warning|final warning|final notice|expires? (?:today|soon)|within \\d+ ?(?:hours?|hrs?|minutes?|mins?)|without delay|before it is too late|today only)\\b"
       ],
       "explanation": "The message pressures you to act quickly. Urgency alone is weak evidence, but scammers use it to stop you thinking.",
-      "enabled": true
+      "enabled": true,
+      "conceptPatterns": [
+        {
+          "all": [
+            "urgent_strong"
+          ],
+          "window": 1,
+          "ordered": false
+        }
+      ]
     },
     {
       "id": "impersonation",
@@ -106,7 +195,17 @@
         "\\b(?:send|transfer|pay|deposit)\\b.{0,25}\\bto\\b.{0,15}(?:\\b0\\d{9}\\b|\\+?233\\d{9}\\b)"
       ],
       "explanation": "This message tells you to transfer money to a phone number. Be very careful: official institutions do not ask you to send money to a personal number to resolve a problem.",
-      "enabled": true
+      "enabled": true,
+      "conceptPatterns": [
+        {
+          "all": [
+            "pay_verb",
+            "phone_number"
+          ],
+          "window": 8,
+          "ordered": false
+        }
+      ]
     },
     {
       "id": "credential_phishing",
@@ -118,7 +217,18 @@
         "\\b(?:click|tap|visit|follow)\\b.{0,30}\\b(?:link|here|below)\\b.{0,50}\\b(?:verify|confirm|update|log ?in|reactivate|unlock)\\b"
       ],
       "explanation": "This message asks you to verify or update account details through a link. Open your provider's official app or website yourself instead of using links in messages.",
-      "enabled": true
+      "enabled": true,
+      "conceptPatterns": [
+        {
+          "all": [
+            "verify_cue",
+            "account_noun",
+            "link_cue"
+          ],
+          "window": 12,
+          "ordered": false
+        }
+      ]
     },
     {
       "id": "secrecy_pressure",
@@ -131,7 +241,71 @@
         "\\bkeep (?:this|it)\\b.{0,15}\\b(?:secret|confidential|private)\\b"
       ],
       "explanation": "This message asks you to keep quiet or avoid official support. Scammers isolate victims so nobody can warn them.",
-      "enabled": true
+      "enabled": true,
+      "conceptPatterns": [
+        {
+          "all": [
+            "keep_verb",
+            "secret_word"
+          ],
+          "window": 6,
+          "ordered": false
+        },
+        {
+          "all": [
+            "negator",
+            "tell_verb",
+            "anyone_word"
+          ],
+          "window": 6,
+          "ordered": false
+        }
+      ]
+    },
+    {
+      "id": "code_forwarding",
+      "description": "Asks the recipient to forward a code that was just sent to them (WhatsApp/SMS account takeover).",
+      "category": "credential_request",
+      "enabled": true,
+      "score": 45,
+      "patterns": [
+        "\\bcode\\b.{0,80}\\b(?:send|forward|share|give|read out)\\b.{0,10}\\b(?:it|the code|that code)\\b.{0,10}\\b(?:to me|back|here|to us)\\b",
+        "\\b(?:send|forward|share|give|read out)\\b.{0,10}\\b(?:me )?(?:the |that |this )?(?:6[- ]?digit |whatsapp |verification |login |sms )(?:code|number)\\b"
+      ],
+      "matchMode": "ANY",
+      "explanation": "This message asks you to pass on a code that was sent to you. Scammers use this to take over WhatsApp and other accounts (often with a story about adding you to a group). Never share a code you received, even with someone who seems to know you.",
+      "conceptPatterns": [
+        {
+          "all": [
+            "delivered",
+            "code_noun",
+            "disclose_verb",
+            "to_me"
+          ],
+          "window": 14,
+          "ordered": false
+        },
+        {
+          "all": [
+            "delivered",
+            "secret_noun",
+            "disclose_verb",
+            "to_me"
+          ],
+          "window": 14,
+          "ordered": false
+        },
+        {
+          "all": [
+            "delivered",
+            "verification_word",
+            "disclose_verb",
+            "to_me"
+          ],
+          "window": 14,
+          "ordered": false
+        }
+      ]
     }
   ],
   "combinations": [
@@ -221,6 +395,411 @@
       "explanation": "Pressure to hurry and stay silent together is a social-engineering warning sign.",
       "enabled": true,
       "description": "Pressure to hurry and stay silent together is a social-engineering warning sign."
+    },
+    {
+      "id": "combo.code_forwarding_pretext",
+      "description": "Asking for a code you received, together with pressure or a claimed identity, is a typical account-takeover scam.",
+      "enabled": true,
+      "requiresAll": [
+        "code_forwarding"
+      ],
+      "requiresAny": [
+        "urgency",
+        "secrecy_pressure",
+        "impersonation"
+      ],
+      "score": 15,
+      "explanation": "Asking for a code you received, together with pressure or a claimed identity, is a typical account-takeover scam."
     }
-  ]
+  ],
+  "negators": [
+    "not",
+    "never",
+    "dont",
+    "don't",
+    "do'nt",
+    "dnt",
+    "no",
+    "cant",
+    "can't",
+    "cannot",
+    "wont",
+    "won't",
+    "without",
+    "stop",
+    "avoid"
+  ],
+  "concepts": {
+    "disclose_verb": {
+      "terms": [
+        "send",
+        "forward",
+        "share",
+        "give",
+        "tell",
+        "text",
+        "relay",
+        "read",
+        "reply",
+        "provide",
+        "submit",
+        "dictate",
+        "snd",
+        "sen",
+        "frwd",
+        "fwd",
+        "gv",
+        "gimme",
+        "sharing"
+      ],
+      "negatable": true
+    },
+    "delivered": {
+      "terms": [
+        "sent",
+        "received",
+        "receive",
+        "got",
+        "get",
+        "gotten",
+        "comes",
+        "came",
+        "arrive",
+        "arrived",
+        "delivered",
+        "texted",
+        "messaged",
+        "issued",
+        "recieved",
+        "recived"
+      ],
+      "negatable": false
+    },
+    "secret_noun": {
+      "terms": [
+        "pin",
+        "pins",
+        "otp",
+        "otps",
+        "passcode",
+        "password",
+        "passkey",
+        "pword",
+        "2fa",
+        "cvv",
+        "momopin",
+        "pincode"
+      ],
+      "negatable": false
+    },
+    "code_noun": {
+      "terms": [
+        "code",
+        "codes",
+        "cod",
+        "cde",
+        "digit",
+        "digits",
+        "token"
+      ],
+      "negatable": false
+    },
+    "to_me": {
+      "terms": [
+        "me",
+        "us",
+        "back",
+        "2me"
+      ],
+      "negatable": false
+    },
+    "account_noun": {
+      "terms": [
+        "account",
+        "acct",
+        "acc",
+        "wallet",
+        "momo",
+        "sim",
+        "card",
+        "whatsapp",
+        "bank"
+      ],
+      "negatable": false
+    },
+    "block_verb": {
+      "terms": [
+        "blocked",
+        "block",
+        "suspended",
+        "suspend",
+        "deactivated",
+        "deactivate",
+        "closed",
+        "close",
+        "locked",
+        "lock",
+        "frozen",
+        "freeze",
+        "barred",
+        "terminated",
+        "restricted",
+        "disabled",
+        "deleted",
+        "banned",
+        "ban"
+      ],
+      "negatable": true
+    },
+    "verify_cue": {
+      "terms": [
+        "verify",
+        "confirm",
+        "update",
+        "validate",
+        "reactivate",
+        "kyc",
+        "unlock",
+        "reconfirm",
+        "reverify",
+        "revalidate",
+        "login"
+      ],
+      "negatable": false
+    },
+    "prize_word": {
+      "terms": [
+        "won",
+        "winner",
+        "jackpot",
+        "lucky",
+        "congratulations",
+        "congrats",
+        "congrat",
+        "prize",
+        "prise"
+      ],
+      "negatable": false
+    },
+    "claim_cue": {
+      "terms": [
+        "claim",
+        "collect",
+        "redeem",
+        "withdraw",
+        "cashout"
+      ],
+      "negatable": false
+    },
+    "pay_verb": {
+      "terms": [
+        "pay",
+        "send",
+        "deposit",
+        "transfer",
+        "remit",
+        "paying"
+      ],
+      "negatable": false
+    },
+    "fee_noun": {
+      "terms": [
+        "fee",
+        "fees",
+        "charge",
+        "charges",
+        "payment",
+        "deposit",
+        "tax",
+        "levy",
+        "commission",
+        "cost"
+      ],
+      "negatable": false
+    },
+    "advance_cue": {
+      "terms": [
+        "processing",
+        "release",
+        "activation",
+        "unlock",
+        "unlocking",
+        "clearance",
+        "registration",
+        "delivery",
+        "admin",
+        "handling",
+        "insurance",
+        "upfront",
+        "advance",
+        "verification",
+        "claim"
+      ],
+      "negatable": false
+    },
+    "please_cue": {
+      "terms": [
+        "please",
+        "pls",
+        "plz",
+        "plss",
+        "kindly",
+        "help",
+        "assist",
+        "urgent",
+        "urgently"
+      ],
+      "negatable": false
+    },
+    "reverse_verb": {
+      "terms": [
+        "reverse",
+        "reversal",
+        "revert",
+        "refund",
+        "return",
+        "rvs"
+      ],
+      "negatable": false
+    },
+    "mistake_word": {
+      "terms": [
+        "mistake",
+        "mistakenly",
+        "wrongly",
+        "accidentally",
+        "mistook",
+        "mistaken",
+        "mistaking"
+      ],
+      "negatable": false
+    },
+    "money_noun": {
+      "terms": [
+        "money",
+        "mony",
+        "cash",
+        "amount",
+        "ghs",
+        "ghc",
+        "cedis",
+        "cedi",
+        "funds",
+        "payment",
+        "transfer"
+      ],
+      "negatable": false
+    },
+    "phone_number": {
+      "terms": [
+        "re:^(?:0\\d{9}|233\\d{9})$"
+      ],
+      "negatable": false
+    },
+    "urgent_strong": {
+      "terms": [
+        "urgent",
+        "urgently",
+        "immediately",
+        "asap",
+        "hurry",
+        "quickly",
+        "emergency"
+      ],
+      "negatable": false
+    },
+    "keep_verb": {
+      "terms": [
+        "keep",
+        "hold",
+        "maintain"
+      ],
+      "negatable": false
+    },
+    "secret_word": {
+      "terms": [
+        "secret",
+        "confidential",
+        "private",
+        "quiet",
+        "between"
+      ],
+      "negatable": false
+    },
+    "tell_verb": {
+      "terms": [
+        "tell",
+        "inform",
+        "disclose",
+        "show",
+        "call",
+        "contact",
+        "visit",
+        "talk",
+        "speak",
+        "ask"
+      ],
+      "negatable": false
+    },
+    "anyone_word": {
+      "terms": [
+        "anyone",
+        "anybody",
+        "family",
+        "friends",
+        "bank",
+        "staff",
+        "agent",
+        "support",
+        "customer",
+        "branch",
+        "care",
+        "others",
+        "police"
+      ],
+      "negatable": false
+    },
+    "negator": {
+      "terms": [
+        "not",
+        "never",
+        "dont",
+        "don't",
+        "do'nt",
+        "dnt",
+        "no",
+        "cant",
+        "can't",
+        "cannot",
+        "wont",
+        "won't",
+        "without",
+        "stop",
+        "avoid"
+      ],
+      "negatable": false
+    },
+    "verification_word": {
+      "terms": [
+        "verification",
+        "verifcation",
+        "verfication",
+        "verificaton"
+      ],
+      "negatable": false
+    },
+    "link_cue": {
+      "terms": [
+        "click",
+        "tap",
+        "link",
+        "visit",
+        "http",
+        "https",
+        "www",
+        "open"
+      ],
+      "negatable": false
+    }
+  }
 }

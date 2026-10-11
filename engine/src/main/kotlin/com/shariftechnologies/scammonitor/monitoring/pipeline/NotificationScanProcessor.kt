@@ -28,7 +28,7 @@ class NotificationScanProcessor(
         val status = sink.record(ScanRecord(event.eventId, event.packageName, result.detectedAtMillis, result, outcome))
         // A DUPLICATE means this exact update was already stored (e.g. re-delivered after a reconnect).
         if (status == RecordStatus.DUPLICATE) return
-        if (shouldWarn(event, result)) warnings.show(WarningRequest(event.eventId, event.packageName, result))
+        if (shouldWarn(event, result)) warnings.show(WarningRequest(event.eventId, event.packageName, result, event.input.title))
     }
 
     private fun shouldWarn(event: NotificationEvent, result: DetectionResult): Boolean {

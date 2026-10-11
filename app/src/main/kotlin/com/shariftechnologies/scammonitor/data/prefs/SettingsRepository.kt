@@ -46,7 +46,8 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
             store.data.catch { emit(emptyPreferences()) }.collect { prefs ->
                 _warningPreferences.value = WarningPreferences(
                     enabled = prefs[WARNINGS_ENABLED] ?: true,
-                    minSeverity = prefs[WARNING_MIN_SEVERITY]?.let { runCatching { Severity.valueOf(it) }.getOrNull() } ?: Severity.MEDIUM,
+                    minSeverity = prefs[WARNING_MIN_SEVERITY]?.let { runCatching { Severity.valueOf(it) }.getOrNull() } ?: Severity.LOW,
+                    showOnLockScreen = prefs[SHOW_ON_LOCK_SCREEN] ?: true,
                 )
                 _disabledRuleIds.value = prefs[DISABLED_RULES] ?: emptySet()
                 _onboardingCompleted.value = prefs[ONBOARDING_DONE] ?: false
@@ -62,6 +63,8 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
 
     suspend fun setWarningMinSeverity(severity: Severity) { store.edit { it[WARNING_MIN_SEVERITY] = severity.name } }
 
+    suspend fun setShowOnLockScreen(show: Boolean) { store.edit { it[SHOW_ON_LOCK_SCREEN] = show } }
+
     suspend fun setRuleEnabled(ruleId: String, enabled: Boolean) {
         store.edit { prefs ->
             val current = prefs[DISABLED_RULES] ?: emptySet()
@@ -74,6 +77,7 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
     private companion object {
         val WARNINGS_ENABLED = booleanPreferencesKey("warnings_enabled")
         val WARNING_MIN_SEVERITY = stringPreferencesKey("warning_min_severity")
+        val SHOW_ON_LOCK_SCREEN = booleanPreferencesKey("show_on_lock_screen")
         val DISABLED_RULES = stringSetPreferencesKey("disabled_rule_ids")
         val ONBOARDING_DONE = booleanPreferencesKey("onboarding_done")
     }

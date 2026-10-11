@@ -28,6 +28,30 @@ Rules live in `app/src/main/assets/scam_rules.json` (schema version 1). They are
 }
 ```
 
+## Concepts (wording-tolerant matching)
+Regexes need the wording to be guessed in advance. A rule can instead describe *ideas* that must appear close together, in any order:
+
+```jsonc
+"negators": ["not", "never", "dont", "dnt", "no"],
+"concepts": {
+  "disclose_verb": { "terms": ["send", "forward", "share", "give", "snd", "frwd"], "negatable": true },
+  "delivered":     { "terms": ["sent", "received", "got", "comes"] },
+  "code_noun":     { "terms": ["code", "cod", "cde", "digit"] },
+  "to_me":         { "terms": ["me", "us", "back"] },
+  "phone_number":  { "terms": ["re:^(?:0\\d{9}|233\\d{9})$"] }   // "re:" = regex tested on one raw word
+},
+"rules": [{ "id": "code_forwarding", ...,
+  "conceptPatterns": [
+    { "all": ["delivered", "code_noun", "disclose_verb", "to_me"], "window": 14, "ordered": false }
+  ]}]
+```
+- A pattern matches when all listed concepts occur within `window` consecutive words (`ordered: true` also requires the listed order). A rule fires if any regex pattern **or** any concept pattern matches.
+- Each word is matched to a concept even when misspelled or disguised: one typo for words of 5+ letters, two for 8+, only insertions/deletions/swaps for 4-letter words (so "sent" is not "send" and "mode" is not "code"), 3-letter words must be exact except for stretched letters ("paay"). Leetspeak (`c0de`, `sh@re`), separators (`o.t.p`), spaced letters (`p i n`, only when the result is a listed word), stretched letters (`pleeease`) and simple suffixes (`-ing`, `-ed`, `-s`) are handled automatically.
+- `negatable: true` ignores an occurrence that has a negator within the 3 preceding words ("never share your PIN"). A concept built from the negators themselves (see `secrecy_pressure`) lets a rule require the negation instead.
+- Add shorthand and local spellings (`snd`, `2me`, `pls`) as plain terms. Prefer specific concepts: a word listed in a broad concept makes every rule using it noisier. Always add benign sentences to `FuzzyDetectionTest` (the everyday-message corpus) when widening a concept.
+- Limits: 80 concepts, 120 terms each, 6 concepts per pattern, window 1..30; unknown concepts or bad regex terms skip that pattern with a warning.
+- A de-obfuscated copy of the text (accents stripped, look-alike letters mapped, `c0de`→`code`, stretched letters collapsed) is also tried against the regex patterns.
+
 ## How matching works
 - Text = notification title + body, cleaned of control/zero-width characters, NFKC-normalised, lower-cased, whitespace collapsed. **Write patterns in lower case.**
 - Patterns are Java regular expressions, run under a 250 ms per-scan budget (a runaway regex is aborted and only that rule skipped).
