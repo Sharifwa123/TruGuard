@@ -70,6 +70,9 @@ Unknown schema version, bad thresholds (must satisfy `0 < low < medium < high â‰
 
 Users can switch individual rules off in Settings; that preference is stored separately and never edits the JSON.
 
+## App permission risk table (`permission_risks.json`)
+`permissions[]` (`name` without the `android.permission.` prefix, `label`, `harm` in plain language, `weight` 1..100, `kind`: `runtime` counts when granted, `special` counts when requested), `signals[]` (flags the scanner raises: `flag.accessibility_enabled`, `flag.notification_listener_enabled`, `flag.device_admin`, `flag.sideloaded`, `flag.no_launcher_icon`), `combinations[]` (`requiresAll` / `requiresAny` over permission names and flags, `score`, `harm`), `trustedInstallers` (stores whose apps get `trustedInstallerDiscountPercent` off permission weight) and `thresholds`. An unreadable table disables app ratings but nothing else. Keep `harm` texts concrete and honest: they are shown to the user as what the permission *can* cause, not as proof of intent.
+
 ## Blocklist and heuristics files
 - `domain_blocklist.json`: `entries[]` with `domain`, `matchSubdomains` (exact-only unless true), `type`, `source`, `reason`, `addedAt`. Matching is by whole labels, never substring. Shipped entries are synthetic `.example` domains. Update deliberately; stale lists miss new scams.
 - `domain_heuristics.json`: URL `shorteners`, `multiPartSuffixes` (e.g. `com.gh`), and `brands` (`token` + `officialDomains`). A host containing a brand token but not under an official domain is flagged. Keep official domains complete, or genuine sites will be flagged.

@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -41,6 +42,7 @@ import com.shariftechnologies.scammonitor.ui.flagged.FlaggedDetailScreen
 import com.shariftechnologies.scammonitor.ui.flagged.FlaggedListScreen
 import com.shariftechnologies.scammonitor.ui.log.SecurityLogScreen
 import com.shariftechnologies.scammonitor.ui.onboarding.OnboardingScreen
+import com.shariftechnologies.scammonitor.ui.security.SecurityScreen
 import com.shariftechnologies.scammonitor.ui.settings.SettingsScreen
 
 private object Routes {
@@ -49,6 +51,7 @@ private object Routes {
     const val FLAGGED = "flagged"
     const val FLAGGED_DETAIL = "flagged/{eventId}"
     const val LOG = "log"
+    const val SECURITY = "security"
     const val SETTINGS = "settings"
     fun flaggedDetail(eventId: String) = "flagged/$eventId"
 }
@@ -59,12 +62,13 @@ private val topLevel = listOf(
     TopLevel(Routes.DASHBOARD, "Dashboard", Icons.Filled.Home),
     TopLevel(Routes.FLAGGED, "Flagged", Icons.Filled.Warning),
     TopLevel(Routes.LOG, "Log", Icons.AutoMirrored.Filled.List),
+    TopLevel(Routes.SECURITY, "Security", Icons.Filled.Lock),
     TopLevel(Routes.SETTINGS, "Settings", Icons.Filled.Settings),
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppRoot(pendingEventId: String?, onPendingEventConsumed: () -> Unit) {
+fun AppRoot(pendingEventId: String?, onPendingEventConsumed: () -> Unit, openSecurity: Boolean, onOpenSecurityConsumed: () -> Unit) {
     val settings = (LocalContext.current.applicationContext as ScamMonitorApplication).container.settings
     val onboardingDone by settings.onboardingCompleted.collectAsStateWithLifecycle()
 
@@ -84,6 +88,13 @@ fun AppRoot(pendingEventId: String?, onPendingEventConsumed: () -> Unit) {
         if (pendingEventId != null) {
             navController.navigate(Routes.flaggedDetail(pendingEventId))
             onPendingEventConsumed()
+        }
+    }
+
+    LaunchedEffect(openSecurity) {
+        if (openSecurity) {
+            navController.navigate(Routes.SECURITY) { launchSingleTop = true }
+            onOpenSecurityConsumed()
         }
     }
 
@@ -139,6 +150,7 @@ fun AppRoot(pendingEventId: String?, onPendingEventConsumed: () -> Unit) {
                     FlaggedDetailScreen(eventId = entry.arguments?.getString("eventId").orEmpty())
                 }
                 composable(Routes.LOG) { SecurityLogScreen(onOpenFlagged = { navController.navigate(Routes.flaggedDetail(it)) }) }
+                composable(Routes.SECURITY) { SecurityScreen() }
                 composable(Routes.SETTINGS) { SettingsScreen() }
             }
         }

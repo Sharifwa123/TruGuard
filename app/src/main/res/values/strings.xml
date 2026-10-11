@@ -17,4 +17,12 @@
     <string name="warning_advice">Do not reply, open links or share any code. Check with the sender another way.</string>
     <string name="warning_public_title">Possible scam detected</string>
     <string name="warning_public_text">Unlock your phone to see details.</string>
+
+    <string name="channel_security_name">Phone security alerts</string>
+    <string name="channel_security_description">Alerts when protection like Play Protect is turned off or a risky app is installed</string>
+    <string name="security_app_alert_title">New app \"%1$s\" asks for risky access</string>
+    <string name="security_app_sideloaded">This app did not come from a known app store, so nobody checked it first.</string>
+    <string name="security_app_from_store">This app was just installed.</string>
+    <string name="security_app_action">Do not open it unless you trust it. To remove it: Settings > Apps, choose the app, then Uninstall.</string>
+    <string name="security_alert_body">%1$s\n\nWhat it can cause: %2$s\n\nWhat to do: %3$s</string>
 </resources>

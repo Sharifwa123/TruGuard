@@ -9,6 +9,7 @@ import com.shariftechnologies.scammonitor.app.ScamMonitorApplication
 import com.shariftechnologies.scammonitor.ui.dashboard.DashboardViewModel
 import com.shariftechnologies.scammonitor.ui.flagged.FlaggedItemsViewModel
 import com.shariftechnologies.scammonitor.ui.log.SecurityLogViewModel
+import com.shariftechnologies.scammonitor.ui.security.SecurityViewModel
 import com.shariftechnologies.scammonitor.ui.settings.SettingsViewModel
 
 private fun CreationExtras.container(): AppContainer =
@@ -20,5 +21,6 @@ object AppViewModelFactory {
         initializer { FlaggedItemsViewModel(container()) }
         initializer { SecurityLogViewModel(container()) }
         initializer { SettingsViewModel(container()) }
+        initializer { SecurityViewModel(container()) }
     }
 }

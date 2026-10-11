@@ -49,6 +49,7 @@ fun SettingsScreen() {
     val accessEnabled by vm.accessEnabled.collectAsStateWithLifecycle()
     val notificationsAllowed by vm.notificationsAllowed.collectAsStateWithLifecycle()
     val clearResult by vm.clearResult.collectAsStateWithLifecycle()
+    val securityAlerts by vm.securityAlertsEnabled.collectAsStateWithLifecycle()
     var confirmClear by remember { mutableStateOf(false) }
     val permissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { vm.refresh() }
     OnResume { vm.refresh() }
@@ -92,6 +93,19 @@ fun SettingsScreen() {
         if (Build.VERSION.SDK_INT >= 33 && !notificationsAllowed) {
             Text("Android is blocking this app's own notifications, so warnings cannot appear.", color = MaterialTheme.colorScheme.error)
             OutlinedAction("Allow warning notifications", { permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS) })
+        }
+
+        HorizontalDivider()
+        SectionTitle("Phone security alerts")
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f)) {
+                Text("Alert me about Play Protect and risky apps")
+                Text(
+                    "Tells you when Play Protect, your screen lock or Accessibility access changes, and when a newly installed app asks for dangerous permissions.",
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            Switch(checked = securityAlerts, onCheckedChange = vm::setSecurityAlertsEnabled)
         }
 
         HorizontalDivider()

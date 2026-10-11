@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": "2026.10.1",
+  "description": "Plain-language risk notes for Android permissions and device signals. Weights are heuristic and editable; a high score means 'worth a careful look', not 'proven malicious'.",
+  "thresholds": {
+    "low": 15,
+    "medium": 35,
+    "high": 60
+  },
+  "trustedInstallerDiscountPercent": 60,
+  "trustedInstallers": [
+    "com.android.vending",
+    "com.sec.android.app.samsungapps",
+    "com.huawei.appmarket",
+    "com.xiaomi.mipicks",
+    "com.amazon.venezia",
+    "com.heytap.market",
+    "com.vivo.appstore"
+  ],
+  "permissions": [
+    {
+      "name": "READ_SMS",
+      "label": "read your text messages",
+      "harm": "Can read bank and login codes sent to you by text and use them to take over your accounts.",
+      "weight": 14,
+      "kind": "runtime"
+    },
+    {
+      "name": "RECEIVE_SMS",
+      "label": "see incoming text messages as they arrive",
+      "harm": "Can intercept one-time codes the moment they arrive, before you see them.",
+      "weight": 12,
+      "kind": "runtime"
+    },
+    {
+      "name": "SEND_SMS",
+      "label": "send text messages",
+      "harm": "Can send messages that cost you money or spread a scam to your contacts.",
+      "weight": 12,
+      "kind": "runtime"
+    },
+    {
+      "name": "READ_CONTACTS",
+      "label": "read your contacts",
+      "harm": "Can collect your contacts for spam and scams aimed at your friends and family.",
+      "weight": 6,
+      "kind": "runtime"
+    },
+    {
+      "name": "READ_CALL_LOG",
+      "label": "read your call history",
+      "harm": "Can see who you call and who calls you.",
+      "weight": 8,
+      "kind": "runtime"
+    },
+    {
+      "name": "PROCESS_OUTGOING_CALLS",
+      "label": "see and redirect the calls you make",
+      "harm": "Can watch or redirect your calls, for example to a scammer's number.",
+      "weight": 8,
+      "kind": "runtime"
+    },
+    {
+      "name": "CALL_PHONE",
+      "label": "place phone calls without opening the dialer",
+      "harm": "Can call premium-rate numbers that cost you money.",
+      "weight": 6,
+      "kind": "runtime"
+    },
+    {
+      "name": "ANSWER_PHONE_CALLS",
+      "label": "answer your phone calls",
+      "harm": "Can pick up calls without you.",
+      "weight": 5,
+      "kind": "runtime"
+    },
+    {
+      "name": "READ_PHONE_STATE",
+      "label": "read your phone number and device identity",
+      "harm": "Can identify you and your phone across apps.",
+      "weight": 3,
+      "kind": "runtime"
+    },
+    {
+      "name": "RECORD_AUDIO",
+      "label": "record audio with the microphone",
+      "harm": "Can listen to you and to conversations around you.",
+      "weight": 8,
+      "kind": "runtime"
+    },
+    {
+      "name": "CAMERA",
+      "label": "use the camera",
+      "harm": "Can take photos or video without you noticing if it runs in the background.",
+      "weight": 6,
+      "kind": "runtime"
+    },
+    {
+      "name": "ACCESS_FINE_LOCATION",
+      "label": "know your exact location",
+      "harm": "Can see where you are and where you go.",
+      "weight": 5,
+      "kind": "runtime"
+    },
+    {
+      "name": "ACCESS_BACKGROUND_LOCATION",
+      "label": "track your location even when the app is closed",
+      "harm": "Can follow your movements all day without you opening it.",
+      "weight": 10,
+      "kind": "runtime"
+    },
+    {
+      "name": "GET_ACCOUNTS",
+      "label": "list the accounts on your phone",
+      "harm": "Can see which email and service accounts you use.",
+      "weight": 4,
+      "kind": "runtime"
+    },
+    {
+      "name": "READ_CALENDAR",
+      "label": "read your calendar",
+      "harm": "Can see where you will be and when.",
+      "weight": 3,
+      "kind": "runtime"
+    },
+    {
+      "name": "BODY_SENSORS",
+      "label": "read body sensors",
+      "harm": "Can read health sensor data.",
+      "weight": 3,
+      "kind": "runtime"
+    },
+    {
+      "name": "SYSTEM_ALERT_WINDOW",
+      "label": "draw over other apps",
+      "harm": "Can draw fake screens on top of your banking or login apps to steal passwords and PINs.",
+      "weight": 14,
+      "kind": "special"
+    },
+    {
+      "name": "REQUEST_INSTALL_PACKAGES",
+      "label": "install other apps",
+      "harm": "Can install more apps that Play Protect has not checked first.",
+      "weight": 12,
+      "kind": "special"
+    },
+    {
+      "name": "MANAGE_EXTERNAL_STORAGE",
+      "label": "access all files on the phone",
+      "harm": "Can read, copy or delete your photos, documents and downloads.",
+      "weight": 8,
+      "kind": "special"
+    },
+    {
+      "name": "PACKAGE_USAGE_STATS",
+      "label": "see which apps you use and when",
+      "harm": "Can learn your habits and know when you open your banking app.",
+      "weight": 8,
+      "kind": "special"
+    },
+    {
+      "name": "QUERY_ALL_PACKAGES",
+      "label": "see every app installed",
+      "harm": "Can profile you or look for apps to attack.",
+      "weight": 3,
+      "kind": "special"
+    },
+    {
+      "name": "WRITE_SETTINGS",
+      "label": "change system settings",
+      "harm": "Can change phone settings without asking.",
+      "weight": 4,
+      "kind": "special"
+    },
+    {
+      "name": "DISABLE_KEYGUARD",
+      "label": "turn off the lock screen",
+      "harm": "Can remove the screen lock while it runs.",
+      "weight": 6,
+      "kind": "special"
+    },
+    {
+      "name": "REQUEST_IGNORE_BATTERY_OPTIMIZATIONS",
+      "label": "keep running in the background",
+      "harm": "Can stay active all the time, which spyware relies on.",
+      "weight": 3,
+      "kind": "special"
+    }
+  ],
+  "signals": [
+    {
+      "id": "flag.accessibility_enabled",
+      "label": "has Accessibility access",
+      "harm": "Can read everything on your screen and tap or type for you. This is how many banking trojans steal money.",
+      "weight": 30
+    },
+    {
+      "id": "flag.notification_listener_enabled",
+      "label": "can read all your notifications",
+      "harm": "Can read your messages and one-time codes in notifications.",
+      "weight": 20
+    },
+    {
+      "id": "flag.device_admin",
+      "label": "is a device administrator",
+      "harm": "Can lock your phone, wipe it and resist being uninstalled.",
+      "weight": 25
+    },
+    {
+      "id": "flag.sideloaded",
+      "label": "was not installed from a known app store",
+      "harm": "It was not checked by an app store, so nobody vetted it before it reached your phone.",
+      "weight": 15
+    },
+    {
+      "id": "flag.no_launcher_icon",
+      "label": "has no icon in your app list",
+      "harm": "Hiding from the app list is a common trick to keep you from noticing or removing an app.",
+      "weight": 15
+    }
+  ],
+  "combinations": [
+    {
+      "id": "combo.sms_and_notifications",
+      "requiresAll": [
+        "flag.notification_listener_enabled"
+      ],
+      "requiresAny": [
+        "READ_SMS",
+        "RECEIVE_SMS"
+      ],
+      "score": 25,
+      "harm": "It can read your texts and your notifications, which is everything needed to intercept one-time codes."
+    },
+    {
+      "id": "combo.accessibility_overlay",
+      "requiresAll": [
+        "flag.accessibility_enabled",
+        "SYSTEM_ALERT_WINDOW"
+      ],
+      "requiresAny": [],
+      "score": 30,
+      "harm": "Accessibility plus drawing over other apps is the classic recipe of banking trojans: it can show a fake login screen and then tap buttons for you."
+    },
+    {
+      "id": "combo.sideloaded_installer",
+      "requiresAll": [
+        "flag.sideloaded",
+        "REQUEST_INSTALL_PACKAGES"
+      ],
+      "requiresAny": [],
+      "score": 15,
+      "harm": "An app from outside a store that can install further apps may be a dropper for malware."
+    },
+    {
+      "id": "combo.hidden_and_powerful",
+      "requiresAll": [
+        "flag.no_launcher_icon"
+      ],
+      "requiresAny": [
+        "flag.accessibility_enabled",
+        "flag.notification_listener_enabled",
+        "flag.device_admin",
+        "READ_SMS",
+        "RECEIVE_SMS",
+        "SYSTEM_ALERT_WINDOW"
+      ],
+      "score": 25,
+      "harm": "A hidden app with powerful access is a strong sign of spyware or malware."
+    },
+    {
+      "id": "combo.sideloaded_sms",
+      "requiresAll": [
+        "flag.sideloaded",
+        "READ_SMS",
+        "SEND_SMS"
+      ],
+      "requiresAny": [],
+      "score": 20,
+      "harm": "An app from outside a store that can read and send texts can steal codes and send scam or premium messages."
+    },
+    {
+      "id": "combo.spyware_set",
+      "requiresAll": [
+        "flag.sideloaded",
+        "RECORD_AUDIO",
+        "ACCESS_BACKGROUND_LOCATION",
+        "READ_CONTACTS"
+      ],
+      "requiresAny": [],
+      "score": 20,
+      "harm": "Microphone, constant location and contacts in an app from outside a store look like spyware."
+    }
+  ]
+}
