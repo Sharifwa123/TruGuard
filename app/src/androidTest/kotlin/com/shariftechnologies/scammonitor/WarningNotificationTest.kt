@@ -16,6 +16,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,20 +27,37 @@ class WarningNotificationTest {
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val nm = context.getSystemService(NotificationManager::class.java)
-    private val manager = WarningNotificationManager(context, AppLabelResolver(context))
+    private var lockScreenVisible = true
+    private val manager = WarningNotificationManager(context, AppLabelResolver(context)) { lockScreenVisible }
 
     @After fun tearDown() = nm.cancelAll()
 
-    @Test fun postsWarningWithPrivateLockScreenVersionOnCorrectChannel() = runBlocking {
-        val result = DetectionResult(
-            riskScore = 80, severity = Severity.HIGH, flagged = true,
-            matches = listOf(RuleMatch("pin_otp_request", "credential_request", 60, "Asks for a PIN")),
-            domains = emptyList(), summary = "Asks for a PIN", detectedAtMillis = 1L,
-        )
-        manager.show(WarningRequest("event-1", "com.example.chat", result))
-        val posted = nm.activeNotifications.single { it.tag == "scam_warning" }
-        assertEquals(WarningNotificationManager.CHANNEL_HIGH, posted.notification.channelId)
-        assertEquals(android.app.Notification.VISIBILITY_PRIVATE, posted.notification.visibility)
-        assertNotNull(posted.notification.publicVersion)
+    private fun result(severity: Severity) = DetectionResult(
+        riskScore = 80, severity = severity, flagged = true,
+        matches = listOf(RuleMatch("pin_otp_request", "credential_request", 60, "Asks for a PIN")),
+        domains = emptyList(), summary = "Asks for a PIN", detectedAtMillis = 1L,
+    )
+
+    private fun posted() = nm.activeNotifications.single { it.tag == "scam_warning" }
+
+    @Test fun highRiskUsesHighChannelAndShowsOnLockScreen() = runBlocking {
+        manager.show(WarningRequest("event-1", "com.example.chat", result(Severity.HIGH), "@SOMEONE"))
+        val n = posted().notification
+        assertEquals(WarningNotificationManager.CHANNEL_HIGH, n.channelId)
+        assertEquals(android.app.Notification.VISIBILITY_PUBLIC, n.visibility)
+        assertTrue(n.extras.getCharSequence(android.app.Notification.EXTRA_TEXT).toString().contains("@SOMEONE"))
+    }
+
+    @Test fun lockScreenDetailsCanBeHiddenWithAGenericPublicVersion() = runBlocking {
+        lockScreenVisible = false
+        manager.show(WarningRequest("event-2", "com.example.chat", result(Severity.HIGH)))
+        val n = posted().notification
+        assertEquals(android.app.Notification.VISIBILITY_PRIVATE, n.visibility)
+        assertNotNull(n.publicVersion)
+    }
+
+    @Test fun mediumRiskUsesThePopUpChannel() = runBlocking {
+        manager.show(WarningRequest("event-3", "com.example.chat", result(Severity.MEDIUM)))
+        assertEquals(WarningNotificationManager.CHANNEL_MODERATE, posted().notification.channelId)
     }
 }

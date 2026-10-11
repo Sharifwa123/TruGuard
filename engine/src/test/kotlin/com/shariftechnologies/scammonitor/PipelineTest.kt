@@ -145,6 +145,17 @@ class ProcessorTest {
         assertEquals(Severity.HIGH, warnings.shown.single().result.severity)
     }
 
+    @Test fun `warning carries the sender title so the user need not open the app`() = runBlocking {
+        processor.process(event("k1", scam, title = "@SOMEONE"))
+        assertEquals("@SOMEONE", warnings.shown.single().sourceTitle)
+    }
+
+    @Test fun `weakly suspicious message warns with the default settings`() = runBlocking {
+        processor.process(event("k1", "Your account will be blocked unless you act"))
+        assertEquals(Severity.LOW, sink.records.single().result.severity)
+        assertEquals(1, warnings.shown.size)
+    }
+
     @Test fun `redelivered identical event does not warn again`() = runBlocking {
         val e = event("k1", scam)
         processor.process(e); processor.process(e)

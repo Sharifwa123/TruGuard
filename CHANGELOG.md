@@ -5,7 +5,9 @@ Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git t
 ## 1.0.1 - 2026-10-11
 
 - New rule `code_forwarding`: flags messages asking you to forward a code you were just sent (the WhatsApp/SMS account-takeover scam, e.g. "we sent you a code, send it to me so we can add you to the group"). Found on a real device, where such a message was previously scored 0.
-- Rule set version 2026.10.2 (11 rules); 47 engine tests.
+- Warnings now tell you what you need without opening the app: the app name, the sender or chat name from the notification, why it was flagged, and a one-line safety reminder. Medium-risk warnings pop up on screen (new pop-up channel); the lock screen shows the warning text by default (Settings → "Show warning text on the lock screen" turns that off).
+- Warnings now start at LOW risk by default (previously MEDIUM) so messages that merely might be harmful also get a notice; this is adjustable in Settings. Repeated identical findings and bursts remain rate-limited.
+- Rule set version 2026.10.2 (11 rules); 49 engine tests.
 
 ## 1.0.0 - 2026-10-11
 

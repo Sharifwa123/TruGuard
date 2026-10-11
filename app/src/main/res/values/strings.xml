@@ -5,13 +5,16 @@
 
     <string name="channel_high_name">High-risk warnings</string>
     <string name="channel_high_description">Alerts for notifications that strongly resemble scams</string>
-    <string name="channel_standard_name">Suspicious message warnings</string>
-    <string name="channel_standard_description">Alerts for notifications with moderate scam indicators</string>
+    <string name="channel_moderate_name">Suspicious message warnings (pop-up)</string>
+    <string name="channel_moderate_description">Pop-up alerts for notifications with moderate scam indicators</string>
+    <string name="channel_standard_name">Low-risk notices</string>
+    <string name="channel_standard_description">Quiet alerts for notifications with weak scam indicators</string>
 
     <string name="warning_title_high">High-risk message detected</string>
     <string name="warning_title_medium">Potential scam detected</string>
     <string name="warning_title_low">Suspicious message</string>
     <string name="warning_text">From %1$s: %2$s</string>
+    <string name="warning_advice">Do not reply, open links or share any code. Check with the sender another way.</string>
     <string name="warning_public_title">Possible scam detected</string>
     <string name="warning_public_text">Unlock your phone to see details.</string>
 </resources>

@@ -72,7 +72,7 @@ Not requested: internet, accessibility, SMS, contacts, call log, overlay (`SYSTE
 - Retention: scans 30 days (max 5,000 rows), flagged items 180 days; **Settings → Clear scan history** deletes everything at once.
 - Data lives in app-private storage, is excluded from cloud backup/device transfer (`allowBackup=false`, extraction rules), and is **not encrypted by the app**. Someone with access to the unlocked device or a rooted/debuggable environment may be able to read it.
 - Logcat contains only exception class names, never notification content.
-- Warning notifications use private lock-screen visibility with a generic public version.
+- Warning notifications show the app, sender, reason and a safety reminder so you need not open the app. They appear on the lock screen by default; **Settings → Show warning text on the lock screen** switches to a generic "Possible scam detected" notice instead. Warning text never includes the message body, only the reason.
 
 ## Limitations
 
@@ -87,6 +87,6 @@ Not requested: internet, accessibility, SMS, contacts, call log, overlay (`SYSTE
 
 ## Verification status
 
-- **Verified in CI (GitHub Actions, on every push and PR):** `:engine` unit tests (47 passing); full Android build of `:app` and `:testsender` (Kotlin/Compose compile, Room KSP, resource and manifest merge); app unit tests; lint; debug APKs produced and uploaded as workflow artifacts.
+- **Verified in CI (GitHub Actions, on every push and PR):** `:engine` unit tests (49 passing); full Android build of `:app` and `:testsender` (Kotlin/Compose compile, Room KSP, resource and manifest merge); app unit tests; lint; debug APKs produced and uploaded as workflow artifacts.
 - **Not yet verified:** the instrumented tests (`instrumented.yml`, manual) and the whole on-device checklist in [docs/TEST_PLAN.md](docs/TEST_PLAN.md): the real listener receiving notifications, warning display, lock-screen privacy, reconnect after reboot, OEM battery behaviour. No physical-device test has been performed.
 - The `release.yml` workflow has not yet been exercised (no tag has been pushed), and no signing secrets are configured yet.

@@ -41,7 +41,7 @@ class AppContainer(context: Context) {
 
     val database: SecurityDatabase by lazy { SecurityDatabase.create(appContext) }
     val scanRepository: ScanRepository by lazy { ScanRepository(database, labels) }
-    val warningManager = WarningNotificationManager(appContext, labels)
+    val warningManager = WarningNotificationManager(appContext, labels) { settings.warningPreferences.value.showOnLockScreen }
 
     private val engine = ScamDetectionEngine(
         rules = { ruleRepository.current() },

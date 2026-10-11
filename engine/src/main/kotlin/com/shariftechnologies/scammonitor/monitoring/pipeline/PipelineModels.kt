@@ -50,6 +50,8 @@ data class WarningRequest(
     val eventId: String,
     val packageName: String,
     val result: DetectionResult,
+    /** Notification title (usually the sender or chat name), so the warning says who it came from. */
+    val sourceTitle: String = "",
 )
 
 interface WarningSink {
@@ -59,5 +61,8 @@ interface WarningSink {
 /** User-configurable warning behaviour, read fresh for every event. */
 data class WarningPreferences(
     val enabled: Boolean = true,
-    val minSeverity: Severity = Severity.MEDIUM,
+    /** LOW by default: a message that merely might be harmful is still worth a heads-up. */
+    val minSeverity: Severity = Severity.LOW,
+    /** Show the warning text on the lock screen so it can be read without unlocking or opening the app. */
+    val showOnLockScreen: Boolean = true,
 )
