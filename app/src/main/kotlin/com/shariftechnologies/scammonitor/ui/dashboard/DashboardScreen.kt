@@ -63,7 +63,7 @@ private fun DashboardContent(
     val permissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { vm.refresh() }
 
     Column(Modifier.verticalScroll(rememberScrollState()).padding(Dimens.ScreenPadding), verticalArrangement = Arrangement.spacedBy(Dimens.SectionGap)) {
-        Text("Scam Monitor", style = MaterialTheme.typography.titleLarge)
+        Text("TruGuard", style = MaterialTheme.typography.titleLarge)
 
         Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
             Column(Modifier.fillMaxWidth().padding(Dimens.CardPadding), verticalArrangement = Arrangement.spacedBy(Dimens.ItemGap)) {

@@ -2,6 +2,10 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.2.1 - 2026-10-11
+
+- **Renamed the app to TruGuard** (launcher name, screens, notifications, Accessibility/notification-access labels, release asset names `TruGuard-<version>.apk`). The package id `com.shariftechnologies.scammonitor` is unchanged so existing installs update in place. Docs now suggest the key alias `truguard`.
+
 ## 1.2.0 - 2026-10-11
 
 - **Optional, opt-in screen monitoring** for conversations that never produce a notification (Instagram, LinkedIn, Snapchat, Facebook, Meet chat, forums, web pages). Uses an Accessibility service that does nothing until the user agrees to a disclosure and switches it on. Nothing is monitored until the user picks it with the floating shield shortcut: the whole app, only one chat / group / broadcast list / number, or in a browser only one website. Fails closed when the open chat or site cannot be identified. Never reads password fields, typed text, keyboards, system screens, password managers or banking/money apps. Screen text is never stored; only flagged findings are kept (masked, labelled "(on screen)"). Persistent notification while active; pause and "stop all" in Settings.

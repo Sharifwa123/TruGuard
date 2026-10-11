@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="false"
-        android:label="Scam Monitor Test Sender"
+        android:label="TruGuard Test Sender"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
         <activity

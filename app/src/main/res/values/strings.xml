@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Scam Monitor</string>
-    <string name="listener_label">Scam Monitor notification analysis</string>
+    <string name="app_name">TruGuard</string>
+    <string name="listener_label">TruGuard notification analysis</string>
 
     <string name="channel_high_name">High-risk warnings</string>
     <string name="channel_high_description">Alerts for notifications that strongly resemble scams</string>
@@ -28,10 +28,10 @@
 
     <string name="warning_on_screen">%1$s (on screen)</string>
 
-    <string name="screen_service_label">Scam Monitor screen text check</string>
-    <string name="accessibility_description">Lets Scam Monitor read text on screen in the apps you choose, only to check for scams on this phone. It cannot tap, type or change anything. Nothing is stored or sent.</string>
+    <string name="screen_service_label">TruGuard screen text check</string>
+    <string name="accessibility_description">Lets TruGuard read text on screen in the apps you choose, only to check for scams on this phone. It cannot tap, type or change anything. Nothing is stored or sent.</string>
     <string name="channel_screen_name">Screen monitoring status</string>
-    <string name="channel_screen_description">Shown while Scam Monitor is checking on-screen text in the apps you chose</string>
+    <string name="channel_screen_description">Shown while TruGuard is checking on-screen text in the apps you chose</string>
     <string name="screen_notification_title">Screen monitoring is on</string>
     <string name="screen_notification_text">Checking text in %1$d app(s) for scams, on this phone only. Nothing is stored or sent. Tap to manage.</string>
 </resources>

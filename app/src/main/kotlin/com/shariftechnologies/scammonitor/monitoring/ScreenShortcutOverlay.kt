@@ -69,7 +69,7 @@ class ScreenShortcutOverlay(
             setColorFilter(Color.WHITE)
             setPadding(dp(10), dp(10), dp(10), dp(10))
             background = GradientDrawable().apply { shape = GradientDrawable.OVAL; setColor(Color.parseColor("#CC1A5FB4")) }
-            contentDescription = "Scam Monitor shortcut"
+            contentDescription = "TruGuard shortcut"
         }
         val params = overlayParams(size, size).apply {
             x = service.resources.displayMetrics.widthPixels - size - dp(4)
@@ -150,11 +150,11 @@ class ScreenShortcutOverlay(
         }
         fun toast(msg: String) = Toast.makeText(service, msg, Toast.LENGTH_SHORT).show()
 
-        column.addView(text("Scam Monitor · $label", 15f, true))
+        column.addView(text("TruGuard · $label", 15f, true))
 
         if (!settings.screenConsent.value) {
             column.addView(text("Screen monitoring is not set up yet."))
-            column.addView(action("Open Scam Monitor") { openApp() })
+            column.addView(action("Open TruGuard") { openApp() })
             return column
         }
         val rule = settings.screenConfig.value.ruleFor(pkg)

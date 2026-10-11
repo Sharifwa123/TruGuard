@@ -15,7 +15,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 
 /**
- * Posts synthetic notifications from a package other than Scam Monitor, which is what makes the
+ * Posts synthetic notifications from a package other than TruGuard, which is what makes the
  * real NotificationListenerService path testable (the monitor ignores its own notifications).
  */
 class SenderActivity : Activity() {
@@ -32,7 +32,7 @@ class SenderActivity : Activity() {
         val pad = (16 * resources.displayMetrics.density).toInt()
         val column = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(pad, pad, pad, pad) }
         column.addView(TextView(this).apply {
-            text = "Posts synthetic test notifications. Nothing here is real. Scam Monitor must have notification access enabled."
+            text = "Posts synthetic test notifications. Nothing here is real. TruGuard must have notification access enabled."
         })
         Scenarios.all.forEach { s ->
             column.addView(Button(this).apply {
