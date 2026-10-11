@@ -3,7 +3,9 @@ package com.shariftechnologies.scammonitor.ui.flagged
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -31,6 +33,7 @@ import com.shariftechnologies.scammonitor.ui.common.MessageState
 import com.shariftechnologies.scammonitor.ui.common.SectionTitle
 import com.shariftechnologies.scammonitor.ui.common.SeverityBadge
 import com.shariftechnologies.scammonitor.ui.common.formatTime
+import com.shariftechnologies.scammonitor.ui.theme.Dimens
 
 @Composable
 fun FlaggedListScreen(onOpenItem: (String) -> Unit) {
@@ -45,18 +48,17 @@ fun FlaggedListScreen(onOpenItem: (String) -> Unit) {
                 "Nothing flagged",
                 "Notifications that look like scams will be listed here. Low-risk notifications are only counted in the security log.",
             )
-        } else LazyColumn(contentPadding = androidx.compose.foundation.layout.PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        } else LazyColumn(contentPadding = PaddingValues(horizontal = Dimens.ScreenPadding, vertical = 4.dp)) {
             items(s.value, key = { it.id }) { item ->
-                Column(Modifier.fillMaxWidth().clickable { onOpenItem(item.eventId) }, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Column(Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch).clickable { onOpenItem(item.eventId) }.padding(vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         SeverityBadge(item.severity)
-                        Text(item.sourceLabel, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
-                        Text("score ${item.riskScore}", style = MaterialTheme.typography.bodySmall)
+                        Text(item.sourceLabel, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f), maxLines = 1)
                     }
                     Text(item.summary, maxLines = 2, style = MaterialTheme.typography.bodyMedium)
-                    Text(formatTime(context, item.detectedAt), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    HorizontalDivider(Modifier.padding(top = 8.dp))
+                    Text("${formatTime(context, item.detectedAt)} · score ${item.riskScore}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
+                HorizontalDivider()
             }
         }
     }
@@ -78,7 +80,7 @@ fun FlaggedDetailScreen(eventId: String) {
 @Composable
 private fun FlaggedDetail(item: FlaggedItem) {
     val context = LocalContext.current
-    Column(Modifier.verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(Modifier.verticalScroll(rememberScrollState()).padding(Dimens.ScreenPadding), verticalArrangement = Arrangement.spacedBy(Dimens.ItemGap)) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             SeverityBadge(item.severity)
             Text("Risk score ${item.riskScore} / 100", style = MaterialTheme.typography.titleMedium)
@@ -87,7 +89,7 @@ private fun FlaggedDetail(item: FlaggedItem) {
         Text(
             "This is an automated risk assessment, not proof of fraud. Do not tap links or share codes. " +
                 "Check with your provider using contact details from its official app or website.",
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodySmall,
         )
         SectionTitle("Why it was flagged")
         item.explanations.forEach { Text("• $it") }
@@ -99,7 +101,6 @@ private fun FlaggedDetail(item: FlaggedItem) {
             SectionTitle("Masked excerpts")
             item.evidence.forEach { Text("“$it”", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
         }
-        SectionTitle("Matched rules")
-        Text(item.matchedRuleIds.joinToString(", "), style = MaterialTheme.typography.bodySmall)
+        Text("Matched rules: ${item.matchedRuleIds.joinToString(", ")}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }

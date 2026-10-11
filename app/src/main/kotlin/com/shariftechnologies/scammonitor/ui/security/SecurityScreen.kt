@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -39,6 +40,7 @@ import com.shariftechnologies.scammonitor.ui.common.OnResume
 import com.shariftechnologies.scammonitor.ui.common.OutlinedAction
 import com.shariftechnologies.scammonitor.ui.common.SectionTitle
 import com.shariftechnologies.scammonitor.ui.common.SeverityBadge
+import com.shariftechnologies.scammonitor.ui.theme.Dimens
 
 @Composable
 fun SecurityScreen() {
@@ -58,15 +60,17 @@ private fun SecurityContent(report: SecurityReport, onRefresh: () -> Unit) {
     val context = LocalContext.current
     var selected by remember { mutableStateOf<AppRisk?>(null) }
 
-    LazyColumn(contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    LazyColumn(contentPadding = PaddingValues(Dimens.ScreenPadding), verticalArrangement = Arrangement.spacedBy(Dimens.ItemGap)) {
         item {
-            Text("Phone security", style = MaterialTheme.typography.headlineSmall)
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                Text("Phone security", style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
+                OutlinedAction("Check again", onRefresh)
+            }
             Text(
-                "Checks the protection settings Android lets this app read, and the permissions of the ${report.appsScanned} apps you installed. " +
+                "Checks the protection settings Android lets this app read and the permissions of your ${report.appsScanned} installed apps. " +
                     "It cannot stop an install or a settings change in advance; it tells you right away.",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            OutlinedAction("Check again", onRefresh, Modifier.padding(top = 8.dp))
         }
 
         item { SectionTitle("Phone protection") }
@@ -82,14 +86,14 @@ private fun SecurityContent(report: SecurityReport, onRefresh: () -> Unit) {
             item { Text("None of your installed apps has a risky combination of permissions and sources.") }
         }
         items(report.appsToReview, key = { it.packageName }) { app ->
-            Column(Modifier.fillMaxWidth().clickable { selected = app }, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Column(Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch).clickable { selected = app }.padding(vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     SeverityBadge(app.severity)
                     Text(app.label, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
                     if (app.sideloaded) Text("not from a store", style = MaterialTheme.typography.labelSmall)
                 }
                 Text(app.topHarms.firstOrNull().orEmpty(), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
-                HorizontalDivider(Modifier.padding(top = 8.dp))
+                HorizontalDivider(Modifier.padding(top = 4.dp))
             }
         }
         item {
@@ -124,16 +128,21 @@ private fun SecurityContent(report: SecurityReport, onRefresh: () -> Unit) {
 
 @Composable
 private fun FindingCard(f: PostureFinding, onOpenPlayStore: () -> Unit) {
-    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    // Title and the consequence stay visible; the explanation and the fix open on tap (progressive disclosure).
+    var open by remember { mutableStateOf(false) }
+    Column(Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch).clickable { open = !open }.padding(vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             SeverityBadge(f.severity)
             Text(f.title, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
+            Text(if (open) "▴" else "▾", color = MaterialTheme.colorScheme.primary)
         }
-        Text(f.whatItMeans, style = MaterialTheme.typography.bodySmall)
-        Text("What it can cause: ${f.risk}", style = MaterialTheme.typography.bodySmall)
-        Text("What to do: ${f.action}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
-        if (f.id.startsWith("play_protect")) OutlinedAction("Open Google Play", onOpenPlayStore)
-        HorizontalDivider(Modifier.padding(top = 8.dp))
+        Text("What it can cause: ${f.risk}", style = MaterialTheme.typography.bodySmall, maxLines = if (open) Int.MAX_VALUE else 2)
+        if (open) {
+            Text(f.whatItMeans, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text("What to do: ${f.action}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
+            if (f.id.startsWith("play_protect")) OutlinedAction("Open Google Play", onOpenPlayStore)
+        }
+        HorizontalDivider(Modifier.padding(top = 4.dp))
     }
 }
 

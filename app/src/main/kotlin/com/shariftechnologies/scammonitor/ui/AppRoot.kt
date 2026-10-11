@@ -1,7 +1,9 @@
 package com.shariftechnologies.scammonitor.ui
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -131,7 +133,7 @@ fun AppRoot(pendingEventId: String?, onPendingEventConsumed: () -> Unit, openSec
             }
         },
     ) { padding ->
-        Box(Modifier.fillMaxSize().padding(padding)) {
+        Box(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding()) {
             NavHost(navController = navController, startDestination = startRoute) {
                 composable(Routes.ONBOARDING) {
                     OnboardingScreen(onDone = {

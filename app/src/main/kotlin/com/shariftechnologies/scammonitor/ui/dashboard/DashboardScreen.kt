@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -18,6 +19,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -35,6 +37,7 @@ import com.shariftechnologies.scammonitor.ui.common.OutlinedAction
 import com.shariftechnologies.scammonitor.ui.common.SectionTitle
 import com.shariftechnologies.scammonitor.ui.common.SeverityBadge
 import com.shariftechnologies.scammonitor.ui.common.formatTime
+import com.shariftechnologies.scammonitor.ui.theme.Dimens
 
 @Composable
 fun DashboardScreen(onOpenFlagged: () -> Unit, onOpenLog: () -> Unit, onOpenOnboarding: () -> Unit) {
@@ -59,72 +62,75 @@ private fun DashboardContent(
     val context = LocalContext.current
     val permissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { vm.refresh() }
 
-    Column(Modifier.verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        Text("Scam Monitor", style = MaterialTheme.typography.headlineSmall)
+    Column(Modifier.verticalScroll(rememberScrollState()).padding(Dimens.ScreenPadding), verticalArrangement = Arrangement.spacedBy(Dimens.SectionGap)) {
+        Text("Scam Monitor", style = MaterialTheme.typography.titleLarge)
 
         Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                SectionTitle("Monitoring status")
+            Column(Modifier.fillMaxWidth().padding(Dimens.CardPadding), verticalArrangement = Arrangement.spacedBy(Dimens.ItemGap)) {
                 if (s.accessEnabled) {
-                    Text("Notification access: enabled in Android Settings")
                     Text(
-                        if (s.serviceConnected) "Listener service: connected" else "Listener service: not connected right now. Android starts it on its own; if this persists, toggle access off and on in Settings.",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        "Notification access on · " +
+                            if (s.serviceConnected) "listener connected" else "listener not connected right now. Android starts it on its own; if this persists, toggle access off and on in Settings.",
                     )
                 } else {
-                    Text("Notification access: NOT enabled. The app cannot see any notifications.")
-                    Button(onClick = {
-                        if (!vm.openAccessSettings(context)) Toast.makeText(context, "Open Settings > Notifications > Notification access manually.", Toast.LENGTH_LONG).show()
-                    }) { Text("Enable notification access") }
-                    OutlinedAction("How this works", onOpenOnboarding)
+                    Text("Notification access is NOT enabled. The app cannot see any notifications.")
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Button(onClick = {
+                            if (!vm.openAccessSettings(context)) Toast.makeText(context, "Open Settings > Notifications > Notification access manually.", Toast.LENGTH_LONG).show()
+                        }) { Text("Enable notification access") }
+                        TextButton(onClick = onOpenOnboarding) { Text("How this works") }
+                    }
                 }
                 if (Build.VERSION.SDK_INT >= 33 && !s.notificationsAllowed) {
                     Text("Warning notifications are blocked. Allow this app to post notifications to receive alerts.", color = MaterialTheme.colorScheme.error)
                     OutlinedAction("Allow warning notifications", { permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS) })
                 }
                 if (s.queueDropped > 0) {
-                    Text("${s.queueDropped} notifications were skipped during bursts since the app started.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("${s.queueDropped} notifications were skipped during bursts since the app started.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
         }
 
         Card(Modifier.fillMaxWidth().clickable(onClick = onOpenFlagged)) {
-            Column(Modifier.padding(16.dp)) {
-                Text("${s.flaggedCount}", style = MaterialTheme.typography.displaySmall)
-                Text("flagged items recorded locally")
-                Text("View flagged items", color = MaterialTheme.colorScheme.primary)
+            Row(Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch).padding(horizontal = Dimens.CardPadding, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text("${s.flaggedCount}", style = MaterialTheme.typography.titleLarge)
+                Text("flagged items", Modifier.weight(1f).padding(start = 8.dp))
+                Text("View ›", color = MaterialTheme.colorScheme.primary)
             }
         }
 
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            SectionTitle("Recent scans (${s.totalScans} recorded)")
+        Column {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                SectionTitle("Recent scans (${s.totalScans})", Modifier.weight(1f))
+                TextButton(onClick = onOpenLog) { Text("Open log ›") }
+            }
             if (s.recentScans.isEmpty()) {
                 Text(
                     "No notifications scanned yet. Scans appear here once an app posts a notification while access is enabled.",
+                    style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
             s.recentScans.forEach { scan ->
-                Row(Modifier.fillMaxWidth().clickable(onClick = onOpenLog), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Row(
+                    Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch).clickable(onClick = onOpenLog).padding(vertical = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
                     SeverityBadge(scan.severity)
                     Column(Modifier.weight(1f)) {
-                        Text(scan.sourceLabel, style = MaterialTheme.typography.bodyMedium)
+                        Text(scan.sourceLabel, style = MaterialTheme.typography.bodyMedium, maxLines = 1)
                         Text(formatTime(context, scan.scannedAt), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     Text("${scan.riskScore}")
                 }
             }
-            OutlinedAction("Open security log", onOpenLog)
         }
 
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            SectionTitle("Privacy")
-            Text(
-                "Notifications are analysed on this device only. Nothing is uploaded, and the app has no internet permission. " +
-                    "Only scores, rule names and short masked excerpts are stored, never full messages.",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
+        Text(
+            "Analysed on this device only; nothing is uploaded and the app has no internet permission. " +
+                "Only scores, rule names and short masked excerpts are stored, never full messages.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }

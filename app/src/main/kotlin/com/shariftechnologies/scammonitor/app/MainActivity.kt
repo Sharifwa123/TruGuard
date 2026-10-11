@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -16,6 +17,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge() // bars draw over the app on every Android version; Scaffold insets keep content clear of them
         if (savedInstanceState == null) {
             pendingEventId = intent?.getStringExtra(EXTRA_FLAGGED_EVENT_ID)
             pendingOpenSecurity = intent?.getBooleanExtra(EXTRA_OPEN_SECURITY, false) == true
