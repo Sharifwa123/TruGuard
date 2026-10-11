@@ -85,10 +85,8 @@ Not requested: internet, accessibility, SMS, contacts, call log, overlay (`SYSTE
 - UI strings are English only.
 - Installed-app permission auditing is **not implemented**; `audit/InstalledAppAuditor.kt` documents the future boundary only.
 
-## Verification status of this repository snapshot
+## Verification status
 
-The development container used to create this code could not reach Google's Maven repository, so the Android SDK/AGP/AndroidX were unavailable there. What was actually verified:
-
-- `:engine` built and its **45 unit tests passed** (rules, scoring, URL/domain analysis, parser validation, queue/backpressure/dedup, processor warning policy).
-- The framework-only Android sources (extractor, access manager, listener service, warning manager, test sender) were compiled against the Android 15 framework API.
-- **Not yet built or run:** the full `:app` module (Compose UI, Room, DataStore, resources, manifest merge), app unit tests, lint, instrumented tests, and any on-device testing. The CI workflow performs the first real `assembleDebug`; treat any failure there as a bug to fix before relying on a release.
+- **Verified in CI (GitHub Actions, commit `1d4ab9f`):** `:engine` unit tests (45 passing); full Android build of `:app` and `:testsender` (Kotlin/Compose compile, Room KSP, resource and manifest merge); app unit tests; lint; debug APKs produced and uploaded as workflow artifacts.
+- **Not yet verified:** the instrumented tests (`instrumented.yml`, manual) and the whole on-device checklist in [docs/TEST_PLAN.md](docs/TEST_PLAN.md): the real listener receiving notifications, warning display, lock-screen privacy, reconnect after reboot, OEM battery behaviour. No physical-device test has been performed.
+- The `release.yml` workflow has not yet been exercised (no tag has been pushed), and no signing secrets are configured yet.

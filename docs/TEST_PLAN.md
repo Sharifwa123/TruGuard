@@ -23,4 +23,4 @@ Room migrations: schema version 1 has none. When the schema changes, add a `Migr
 11. Test on Android 8, 12, 13+ if available.
 
 ## Known gaps
-No on-device run has been performed for this snapshot (see README → Verification status). Dedicated UI navigation tests are not automated.
+No on-device run has been performed yet (see README → Verification status). Dedicated UI navigation tests are not automated.
