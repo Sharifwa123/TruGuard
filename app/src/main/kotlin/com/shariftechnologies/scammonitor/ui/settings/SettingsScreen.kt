@@ -8,7 +8,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -37,6 +39,7 @@ import com.shariftechnologies.scammonitor.ui.AppViewModelFactory
 import com.shariftechnologies.scammonitor.ui.common.OnResume
 import com.shariftechnologies.scammonitor.ui.common.OutlinedAction
 import com.shariftechnologies.scammonitor.ui.common.SectionTitle
+import com.shariftechnologies.scammonitor.ui.theme.Dimens
 
 @Composable
 fun SettingsScreen() {
@@ -57,35 +60,33 @@ fun SettingsScreen() {
         clearResult?.let { Toast.makeText(context, it, Toast.LENGTH_LONG).show(); vm.dismissClearResult() }
     }
 
-    Column(Modifier.verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        SectionTitle("Notification access")
-        Text(if (accessEnabled) "Enabled in Android Settings" else "Not enabled")
-        Text(if (connected) "Listener service connected" else "Listener service not connected", color = MaterialTheme.colorScheme.onSurfaceVariant)
-        OutlinedAction("Open notification access settings", {
-            if (!vm.openAccessSettings(context)) Toast.makeText(context, "Open Settings > Notifications > Notification access manually.", Toast.LENGTH_LONG).show()
-        })
-        OutlinedAction("Open app info (restricted settings)", {
-            if (!vm.openAppInfo(context)) Toast.makeText(context, "App info is unavailable on this device.", Toast.LENGTH_LONG).show()
-        })
+    var rulesExpanded by remember { mutableStateOf(false) }
 
-        HorizontalDivider()
+    Column(Modifier.verticalScroll(rememberScrollState()).padding(Dimens.ScreenPadding), verticalArrangement = Arrangement.spacedBy(Dimens.ItemGap)) {
+        SectionTitle("Notification access")
+        Text(
+            (if (accessEnabled) "Enabled in Android Settings" else "Not enabled") + " · " + if (connected) "listener connected" else "listener not connected",
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            OutlinedAction("Access settings", {
+                if (!vm.openAccessSettings(context)) Toast.makeText(context, "Open Settings > Notifications > Notification access manually.", Toast.LENGTH_LONG).show()
+            }, Modifier.weight(1f))
+            OutlinedAction("App info (restricted settings)", {
+                if (!vm.openAppInfo(context)) Toast.makeText(context, "App info is unavailable on this device.", Toast.LENGTH_LONG).show()
+            }, Modifier.weight(1f))
+        }
+
+        HorizontalDivider(Modifier.padding(vertical = 4.dp))
         SectionTitle("Warning notifications")
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Text("Show warnings for suspicious notifications", Modifier.weight(1f))
-            Switch(checked = prefs.enabled, onCheckedChange = vm::setWarningsEnabled)
-        }
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Column(Modifier.weight(1f)) {
-                Text("Show warning text on the lock screen")
-                Text(
-                    "Lets you see who sent a risky message and why without unlocking or opening the app. Turn off if others can see your lock screen.",
-                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-            Switch(checked = prefs.showOnLockScreen, onCheckedChange = vm::setShowOnLockScreen, enabled = prefs.enabled)
-        }
-        Text("Warn from severity:", color = MaterialTheme.colorScheme.onSurfaceVariant)
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        SettingSwitch("Show warnings for suspicious notifications", null, prefs.enabled, vm::setWarningsEnabled)
+        SettingSwitch(
+            "Show warning text on the lock screen",
+            "Shows who sent a risky message and why without unlocking. Turn off if others can see your lock screen.",
+            prefs.showOnLockScreen, vm::setShowOnLockScreen, enabled = prefs.enabled,
+        )
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("Warn from:", color = MaterialTheme.colorScheme.onSurfaceVariant)
             listOf(Severity.LOW, Severity.MEDIUM, Severity.HIGH).forEach { sev ->
                 FilterChip(selected = prefs.minSeverity == sev, onClick = { vm.setMinSeverity(sev) }, label = { Text(sev.name) }, enabled = prefs.enabled)
             }
@@ -94,35 +95,37 @@ fun SettingsScreen() {
             Text("Android is blocking this app's own notifications, so warnings cannot appear.", color = MaterialTheme.colorScheme.error)
             OutlinedAction("Allow warning notifications", { permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS) })
         }
+        SettingSwitch(
+            "Alert me about Play Protect and risky apps",
+            "Tells you when Play Protect, your screen lock or Accessibility access changes, and when a newly installed app asks for dangerous permissions.",
+            securityAlerts, vm::setSecurityAlertsEnabled,
+        )
 
-        HorizontalDivider()
-        SectionTitle("Phone security alerts")
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Column(Modifier.weight(1f)) {
-                Text("Alert me about Play Protect and risky apps")
-                Text(
-                    "Tells you when Play Protect, your screen lock or Accessibility access changes, and when a newly installed app asks for dangerous permissions.",
-                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-            Switch(checked = securityAlerts, onCheckedChange = vm::setSecurityAlertsEnabled)
-        }
-
-        HorizontalDivider()
-        SectionTitle("Detection rules")
+        HorizontalDivider(Modifier.padding(vertical = 4.dp))
         val rules = ruleSet
         if (rules == null) {
+            SectionTitle("Detection rules")
             Text("Loading rules…")
         } else {
-            Text(
-                "Rule set ${rules.version}" + if (rules.isFallback) " (built-in fallback: the bundled rule file could not be loaded)" else "",
-                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            rules.rules.forEach { rule ->
-                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            val activeCount = rules.rules.count { it.enabledInFile && it.userEnabled }
+            Row(
+                Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch).clickable { rulesExpanded = !rulesExpanded },
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column(Modifier.weight(1f)) {
+                    SectionTitle("Detection rules ($activeCount of ${rules.rules.size} on)")
+                    Text(
+                        "Rule set ${rules.version}" + if (rules.isFallback) " (built-in fallback: the bundled rule file could not be loaded)" else "",
+                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+                Text(if (rulesExpanded) "Hide ▴" else "Show ▾", color = MaterialTheme.colorScheme.primary)
+            }
+            if (rulesExpanded) rules.rules.forEach { rule ->
+                Row(Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch), verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
                         Text(rule.id, style = MaterialTheme.typography.bodyMedium)
-                        Text(rule.description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text(rule.description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
                         if (!rule.enabledInFile) Text("Disabled in the rule file", style = MaterialTheme.typography.labelSmall)
                     }
                     Switch(checked = rule.enabledInFile && rule.userEnabled, enabled = rule.enabledInFile, onCheckedChange = { vm.setRuleEnabled(rule.id, it) })
@@ -130,12 +133,9 @@ fun SettingsScreen() {
             }
         }
 
-        HorizontalDivider()
-        SectionTitle("Data")
+        HorizontalDivider(Modifier.padding(vertical = 4.dp))
+        SectionTitle("Data and privacy")
         OutlinedAction("Clear scan history and flagged items", { confirmClear = true })
-
-        HorizontalDivider()
-        SectionTitle("Privacy")
         Text(
             "All analysis happens on this device. The app has no internet permission and sends nothing anywhere. " +
                 "Ordinary scans store only scores and rule names. Flagged items also store short excerpts with digit runs masked. " +
@@ -144,11 +144,12 @@ fun SettingsScreen() {
             style = MaterialTheme.typography.bodySmall,
         )
 
-        HorizontalDivider()
-        SectionTitle("About and diagnostics")
-        Text("Version ${BuildConfig.VERSION_NAME} (build ${BuildConfig.VERSION_CODE})", style = MaterialTheme.typography.bodySmall)
-        Text("Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})", style = MaterialTheme.typography.bodySmall)
-        Text("Pipeline: ${stats.processed} processed, ${stats.failed} failed, ${stats.dropped} skipped in bursts (since app start)", style = MaterialTheme.typography.bodySmall)
+        HorizontalDivider(Modifier.padding(vertical = 4.dp))
+        Text(
+            "Version ${BuildConfig.VERSION_NAME} (build ${BuildConfig.VERSION_CODE}) · Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})\n" +
+                "Pipeline: ${stats.processed} processed, ${stats.failed} failed, ${stats.dropped} skipped in bursts (since app start)",
+            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 
     if (confirmClear) {
@@ -159,5 +160,17 @@ fun SettingsScreen() {
             confirmButton = { TextButton(onClick = { confirmClear = false; vm.clearHistory() }) { Text("Delete") } },
             dismissButton = { TextButton(onClick = { confirmClear = false }) { Text("Cancel") } },
         )
+    }
+}
+
+/** A switch row with an optional one-line explanation, at least a full touch target tall. */
+@Composable
+private fun SettingSwitch(title: String, description: String?, checked: Boolean, onChange: (Boolean) -> Unit, enabled: Boolean = true) {
+    Row(Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch), verticalAlignment = Alignment.CenterVertically) {
+        Column(Modifier.weight(1f).padding(end = 8.dp)) {
+            Text(title)
+            if (description != null) Text(description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        Switch(checked = checked, onCheckedChange = onChange, enabled = enabled)
     }
 }

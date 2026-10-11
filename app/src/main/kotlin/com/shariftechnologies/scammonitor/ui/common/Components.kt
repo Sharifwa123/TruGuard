@@ -68,7 +68,7 @@ fun CenteredLoading() {
 @Composable
 fun MessageState(title: String, message: String, modifier: Modifier = Modifier, action: (@Composable () -> Unit)? = null) {
     Column(
-        modifier = modifier.fillMaxWidth().padding(24.dp),
+        modifier = modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
@@ -83,7 +83,7 @@ fun ErrorState(message: String) = MessageState("Something went wrong", message)
 
 @Composable
 fun SectionTitle(text: String, modifier: Modifier = Modifier) {
-    Text(text, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary, modifier = modifier.padding(vertical = 4.dp))
+    Text(text, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary, modifier = modifier.padding(vertical = 2.dp))
 }
 
 @Composable

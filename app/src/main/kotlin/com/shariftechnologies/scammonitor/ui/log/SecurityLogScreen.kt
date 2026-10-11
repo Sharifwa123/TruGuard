@@ -3,7 +3,9 @@ package com.shariftechnologies.scammonitor.ui.log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -36,6 +38,7 @@ import com.shariftechnologies.scammonitor.ui.common.Loadable
 import com.shariftechnologies.scammonitor.ui.common.MessageState
 import com.shariftechnologies.scammonitor.ui.common.SeverityBadge
 import com.shariftechnologies.scammonitor.ui.common.formatTime
+import com.shariftechnologies.scammonitor.ui.theme.Dimens
 
 @Composable
 fun SecurityLogScreen(onOpenFlagged: (String) -> Unit) {
@@ -46,7 +49,7 @@ fun SecurityLogScreen(onOpenFlagged: (String) -> Unit) {
     var selected by remember { mutableStateOf<ScanSummary?>(null) }
 
     Column(Modifier.fillMaxWidth()) {
-        Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = Dimens.ScreenPadding, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             FilterChip(selected = filter.severity == null && !filter.flaggedOnly, onClick = { vm.setSeverity(null); vm.setFlaggedOnly(false) }, label = { Text("All") })
             FilterChip(selected = filter.flaggedOnly, onClick = { vm.setFlaggedOnly(!filter.flaggedOnly) }, label = { Text("Flagged only") })
             Severity.entries.reversed().forEach { sev ->
@@ -58,17 +61,17 @@ fun SecurityLogScreen(onOpenFlagged: (String) -> Unit) {
             is Loadable.Failure -> ErrorState(s.message)
             is Loadable.Success -> if (s.value.isEmpty()) {
                 MessageState("No scans to show", "Completed scans appear here, including low-risk ones. Try clearing the filters.")
-            } else LazyColumn(contentPadding = androidx.compose.foundation.layout.PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            } else LazyColumn(contentPadding = PaddingValues(horizontal = Dimens.ScreenPadding, vertical = 0.dp)) {
                 items(s.value, key = { it.scanId }) { scan ->
-                    Column(Modifier.fillMaxWidth().clickable { selected = scan }, verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Column(Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch).clickable { selected = scan }.padding(vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             SeverityBadge(scan.severity)
-                            Text(scan.sourceLabel, modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
+                            Text(scan.sourceLabel, modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium, maxLines = 1)
                             Text(if (scan.flagged) "Flagged" else "Low risk", style = MaterialTheme.typography.labelMedium)
                         }
                         Text("${formatTime(context, scan.scannedAt)} · score ${scan.riskScore}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        HorizontalDivider(Modifier.padding(top = 8.dp))
                     }
+                    HorizontalDivider()
                 }
             }
         }

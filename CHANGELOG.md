@@ -2,6 +2,15 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.1.1 - 2026-10-11
+
+- **Screen space and layout pass (no behavior changes).** Tighter, consistent spacing from shared tokens (`Dimens`); every tappable row at least 48dp tall; edge-to-edge with correct system-bar and keyboard insets.
+  - Dashboard: removed the oversized headline, the status card's extra title and the big flagged-count card (now one compact row); the duplicate "Open security log" button became a small "Open log" link next to Recent scans; privacy note shortened.
+  - Onboarding: four stacked full-width buttons became one primary action, a row of two secondary actions, and Continue.
+  - Settings: related controls grouped; the 11 detection rules collapse behind a header showing how many are on; the single-button "Data" section merged with Privacy; diagnostics condensed; the two notification-access buttons share one row.
+  - Security: each finding shows its title and consequence, with the explanation and the fix one tap away; the Check again button moved into the header.
+  - Flagged and Log lists: denser, easier-to-scan rows with the score folded into the time line; Flagged detail disclaimer and rule list condensed.
+
 ## Unreleased
 
 - Groundwork for opt-in screen monitoring (inert; no Accessibility service exists yet and nothing reads the screen): per-app, per-chat and per-website scope rules, a screen analyzer, a never-monitor list (system screens, keyboards, password managers, finance apps) and storage for the user's choices. Findings from on-screen text will be labelled "(on screen)" and are the only thing stored.
