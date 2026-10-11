@@ -22,6 +22,10 @@ NotificationScanProcessor
 Compose UI (Dashboard · Flagged · Log · Settings · Onboarding) ← ViewModels ← repositories/Flows
 ```
 
+## Phone-security checks
+
+`InstalledAppScanner` (PackageManager) → `AppSnapshot` → `AppRiskAssessor` (weights, signals and combinations from `permission_risks.json`) → rating and plain-language findings. `SecuritySettingsReader` → `PostureSnapshot` → `SecurityPostureEvaluator.evaluate` (current problems) and `.changes` (weakening transitions since the last stored snapshot). `SecurityChangeMonitor` (ContentObservers on the relevant system settings, plus `SecurityCheckWorker` daily) and `InstallMonitor` (dynamic `ACTION_PACKAGE_ADDED` receiver) raise notifications through `SecurityAlertNotifier`. Nothing is persisted except the last protection snapshot; the Security tab recomputes on demand.
+
 ## Key decisions
 
 - **`:engine` is a plain JVM module.** All logic that does not need Android (scoring, URL analysis, dispatcher, processor policy) is testable in milliseconds and in CI without an SDK. The app module only adapts Android types.
@@ -31,7 +35,7 @@ Compose UI (Dashboard · Flagged · Log · Settings · Onboarding) ← ViewModel
 - **Single source of truth for rules:** bundled `scam_rules.json` defines rules; DataStore stores only the ids the user disabled.
 - **Warnings are plain notifications.** No overlays, no background activity launches, no actions that modify data.
 - **Dependency wiring by hand** (`AppContainer`), no DI framework.
-- WorkManager is intentionally absent: retention pruning runs at app start/listener connect, and nothing else needs scheduling yet. The future permission audit may add it.
+- WorkManager is used only for a daily security re-check (`SecurityCheckWorker`); retention pruning still runs at app start/listener connect.
 
 ## Scoring
 
@@ -42,4 +46,4 @@ Link signals: `signal.blocked_domain` (60, local blocklist hit → HIGH on its o
 
 ## Package map (`com.shariftechnologies.scammonitor`)
 
-`app` (application, container, activity) · `core` (text sanitising, hashing; in `:engine`) · `data` (Room, DataStore, assets, repositories) · `domain` (models, rules, engine, reputation; in `:engine`) · `monitoring` (service, extractor, access manager; pipeline in `:engine`) · `notifications` · `ui` · `audit` (future boundary, interface only).
+`app` (application, container, activity) · `core` (text sanitising, hashing; in `:engine`) · `data` (Room, DataStore, assets, repositories) · `domain` (models, rules, engine, reputation; in `:engine`) · `monitoring` (service, extractor, access manager; pipeline in `:engine`) · `notifications` · `ui` · `audit` (phone-security checks: app-risk scoring and protection-state evaluation in `:engine`; package scanning, settings reading, install/change monitors and alerts in `:app`).

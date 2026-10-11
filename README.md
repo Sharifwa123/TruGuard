@@ -60,9 +60,16 @@ Without the helper app: `scripts/post-test-notifications.sh` posts via `adb shel
 |---|---|
 | `BIND_NOTIFICATION_LISTENER_SERVICE` (on the `<service>`) | Lets only the Android system bind the listener. It is *not* a runtime permission. The user grants **notification access** in system Settings. |
 | `POST_NOTIFICATIONS` | Android 13+ runtime permission to show this app's own warnings. |
-| `<queries>` for launcher apps | Android 11+ package visibility, so source app names can be shown. Deliberately **not** `QUERY_ALL_PACKAGES`. |
+| `QUERY_ALL_PACKAGES` | Lets the security audit list every installed app and its permissions (metadata only, never app data). Google Play restricts this permission and would require a declared justification, so this build is meant to be sideloaded. |
+| `<queries>` for launcher apps | Android 11+ package visibility for app names (also covered by the permission above). |
 
-Not requested: internet, accessibility, SMS, contacts, call log, overlay (`SYSTEM_ALERT_WINDOW`), foreground service.
+Not requested: internet, accessibility, SMS, contacts, call log, overlay (`SYSTEM_ALERT_WINDOW`), foreground service. The app reads other apps' notifications only through the notification-access grant, and does not read what is on screen.
+
+## Phone security checks
+
+- **Security tab:** the state of Play Protect (when readable), screen lock, encryption, USB debugging, developer options and security-patch age; apps with Accessibility access, notification access or device-admin rights; and a list of installed apps worth a closer look, each with plain-language explanations of what its permissions can cause and what to do.
+- **Alerts** (Settings → "Alert me about Play Protect and risky apps"): when Play Protect is turned off, the screen lock is removed, USB debugging or developer options are turned on, or an app gains Accessibility, notification-reading or device-admin power; and right after a new app is installed if what it asks for looks dangerous. Settings changes are noticed as they happen while the app process is alive, plus a daily background check.
+- Rules for scoring permissions live in `app/src/main/assets/permission_risks.json` (editable; see docs/RULE_SCHEMA.md).
 
 ## Privacy
 
@@ -83,10 +90,10 @@ Not requested: internet, accessibility, SMS, contacts, call log, overlay (`SYSTE
 - Brand/lookalike detection uses a short editable brand list and an approximate registrable-domain calculation (no full public-suffix list).
 - Under the queue's bounded capacity, an extreme burst drops the *oldest* waiting notifications (counted and shown in Settings → diagnostics).
 - UI strings are English only.
-- Installed-app permission auditing is **not implemented**; `audit/InstalledAppAuditor.kt` documents the future boundary only.
+- Phone-security checks (Security tab): installed apps are rated from their declared permissions, install source and special accesses, and the protection state is read from settings Android exposes. Limits: Android gives apps **no way to block or pause an install, or to see a settings change before it happens**, so alerts arrive immediately *after* (a new app is checked before it has run, and you can uninstall it). The Play Protect switch lives in Google's own storage and **cannot be read reliably on every phone**: it may show as "could not be checked". Detecting someone *trying* to turn it off would need an Accessibility service reading system screens, which this app does not use. Ratings are heuristic: many genuine apps ask for powerful permissions.
 
 ## Verification status
 
-- **Verified in CI (GitHub Actions, on every push and PR):** `:engine` unit tests (58 passing); full Android build of `:app` and `:testsender` (Kotlin/Compose compile, Room KSP, resource and manifest merge); app unit tests; lint; debug APKs produced and uploaded as workflow artifacts.
+- **Verified in CI (GitHub Actions, on every push and PR):** `:engine` unit tests (73 passing); full Android build of `:app` and `:testsender` (Kotlin/Compose compile, Room KSP, resource and manifest merge); app unit tests; lint; debug APKs produced and uploaded as workflow artifacts.
 - **Not yet verified:** the instrumented tests (`instrumented.yml`, manual) and the whole on-device checklist in [docs/TEST_PLAN.md](docs/TEST_PLAN.md): the real listener receiving notifications, warning display, lock-screen privacy, reconnect after reboot, OEM battery behaviour. No physical-device test has been performed.
 - The `release.yml` workflow has not yet been exercised (no tag has been pushed), and no signing secrets are configured yet.

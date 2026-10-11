@@ -3,11 +3,16 @@
 ## Automated (run in CI)
 | Suite | Where | Covers |
 |---|---|---|
-| Engine unit tests (58) | `engine/src/test` | PIN request, reversal + payment, block threat + lookalike link, reward + advance fee, urgency + synthetic blocked domain, normal transaction, legit OTP notice, plain account notice, malformed URLs, deceptive hostnames, official domains, evidence masking, pathological input, missing/invalid rule data, invalid individual rules, URL parsing (IDN, userinfo, ports, IP), fuzzy wording (typos, shorthand, leetspeak, spaced/stretched letters, homoglyphs, negation) plus an everyday-message corpus that must not flag, content assembly, rapid bursts, duplicate updates, changed content, own-package exclusion, empty events, queue saturation, processor exceptions, stopped dispatcher, warning dedupe, rate cap, HIGH exemption, user thresholds |
+| Engine unit tests (73) | `engine/src/test` | PIN request, reversal + payment, block threat + lookalike link, reward + advance fee, urgency + synthetic blocked domain, normal transaction, legit OTP notice, plain account notice, malformed URLs, deceptive hostnames, official domains, evidence masking, pathological input, missing/invalid rule data, invalid individual rules, URL parsing (IDN, userinfo, ports, IP), fuzzy wording (typos, shorthand, leetspeak, spaced/stretched letters, homoglyphs, negation) plus an everyday-message corpus that must not flag, content assembly, rapid bursts, duplicate updates, changed content, own-package exclusion, empty events, queue saturation, processor exceptions, stopped dispatcher, warning dedupe, rate cap, HIGH exemption, user thresholds |
 | App unit tests | `app/src/test` | Listener-access setting parsing |
 | Instrumented | `app/src/androidTest` (manual workflow `instrumented.yml`) | Room insert/retrieve, duplicate event, reopen database, clear all, evidence masking; warning notifications on the right channel per severity, sender in the text, lock-screen visibility setting with a generic fallback; onboarding UI |
 
 Room migrations: schema version 1 has none. When the schema changes, add a `Migration`, commit the exported schema JSON from `app/schemas`, and add a `MigrationTestHelper` test.
+
+## Phone-security checks
+Engine tests cover app scoring (store chat app stays low; sideloaded app with SMS + notification + accessibility + overlay is high with the expected combinations; ungranted vs just-installed permissions; system apps skipped; unreadable table), protection findings (Play Protect off/unknown, no screen lock, USB debugging, old patch, powerful apps with labels) and change detection (only weakening changes, only newly added apps, none on first run, JSON round trip).
+
+On a device: open the Security tab and compare with Settings; sideload the Test Sender or any APK from outside Play and confirm an alert arrives right after install if it looks risky (the Test Sender requests only notifications, so expect a mild "not from a store" rating at most); turn USB debugging on/off and confirm an alert within seconds; turn Play Protect off in the Play Store and confirm the alert or the "could not be checked" note; enable/disable an Accessibility app and confirm the alert; deny notifications and confirm nothing crashes.
 
 ## Manual, on a physical device (cannot be automated here)
 1. Install both APKs; enable notification access (and "Allow restricted settings" if needed); allow own notifications on Android 13+.

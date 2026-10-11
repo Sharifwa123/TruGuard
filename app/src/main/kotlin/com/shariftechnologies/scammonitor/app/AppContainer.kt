@@ -2,6 +2,17 @@ package com.shariftechnologies.scammonitor.app
 
 import android.content.Context
 import android.util.Log
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import com.shariftechnologies.scammonitor.audit.InstallMonitor
+import com.shariftechnologies.scammonitor.audit.InstalledAppScanner
+import com.shariftechnologies.scammonitor.audit.PermissionRiskTable
+import com.shariftechnologies.scammonitor.audit.PostureStore
+import com.shariftechnologies.scammonitor.audit.SecurityAlertNotifier
+import com.shariftechnologies.scammonitor.audit.SecurityChangeMonitor
+import com.shariftechnologies.scammonitor.audit.SecurityCheckWorker
+import com.shariftechnologies.scammonitor.audit.SecuritySettingsReader
 import com.shariftechnologies.scammonitor.data.AppLabelResolver
 import com.shariftechnologies.scammonitor.data.ScanRepository
 import com.shariftechnologies.scammonitor.data.db.SecurityDatabase
@@ -43,6 +54,24 @@ class AppContainer(context: Context) {
     val scanRepository: ScanRepository by lazy { ScanRepository(database, labels) }
     val warningManager = WarningNotificationManager(appContext, labels) { settings.warningPreferences.value.showOnLockScreen }
 
+    // Device security: app permission audit, protection state, install and change alerts.
+    val riskTable: PermissionRiskTable by lazy { PermissionRiskTable.parse(assets.readOrNull("permission_risks.json")) }
+    val appScanner = InstalledAppScanner(appContext)
+    private val securityReader = SecuritySettingsReader(appContext, appScanner)
+    private val securityNotifier = SecurityAlertNotifier(appContext) { settings.securityAlertsEnabled.value }
+    val securityMonitor = SecurityChangeMonitor(
+        context = appContext,
+        scope = scope,
+        reader = securityReader,
+        store = object : PostureStore {
+            override suspend fun load() = settings.lastPostureJson()
+            override suspend fun save(json: String) = settings.saveLastPostureJson(json)
+        },
+        notifier = securityNotifier,
+        labelOf = { labels.labelOrPackage(it) },
+    )
+    private val installMonitor = InstallMonitor(appContext, scope, appScanner, { riskTable }, securityNotifier)
+
     private val engine = ScamDetectionEngine(
         rules = { ruleRepository.current() },
         reputation = { reputation.checker },
@@ -72,6 +101,14 @@ class AppContainer(context: Context) {
             warningManager.ensureChannels()
             dispatcher.start()
             runCatching { scanRepository.prune() }
+            runCatching {
+                securityNotifier.ensureChannel()
+                securityMonitor.start()
+                installMonitor.start()
+                WorkManager.getInstance(appContext).enqueueUniquePeriodicWork(
+                    "security-check", ExistingPeriodicWorkPolicy.KEEP, PeriodicWorkRequestBuilder<SecurityCheckWorker>(12, java.util.concurrent.TimeUnit.HOURS).build(),
+                )
+            }
         }
     }
 }

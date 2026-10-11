@@ -5,6 +5,11 @@
          notifications, which is the separate "notification access" grant given in system Settings. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
+    <!-- Needed by the security audit to list every installed app and its permissions. Reads app metadata only
+         (never app data). Google Play restricts this permission, so a Play Store release would need a declared
+         justification; this project is distributed as a sideloaded APK. -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+
     <!-- Makes launcher apps visible so their names can be shown (Android 11+ package visibility),
          without the broad QUERY_ALL_PACKAGES permission. -->
     <queries>
