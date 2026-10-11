@@ -27,4 +27,11 @@
     <string name="security_alert_body">%1$s\n\nWhat it can cause: %2$s\n\nWhat to do: %3$s</string>
 
     <string name="warning_on_screen">%1$s (on screen)</string>
+
+    <string name="screen_service_label">Scam Monitor screen text check</string>
+    <string name="accessibility_description">Lets Scam Monitor read text on screen in the apps you choose, only to check for scams on this phone. It cannot tap, type or change anything. Nothing is stored or sent.</string>
+    <string name="channel_screen_name">Screen monitoring status</string>
+    <string name="channel_screen_description">Shown while Scam Monitor is checking on-screen text in the apps you chose</string>
+    <string name="screen_notification_title">Screen monitoring is on</string>
+    <string name="screen_notification_text">Checking text in %1$d app(s) for scams, on this phone only. Nothing is stored or sent. Tap to manage.</string>
 </resources>

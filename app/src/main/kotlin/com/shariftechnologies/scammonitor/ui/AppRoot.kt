@@ -70,7 +70,7 @@ private val topLevel = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppRoot(pendingEventId: String?, onPendingEventConsumed: () -> Unit, openSecurity: Boolean, onOpenSecurityConsumed: () -> Unit) {
+fun AppRoot(pendingEventId: String?, onPendingEventConsumed: () -> Unit, openSecurity: Boolean, onOpenSecurityConsumed: () -> Unit, openMonitoring: Boolean, onOpenMonitoringConsumed: () -> Unit) {
     val settings = (LocalContext.current.applicationContext as ScamMonitorApplication).container.settings
     val onboardingDone by settings.onboardingCompleted.collectAsStateWithLifecycle()
 
@@ -105,6 +105,14 @@ fun AppRoot(pendingEventId: String?, onPendingEventConsumed: () -> Unit, openSec
             popUpTo(navController.graph.findStartDestination().id) { saveState = true }
             launchSingleTop = true
             restoreState = true
+        }
+    }
+
+    // The screen-monitoring controls live in Settings; the status notification and the floating shortcut open it.
+    LaunchedEffect(openMonitoring) {
+        if (openMonitoring) {
+            goTopLevel(Routes.SETTINGS)
+            onOpenMonitoringConsumed()
         }
     }
 

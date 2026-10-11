@@ -23,6 +23,8 @@ import com.shariftechnologies.scammonitor.data.rules.RuleRepository
 import com.shariftechnologies.scammonitor.domain.engine.ScamDetectionEngine
 import com.shariftechnologies.scammonitor.monitoring.MonitorStatus
 import com.shariftechnologies.scammonitor.monitoring.NotificationAccessManager
+import com.shariftechnologies.scammonitor.monitoring.ScreenMonitorController
+import com.shariftechnologies.scammonitor.notifications.ScreenMonitorNotifier
 import com.shariftechnologies.scammonitor.monitoring.pipeline.NotificationEventDispatcher
 import com.shariftechnologies.scammonitor.monitoring.pipeline.NotificationScanProcessor
 import com.shariftechnologies.scammonitor.notifications.WarningNotificationManager
@@ -52,6 +54,8 @@ class AppContainer(context: Context) {
 
     val database: SecurityDatabase by lazy { SecurityDatabase.create(appContext) }
     val scanRepository: ScanRepository by lazy { ScanRepository(database, labels) }
+    val screenController = ScreenMonitorController(settings, scope, appContext.packageName)
+    val screenNotifier = ScreenMonitorNotifier(appContext)
     val warningManager = WarningNotificationManager(appContext, labels) { settings.warningPreferences.value.showOnLockScreen }
 
     // Device security: app permission audit, protection state, install and change alerts.

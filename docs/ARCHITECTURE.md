@@ -22,6 +22,10 @@ NotificationScanProcessor
 Compose UI (Dashboard · Flagged · Log · Settings · Onboarding) ← ViewModels ← repositories/Flows
 ```
 
+## Screen monitoring
+
+`ScreenTextAccessibilityService` receives window events, ignores apps the user has not switched on, and for chosen apps reads the accessibility tree (`ScreenNodeReader`, bounded) → `ScreenAnalyzer` (open chat title / website host from the header and address bar vs message text) → `ScopeMatcher` (whole app, or chosen chats / sites; fails closed) → `ScreenChunkTracker` (only new text) → `ScreenEventFactory` → the same dispatcher, engine and warning pipeline as notifications, with origin `SCREEN`. Screen findings are persisted only when flagged. `ScreenShortcutOverlay` (an accessibility overlay) is the draggable shield that edits the per-app `ScreenMonitorConfig` stored in DataStore. `ScreenTextPolicy` is a hard, code-level never-monitor list.
+
 ## Phone-security checks
 
 `InstalledAppScanner` (PackageManager) → `AppSnapshot` → `AppRiskAssessor` (weights, signals and combinations from `permission_risks.json`) → rating and plain-language findings. `SecuritySettingsReader` → `PostureSnapshot` → `SecurityPostureEvaluator.evaluate` (current problems) and `.changes` (weakening transitions since the last stored snapshot). `SecurityChangeMonitor` (ContentObservers on the relevant system settings, plus `SecurityCheckWorker` daily) and `InstallMonitor` (dynamic `ACTION_PACKAGE_ADDED` receiver) raise notifications through `SecurityAlertNotifier`. Nothing is persisted except the last protection snapshot; the Security tab recomputes on demand.

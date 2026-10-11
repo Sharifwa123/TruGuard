@@ -32,6 +32,7 @@ class SettingsViewModel(private val container: AppContainer) : ViewModel() {
     fun refresh() {
         _accessEnabled.value = container.accessManager.isAccessEnabled()
         _notificationsAllowed.value = container.warningManager.canPostNotifications()
+        _screenServiceEnabled.value = container.accessManager.isScreenServiceEnabled()
     }
 
     fun openAccessSettings(context: android.content.Context) = container.accessManager.openAccessSettings(context)
@@ -40,6 +41,27 @@ class SettingsViewModel(private val container: AppContainer) : ViewModel() {
     fun setWarningsEnabled(enabled: Boolean) { viewModelScope.launch { container.settings.setWarningsEnabled(enabled) } }
     val securityAlertsEnabled: StateFlow<Boolean> = container.settings.securityAlertsEnabled
     fun setSecurityAlertsEnabled(enabled: Boolean) { viewModelScope.launch { container.settings.setSecurityAlertsEnabled(enabled) } }
+    // Screen monitoring: consent, pause, shortcut, and the apps chosen through the floating shortcut.
+    val screenConsent: StateFlow<Boolean> = container.settings.screenConsent
+    val screenPaused: StateFlow<Boolean> = container.settings.screenPaused
+    val screenShortcut: StateFlow<Boolean> = container.settings.screenShortcut
+    val screenConfig: StateFlow<com.shariftechnologies.scammonitor.monitor.ScreenMonitorConfig> = container.settings.screenConfig
+    val screenConnected: StateFlow<Boolean> = container.monitorStatus.screenConnected
+    private val _screenServiceEnabled = MutableStateFlow(container.accessManager.isScreenServiceEnabled())
+    val screenServiceEnabled: StateFlow<Boolean> = _screenServiceEnabled
+
+    fun agreeToScreenMonitoring() { viewModelScope.launch { container.settings.setScreenConsent(true) } }
+    fun setScreenPaused(paused: Boolean) = container.screenController.setPaused(paused)
+    fun setScreenShortcut(show: Boolean) { viewModelScope.launch { container.settings.setScreenShortcut(show) } }
+    fun openAccessibilitySettings(context: android.content.Context) = container.accessManager.openAccessibilitySettings(context)
+    fun appLabel(packageName: String): String = container.labels.labelOrPackage(packageName)
+
+    /** Stops monitoring every app and forgets what was already analysed. */
+    fun stopAllScreenMonitoring() {
+        container.settings.screenConfig.value.enabledPackages.forEach { container.screenController.tracker.forget(it) }
+        container.screenController.updateConfig { com.shariftechnologies.scammonitor.monitor.ScreenMonitorConfig() }
+    }
+
     fun setShowOnLockScreen(show: Boolean) { viewModelScope.launch { container.settings.setShowOnLockScreen(show) } }
     fun setMinSeverity(severity: Severity) { viewModelScope.launch { container.settings.setWarningMinSeverity(severity) } }
     fun setRuleEnabled(id: String, enabled: Boolean) { viewModelScope.launch { container.settings.setRuleEnabled(id, enabled) } }

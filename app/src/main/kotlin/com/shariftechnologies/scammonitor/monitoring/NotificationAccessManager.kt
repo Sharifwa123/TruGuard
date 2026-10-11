@@ -17,11 +17,26 @@ import kotlinx.coroutines.flow.asStateFlow
  */
 class NotificationAccessManager(private val context: Context) {
     private val service = ComponentName(context, ScamNotificationListenerService::class.java)
+    private val screenService = ComponentName(context, ScreenTextAccessibilityService::class.java)
 
     /** True when this app's listener is enabled in system Settings. */
     fun isAccessEnabled(): Boolean {
         val flat = Settings.Secure.getString(context.contentResolver, "enabled_notification_listeners")
         return isListenerEnabled(flat, service.flattenToString(), service.flattenToShortString())
+    }
+
+    /** True when this app's screen-monitoring Accessibility service is switched on in system Settings. */
+    fun isScreenServiceEnabled(): Boolean {
+        val flat = Settings.Secure.getString(context.contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
+        return isListenerEnabled(flat, screenService.flattenToString(), screenService.flattenToShortString())
+    }
+
+    /** Opens the system Accessibility settings, where the user switches the service on. False if unavailable. */
+    fun openAccessibilitySettings(launcher: Context): Boolean = try {
+        launcher.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        true
+    } catch (e: ActivityNotFoundException) {
+        false
     }
 
     /**
@@ -69,4 +84,9 @@ class MonitorStatus {
     private val _connected = MutableStateFlow(false)
     val connected: StateFlow<Boolean> = _connected.asStateFlow()
     fun setConnected(value: Boolean) { _connected.value = value }
+
+    private val _screenConnected = MutableStateFlow(false)
+    /** Whether the screen-monitoring Accessibility service is currently running. */
+    val screenConnected: StateFlow<Boolean> = _screenConnected.asStateFlow()
+    fun setScreenConnected(value: Boolean) { _screenConnected.value = value }
 }

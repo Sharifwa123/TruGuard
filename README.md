@@ -60,10 +60,22 @@ Without the helper app: `scripts/post-test-notifications.sh` posts via `adb shel
 |---|---|
 | `BIND_NOTIFICATION_LISTENER_SERVICE` (on the `<service>`) | Lets only the Android system bind the listener. It is *not* a runtime permission. The user grants **notification access** in system Settings. |
 | `POST_NOTIFICATIONS` | Android 13+ runtime permission to show this app's own warnings. |
+| `BIND_ACCESSIBILITY_SERVICE` (on the screen-text `<service>`) | Lets only the Android system bind the optional screen-monitoring service. It does nothing until you agree to the in-app disclosure **and** switch it on under Accessibility, and it reads only apps you choose. It declares no gesture, key-event or touch-exploration ability. |
 | `QUERY_ALL_PACKAGES` | Lets the security audit list every installed app and its permissions (metadata only, never app data). Google Play restricts this permission and would require a declared justification, so this build is meant to be sideloaded. |
 | `<queries>` for launcher apps | Android 11+ package visibility for app names (also covered by the permission above). |
 
-Not requested: internet, accessibility, SMS, contacts, call log, overlay (`SYSTEM_ALERT_WINDOW`), foreground service. The app reads other apps' notifications only through the notification-access grant, and does not read what is on screen.
+Not requested: internet, SMS, contacts, call log, overlay permission (`SYSTEM_ALERT_WINDOW`; the floating shortcut is an accessibility overlay), foreground service.
+
+## Screen monitoring (optional, off by default)
+
+Notifications often hide their content, and many conversations (Instagram, LinkedIn, Snapchat, Facebook, Meet chat, forums, web pages) never produce one. With your explicit consent, Scam Monitor can read the text visible in **apps you choose** and run the same scam checks on it, in real time.
+
+- **Set up:** Settings → Screen monitoring → read the disclosure → turn on “Scam Monitor” under Android's Accessibility settings (sideloaded: App info › ⋮ › Allow restricted settings first).
+- **Choose what to monitor with the floating shield:** open an app (say WhatsApp), tap the shield, and pick **the whole app**, **only this chat / group / broadcast list / number**, or in a browser **only this website**. Stop the same way, or use “Stop monitoring all apps” in Settings. Nothing is monitored until you pick it.
+- **Scope rules:** a chat- or site-restricted app is read only while a chosen chat (matched by the name or number shown in the header) or website (matched by host in the address bar) is open; if it cannot tell, it reads nothing.
+- **Never read, whatever you choose:** password fields, text you are typing, the address bar's text as a message, keyboards, system screens, password managers, and banking or money apps.
+- **Privacy:** screen text is analysed in memory and never stored. Only a flagged finding is kept, as a short excerpt with digits masked, labelled “(on screen)”. A persistent notification shows while it is active, and you can pause it in Settings. It cannot tap, type or change anything.
+- **Limits:** it reads what apps expose as text. It cannot see text inside images or stickers, or voice and video calls (Meet captions only if you turn them on). Chat and tab detection is heuristic (a header title or address bar), so unusual layouts may not be recognised, in which case a restricted app is simply not read. Some apps block or hide their content from accessibility. Use it only on your own phone.
 
 ## Phone security checks
 

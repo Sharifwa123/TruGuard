@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -53,6 +54,13 @@ fun SettingsScreen() {
     val notificationsAllowed by vm.notificationsAllowed.collectAsStateWithLifecycle()
     val clearResult by vm.clearResult.collectAsStateWithLifecycle()
     val securityAlerts by vm.securityAlertsEnabled.collectAsStateWithLifecycle()
+    val screenConsent by vm.screenConsent.collectAsStateWithLifecycle()
+    val screenPaused by vm.screenPaused.collectAsStateWithLifecycle()
+    val screenShortcut by vm.screenShortcut.collectAsStateWithLifecycle()
+    val screenConfig by vm.screenConfig.collectAsStateWithLifecycle()
+    val screenConnected by vm.screenConnected.collectAsStateWithLifecycle()
+    val screenServiceEnabled by vm.screenServiceEnabled.collectAsStateWithLifecycle()
+    var showScreenDisclosure by remember { mutableStateOf(false) }
     var confirmClear by remember { mutableStateOf(false) }
     val permissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { vm.refresh() }
     OnResume { vm.refresh() }
@@ -102,6 +110,41 @@ fun SettingsScreen() {
         )
 
         HorizontalDivider(Modifier.padding(vertical = 4.dp))
+        SectionTitle("Screen monitoring")
+        when {
+            !screenConsent -> {
+                Text("Check chats, comments and web pages for scams in apps you choose, even when no notification shows them.", style = MaterialTheme.typography.bodySmall)
+                Button(onClick = { showScreenDisclosure = true }) { Text("Set up screen monitoring") }
+            }
+            !screenServiceEnabled -> {
+                Text("Last step: turn on “Scam Monitor” under Accessibility. If the switch is greyed out, open App info › ⋮ › Allow restricted settings first.", style = MaterialTheme.typography.bodySmall)
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedAction("Accessibility settings", {
+                        if (!vm.openAccessibilitySettings(context)) Toast.makeText(context, "Open Settings › Accessibility manually.", Toast.LENGTH_LONG).show()
+                    }, Modifier.weight(1f))
+                    OutlinedAction("App info", {
+                        if (!vm.openAppInfo(context)) Toast.makeText(context, "App info is unavailable on this device.", Toast.LENGTH_LONG).show()
+                    }, Modifier.weight(1f))
+                }
+            }
+            else -> {
+                val monitored = screenConfig.enabledPackages.map { vm.appLabel(it) }.sorted()
+                Text(
+                    when {
+                        screenPaused -> "Paused. Nothing is being read."
+                        monitored.isEmpty() -> "On, but no app is chosen yet. Open an app, tap the floating shield and choose the whole app, one chat or one website."
+                        screenConnected -> "Checking ${monitored.joinToString(", ")}. Nothing is stored or sent."
+                        else -> "Waiting for Android to start the service…"
+                    },
+                    style = MaterialTheme.typography.bodySmall,
+                )
+                SettingSwitch("Pause screen monitoring", null, screenPaused, vm::setScreenPaused)
+                SettingSwitch("Floating shield shortcut over apps", "Opens a panel to start or stop monitoring the app in front, or just its open chat or website.", screenShortcut, vm::setScreenShortcut)
+                if (monitored.isNotEmpty()) OutlinedAction("Stop monitoring all apps", { vm.stopAllScreenMonitoring() })
+            }
+        }
+
+        HorizontalDivider(Modifier.padding(vertical = 4.dp))
         val rules = ruleSet
         if (rules == null) {
             SectionTitle("Detection rules")
@@ -149,6 +192,31 @@ fun SettingsScreen() {
             "Version ${BuildConfig.VERSION_NAME} (build ${BuildConfig.VERSION_CODE}) · Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})\n" +
                 "Pipeline: ${stats.processed} processed, ${stats.failed} failed, ${stats.dropped} skipped in bursts (since app start)",
             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+
+    if (showScreenDisclosure) {
+        AlertDialog(
+            onDismissRequest = { showScreenDisclosure = false },
+            title = { Text("Before you turn this on") },
+            text = {
+                Column(Modifier.heightIn(max = 360.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Text("Scam Monitor can read the text shown on your screen in the apps you choose (for example WhatsApp, Instagram or a browser) to warn you about scams in real time. Android requires its Accessibility service for this and shows its own warning.", style = MaterialTheme.typography.bodySmall)
+                    Text("• Only apps you switch on are read. You can limit an app to chosen chats, groups, numbers or websites. Nothing else is read.", style = MaterialTheme.typography.bodySmall)
+                    Text("• Text is analysed on this phone only. Screen text is never uploaded or saved. If something is flagged, only a short excerpt with digits masked is kept.", style = MaterialTheme.typography.bodySmall)
+                    Text("• Password fields, what you type, keyboards, system screens, password managers and banking or money apps are never read.", style = MaterialTheme.typography.bodySmall)
+                    Text("• It cannot tap, type or change anything. A notification shows whenever it is active, and you can pause it here at any time.", style = MaterialTheme.typography.bodySmall)
+                    Text("Use this only on your own phone, and only to read content you are allowed to see.", style = MaterialTheme.typography.bodySmall)
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    showScreenDisclosure = false
+                    vm.agreeToScreenMonitoring()
+                    if (!vm.openAccessibilitySettings(context)) Toast.makeText(context, "Open Settings › Accessibility manually.", Toast.LENGTH_LONG).show()
+                }) { Text("I understand, continue") }
+            },
+            dismissButton = { TextButton(onClick = { showScreenDisclosure = false }) { Text("Cancel") } },
         )
     }
 

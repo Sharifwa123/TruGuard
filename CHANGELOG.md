@@ -2,6 +2,11 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.2.0 - 2026-10-11
+
+- **Optional, opt-in screen monitoring** for conversations that never produce a notification (Instagram, LinkedIn, Snapchat, Facebook, Meet chat, forums, web pages). Uses an Accessibility service that does nothing until the user agrees to a disclosure and switches it on. Nothing is monitored until the user picks it with the floating shield shortcut: the whole app, only one chat / group / broadcast list / number, or in a browser only one website. Fails closed when the open chat or site cannot be identified. Never reads password fields, typed text, keyboards, system screens, password managers or banking/money apps. Screen text is never stored; only flagged findings are kept (masked, labelled "(on screen)"). Persistent notification while active; pause and "stop all" in Settings.
+- Settings gains a Screen monitoring section (set-up, pause, shortcut switch, stop all). No separate app-picker screen.
+
 ## 1.1.1 - 2026-10-11
 
 - **Screen space and layout pass (no behavior changes).** Tighter, consistent spacing from shared tokens (`Dimens`); every tappable row at least 48dp tall; edge-to-edge with correct system-bar and keyboard insets.

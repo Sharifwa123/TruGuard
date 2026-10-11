@@ -14,6 +14,7 @@ import com.shariftechnologies.scammonitor.ui.theme.ScamMonitorTheme
 class MainActivity : ComponentActivity() {
     private var pendingEventId by mutableStateOf<String?>(null)
     private var pendingOpenSecurity by mutableStateOf(false)
+    private var pendingOpenMonitoring by mutableStateOf(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +22,7 @@ class MainActivity : ComponentActivity() {
         if (savedInstanceState == null) {
             pendingEventId = intent?.getStringExtra(EXTRA_FLAGGED_EVENT_ID)
             pendingOpenSecurity = intent?.getBooleanExtra(EXTRA_OPEN_SECURITY, false) == true
+            pendingOpenMonitoring = intent?.getBooleanExtra(EXTRA_OPEN_MONITORING, false) == true
         }
         setContent {
             ScamMonitorTheme {
@@ -29,6 +31,8 @@ class MainActivity : ComponentActivity() {
                     onPendingEventConsumed = { pendingEventId = null },
                     openSecurity = pendingOpenSecurity,
                     onOpenSecurityConsumed = { pendingOpenSecurity = false },
+                    openMonitoring = pendingOpenMonitoring,
+                    onOpenMonitoringConsumed = { pendingOpenMonitoring = false },
                 )
             }
         }
@@ -39,9 +43,11 @@ class MainActivity : ComponentActivity() {
         setIntent(intent)
         intent.getStringExtra(EXTRA_FLAGGED_EVENT_ID)?.let { pendingEventId = it }
         if (intent.getBooleanExtra(EXTRA_OPEN_SECURITY, false)) pendingOpenSecurity = true
+        if (intent.getBooleanExtra(EXTRA_OPEN_MONITORING, false)) pendingOpenMonitoring = true
     }
 
     companion object {
+        const val EXTRA_OPEN_MONITORING = "com.shariftechnologies.scammonitor.extra.OPEN_MONITORING"
         const val EXTRA_OPEN_SECURITY = "com.shariftechnologies.scammonitor.extra.OPEN_SECURITY"
         const val EXTRA_FLAGGED_EVENT_ID = "com.shariftechnologies.scammonitor.extra.FLAGGED_EVENT_ID"
     }
