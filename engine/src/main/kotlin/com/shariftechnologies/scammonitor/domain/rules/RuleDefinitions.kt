@@ -12,6 +12,27 @@ data class RuleSetDto(
     val rules: List<RuleDto> = emptyList(),
     val combinations: List<CombinationDto> = emptyList(),
     val linkSignals: LinkSignalsDto = LinkSignalsDto(),
+    /** Words that negate a following "negatable" concept ("never share ...", "dont send ..."). */
+    val negators: List<String> = emptyList(),
+    /** Named groups of related words, matched fuzzily (typos, shorthand, leetspeak). */
+    val concepts: Map<String, ConceptDto> = emptyMap(),
+)
+
+@Serializable
+data class ConceptDto(
+    /** Plain words, or "re:<regex>" entries tested against a raw token (e.g. phone numbers). */
+    val terms: List<String>,
+    /** When true, an occurrence directly preceded by a negator is ignored ("do not share"). */
+    val negatable: Boolean = false,
+)
+
+/** Matches when every named concept occurs within [window] consecutive words. */
+@Serializable
+data class ConceptPatternDto(
+    val all: List<String>,
+    val window: Int = 10,
+    /** When true the concepts must appear in the listed order. */
+    val ordered: Boolean = false,
 )
 
 @Serializable
@@ -33,8 +54,10 @@ data class RuleDto(
     /** Score contribution (1..100) added once when the rule matches. */
     val score: Int,
     /** Regular expressions applied to normalized (lower-case, NFKC) text. */
-    val patterns: List<String>,
-    /** ANY: one pattern is enough. ALL: every pattern must match. */
+    val patterns: List<String> = emptyList(),
+    /** Concept co-occurrence patterns: robust to wording, order, typos and shorthand. */
+    val conceptPatterns: List<ConceptPatternDto> = emptyList(),
+    /** ANY: one pattern is enough. ALL: every regex pattern must match (concept patterns always count as ANY). */
     val matchMode: String = "ANY",
     /** Plain-language explanation shown to the user. */
     val explanation: String,

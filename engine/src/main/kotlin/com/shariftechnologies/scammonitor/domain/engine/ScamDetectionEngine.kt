@@ -38,10 +38,17 @@ class ScamDetectionEngine(
         val matches = mutableListOf<RuleMatch>()
         val signals = linkedSetOf<String>()
 
+        // Second-chance text for regex rules, and a concept index built at most once, only if a rule needs it.
+        val folded = TextSanitizer.foldObfuscation(normalized).takeIf { it != normalized }
+        val conceptIndex: ConceptIndex? by lazy {
+            if (ruleSet.matcher.isEmpty) null
+            else try { ruleSet.matcher.index(normalized, deadline, nanoTime) } catch (e: RegexTimeoutException) { null }
+        }
+
         for (rule in ruleSet.rules) {
             if (!rule.enabled) continue
             val evidence = try {
-                matchRule(rule, normalized, deadline)
+                matchRule(rule, normalized, folded, deadline) ?: matchConcepts(rule, normalized, conceptIndex)
             } catch (e: RegexTimeoutException) {
                 continue // A pathological input must not stall the pipeline; skip this rule only.
             } ?: continue
@@ -94,7 +101,20 @@ class ScamDetectionEngine(
         )
     }
 
-    private fun matchRule(rule: CompiledRule, normalized: String, deadline: Long): String? {
+    private fun matchConcepts(rule: CompiledRule, normalized: String, index: ConceptIndex?): String? {
+        if (index == null) return null
+        for (p in rule.conceptPatterns) {
+            val range = index.find(p) ?: continue
+            return TextSanitizer.evidenceSnippet(normalized, range.first, range.last + 1)
+        }
+        return null
+    }
+
+    private fun matchRule(rule: CompiledRule, normalized: String, folded: String?, deadline: Long): String? =
+        matchRegex(rule, normalized, deadline) ?: folded?.let { matchRegex(rule, it, deadline) }
+
+    private fun matchRegex(rule: CompiledRule, normalized: String, deadline: Long): String? {
+        if (rule.patterns.isEmpty()) return null
         val text = TimeLimitedCharSequence(normalized, deadline, nanoTime)
         var firstEvidence: String? = null
         for (pattern in rule.patterns) {

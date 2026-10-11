@@ -78,7 +78,7 @@ Not requested: internet, accessibility, SMS, contacts, call log, overlay (`SYSTE
 
 - Only notification content Android exposes to a listener can be analysed. Apps or lock-screen settings that hide content, empty notifications, and apps that never post notifications are invisible to it.
 - Android, OEM battery managers, force-stop, or the user can stop the listener at any time. The app requests a rebind when disconnected but cannot guarantee uninterrupted monitoring; the dashboard shows the live connection state.
-- Detection is rule-based and heuristic. Expect misses (novel wording, other languages) and false positives. The rules are English-centric with Ghanaian terms (MoMo, GH₵, cedis).
+- Detection is rule-based and heuristic, but not tied to exact phrases: a concept layer tolerates misspellings, shorthand, leetspeak, spacing and reordering. It is still a lexicon (no machine-learning model, no understanding of meaning), so entirely new wording, other languages and scams without the usual signals can be missed, and some genuine messages may be flagged. The rules are English-centric with Ghanaian terms (MoMo, GH₵, cedis).
 - The local domain blocklist is a small synthetic starter set (reserved `.example` domains). A local list goes stale unless deliberately updated. No online reputation lookup exists in v1; `ReputationProvider` is the extension point (e.g. Safe Browsing later).
 - Brand/lookalike detection uses a short editable brand list and an approximate registrable-domain calculation (no full public-suffix list).
 - Under the queue's bounded capacity, an extreme burst drops the *oldest* waiting notifications (counted and shown in Settings → diagnostics).
@@ -87,6 +87,6 @@ Not requested: internet, accessibility, SMS, contacts, call log, overlay (`SYSTE
 
 ## Verification status
 
-- **Verified in CI (GitHub Actions, on every push and PR):** `:engine` unit tests (49 passing); full Android build of `:app` and `:testsender` (Kotlin/Compose compile, Room KSP, resource and manifest merge); app unit tests; lint; debug APKs produced and uploaded as workflow artifacts.
+- **Verified in CI (GitHub Actions, on every push and PR):** `:engine` unit tests (58 passing); full Android build of `:app` and `:testsender` (Kotlin/Compose compile, Room KSP, resource and manifest merge); app unit tests; lint; debug APKs produced and uploaded as workflow artifacts.
 - **Not yet verified:** the instrumented tests (`instrumented.yml`, manual) and the whole on-device checklist in [docs/TEST_PLAN.md](docs/TEST_PLAN.md): the real listener receiving notifications, warning display, lock-screen privacy, reconnect after reboot, OEM battery behaviour. No physical-device test has been performed.
 - The `release.yml` workflow has not yet been exercised (no tag has been pushed), and no signing secrets are configured yet.

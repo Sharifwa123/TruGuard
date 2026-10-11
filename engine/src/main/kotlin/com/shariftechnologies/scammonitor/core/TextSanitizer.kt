@@ -22,6 +22,31 @@ object TextSanitizer {
             .trim()
     }
 
+    private val MARKS = Regex("\\p{M}+")
+    private val STRETCH = Regex("(.)\\1{2,}")
+    private val LOOKALIKES = mapOf(
+        'а' to 'a', 'е' to 'e', 'о' to 'o', 'р' to 'p', 'с' to 'c', 'х' to 'x', 'у' to 'y', 'і' to 'i', 'ѕ' to 's', 'ԁ' to 'd',
+        'α' to 'a', 'ο' to 'o', 'ρ' to 'p', 'ν' to 'v', 'ε' to 'e', 'ι' to 'i', 'κ' to 'k', 'τ' to 't',
+    )
+
+    /**
+     * De-obfuscated variant used as a second chance for regex rules: accents stripped, Cyrillic/Greek
+     * look-alikes mapped to Latin, digits/symbols inside words read as letters (c0de, sh@re) and stretched
+     * letters collapsed (pleeease). Numbers on their own are left alone.
+     */
+    fun foldObfuscation(normalized: String): String {
+        val noMarks = MARKS.replace(Normalizer.normalize(normalized, Normalizer.Form.NFD), "")
+        val sb = StringBuilder(noMarks.length)
+        for (token in noMarks.split(' ')) {
+            if (sb.isNotEmpty()) sb.append(' ')
+            val mapped = token.map { LOOKALIKES[it] ?: it }.joinToString("")
+            if (mapped.any { it.isLetter() }) {
+                for (ch in mapped) sb.append(when (ch) { '0' -> 'o'; '1' -> 'i'; '3' -> 'e'; '4' -> 'a'; '5' -> 's'; '7' -> 't'; '@' -> 'a'; '$' -> 's'; else -> ch })
+            } else sb.append(mapped)
+        }
+        return STRETCH.replace(sb.toString()) { it.value.substring(0, 2) }
+    }
+
     /** Removes control and invisible characters but keeps the original casing. */
     fun clean(text: String): String =
         text.replace(INVISIBLE, "").replace(CONTROL, " ").trim()
