@@ -117,6 +117,8 @@ class AppContainer(context: Context) {
     /** Idempotent. Workers start only after preferences are loaded so scans never run on defaults. */
     fun start() {
         if (!started.compareAndSet(false, true)) return
+        // Load the model and rules off the main thread now, so the first message is judged without a cold start.
+        scope.launch { runCatching { intentModel; ruleRepository.current(); reputation.checker } }
         scope.launch {
             settings.awaitLoaded()
             warningManager.ensureChannels()

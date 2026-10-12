@@ -2,6 +2,11 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.7.2 - 2026-10-12
+
+- **Faster detection.** Measured on a desktop JVM (phones are several times slower): judging one message dropped from 2.4 ms to 0.9 ms and a 60-piece screen from 120 ms to 55 ms. Features are now hashed straight from the characters without building a string per feature, and the model's seven weight tables are read in a single lookup per feature instead of seven boxed map lookups. Scores are unchanged (the golden test against the Python trainer still passes at 1e-6).
+- **No cold start on the first message.** The model, rules and domain list are loaded on a background thread when the app starts, instead of during the first scan.
+
 ## 1.7.1 - 2026-10-12
 
 - **Shield stays out of the way.** After 2.5 seconds untouched the floating shield fades to 35% so it no longer hides chat bubbles or notification text; touching it brings it back at full strength.
