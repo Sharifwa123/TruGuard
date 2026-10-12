@@ -14,6 +14,7 @@ import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewConfiguration
 import android.view.WindowManager
 import android.view.animation.OvershootInterpolator
@@ -241,43 +242,47 @@ class ScreenShortcutOverlay(
     private fun togglePanel() {
         if (panel != null) { hidePanel(); return }
         val pkg = currentPackage ?: return
-        val content = buildPanel(pkg)
-        // A fixed width (never measured from the content): a wrap-content overlay window could collapse to a sliver.
+        val card = buildPanel(pkg)
+        card.isClickable = true // touches on the card are not "outside" taps
+
+        // Same approach as the warning pop-up: a full-screen transparent window with the card placed inside it by
+        // margins. The window itself never has to be sized from its content, and a tap anywhere outside the card
+        // (including on the shield) simply closes the panel.
         val w = (metrics.widthPixels - dp(24)).coerceAtMost(dp(PANEL_WIDTH_DP)).coerceAtLeast(dp(200))
         val bp = bubbleParams
         val bubbleWindow = dp(BUBBLE_DP) + 2 * dp(BUBBLE_PAD_DP)
         val bubbleX = bp?.x ?: (metrics.widthPixels - bubbleWindow)
         val bubbleY = bp?.y ?: dp(120)
-        val x = (if (bubbleX + bubbleWindow / 2 > metrics.widthPixels / 2) metrics.widthPixels - w - dp(4) else dp(4)).coerceAtLeast(0)
-        val params = overlayParams(w, WindowManager.LayoutParams.WRAP_CONTENT, touchOutside = true).apply {
-            this.x = x
-            this.y = bubbleY + bubbleWindow - dp(8) // below the shield for now; corrected once the real height is known
+        val below = bubbleY + bubbleWindow - dp(8)
+        val lp = FrameLayout.LayoutParams(w, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.TOP or Gravity.START).apply {
+            leftMargin = (if (bubbleX + bubbleWindow / 2 > metrics.widthPixels / 2) metrics.widthPixels - w - dp(8) else dp(8)).coerceAtLeast(0)
+            topMargin = below.coerceAtLeast(dp(24))
         }
-        content.setOnTouchListener { _, e ->
-            if (e.action == MotionEvent.ACTION_OUTSIDE && !touchIsOnBubble(e)) { hidePanel(); true } else false
+        val root = FrameLayout(themed).apply {
+            isClickable = true
+            setOnClickListener { hidePanel() }
+            addView(card, lp)
         }
-        // Once laid out, move the panel above the shield if it would run off the bottom, and keep it on screen.
-        content.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
-            override fun onLayoutChange(v: View, l: Int, t: Int, r: Int, b: Int, ol: Int, ot: Int, or: Int, ob: Int) {
-                val h = b - t
-                if (h <= 0 || h == ob - ot) return
+        // Once the card's real height is known, move it above the shield if it would run off the bottom.
+        card.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
+            override fun onLayoutChange(v: View, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int) {
+                val h = bottom - top
+                if (h <= 0 || h == oldBottom - oldTop) return
                 val screenH = metrics.heightPixels
-                val below = bubbleY + bubbleWindow - dp(8)
                 val wanted = (if (below + h > screenH - dp(24)) bubbleY - h + dp(8) else below).coerceIn(dp(24), (screenH - h - dp(24)).coerceAtLeast(dp(24)))
-                if (wanted != params.y) {
-                    params.y = wanted
-                    try { wm.updateViewLayout(v, params) } catch (e: RuntimeException) { /* removed meanwhile */ }
+                if (wanted != lp.topMargin) {
+                    lp.topMargin = wanted
+                    v.layoutParams = lp
                 }
             }
         })
+        val params = WindowManager.LayoutParams(
+            WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+            PixelFormat.TRANSLUCENT,
+        )
         noteOwnWindowChange()
-        try { wm.addView(content, params); panel = content } catch (e: RuntimeException) { panel = null }
-    }
-
-    private fun touchIsOnBubble(e: MotionEvent): Boolean {
-        val bp = bubbleParams ?: return false
-        val size = dp(BUBBLE_DP) + 2 * dp(BUBBLE_PAD_DP)
-        return e.rawX >= bp.x && e.rawX <= bp.x + size && e.rawY >= bp.y && e.rawY <= bp.y + size
+        try { wm.addView(root, params); panel = root } catch (e: RuntimeException) { panel = null }
     }
 
     // ---- panel
@@ -329,10 +334,6 @@ class ScreenShortcutOverlay(
             background = if (dark) gradient(0xF21B2340.toInt(), 0xF2121A33.toInt(), 24, 0x33FFFFFF) else gradient(0xF7FFFFFF.toInt(), 0xF2EAF0FD.toInt(), 24, 0xCCFFFFFF.toInt())
             elevation = dp(10).toFloat()
         }
-        val root = FrameLayout(themed).apply {
-            setPadding(dp(12), dp(10), dp(12), dp(14))
-            addView(card, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT))
-        }
 
         // header: shield, names, close
         val header = LinearLayout(themed).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
@@ -366,7 +367,7 @@ class ScreenShortcutOverlay(
             card.addView(label("Screen monitoring isn't set up yet.", 14f, ink))
             gap(10)
             card.addView(pill("Open TruGuard", true) { hidePanel(); openApp() })
-            return root
+            return card
         }
 
         // status + switch
@@ -437,7 +438,7 @@ class ScreenShortcutOverlay(
             isClickable = true
             setOnClickListener { hidePanel(); openApp() }
         })
-        return root
+        return card
     }
 
     private fun openApp() {

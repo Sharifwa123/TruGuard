@@ -9,7 +9,7 @@ Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git t
   - Rules are now *features* the model weighs: it learned how reliable each rule is, so sloppy rules count for little. Severity comes from a calibrated probability (cut-offs set so ordinary messages reach LOW/MEDIUM/HIGH at most 4%/1.5%/0.5% of the time).
   - On-screen text is judged in windows of three neighbouring pieces (bubbles, paragraphs), not as one blob, so a scam spread over a few bubbles is still caught but unrelated text cannot combine.
   - On two independent blind tests (319 and 400 messages) the detector now flags 87-91% of scams at LOW+ (rules alone: 21-31%) with 3-7.5% false alarms on a look-alike-heavy set, and 56-64% at HIGH (rules alone: 8-12%). Method, numbers and limits: `docs/INTENT_MODEL.md`.
-- **Shield options panel** now has a fixed width and is positioned after layout; the screenshot showed it collapsing to a blank white bar under the shield.
+- **Shield options panel (empty white bar after the second tap).** The panel is now a full-screen transparent overlay window with the card placed inside it by margins and a fixed card width, the same approach as the warning pop-up (which renders correctly on the phone), instead of a window sized from its content. Tapping anywhere outside the card, including on the shield, closes it.
 - Maintainer tools: `DumpRuleHits` (records which rules fire on each training example) and rule-tag features in the trainer.
 
 ## 1.6.0 - 2026-10-12
