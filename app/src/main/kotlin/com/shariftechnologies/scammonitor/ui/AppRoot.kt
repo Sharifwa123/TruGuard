@@ -6,6 +6,9 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.consumeWindowInsets
@@ -25,6 +28,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,7 +48,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.shariftechnologies.scammonitor.app.ScamMonitorApplication
+import com.shariftechnologies.scammonitor.ui.about.AboutScreen
+import com.shariftechnologies.scammonitor.ui.common.AdGate
 import com.shariftechnologies.scammonitor.ui.common.CenteredLoading
+import com.shariftechnologies.scammonitor.ui.common.LocalAdGate
 import com.shariftechnologies.scammonitor.ui.common.ClayIconButton
 import com.shariftechnologies.scammonitor.ui.common.GlassNavBar
 import com.shariftechnologies.scammonitor.ui.common.NavSpec
@@ -66,6 +73,7 @@ private object Routes {
     const val LOG = "log"
     const val SECURITY = "security"
     const val SETTINGS = "settings"
+    const val ABOUT = "about"
     fun flaggedDetail(eventId: String) = "flagged/$eventId"
 }
 
@@ -79,7 +87,10 @@ private val topLevel = listOf(
 
 @Composable
 private fun GlassTopBar(title: String, onBack: (() -> Unit)?) {
-    Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+    Row(
+        Modifier.fillMaxWidth().windowInsetsPadding(WindowInsets.statusBars).padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
         if (onBack != null) {
             ClayIconButton(Icons.AutoMirrored.Filled.ArrowBack, "Back", onBack)
             Spacer(Modifier.width(12.dp))
@@ -92,7 +103,10 @@ private fun GlassTopBar(title: String, onBack: (() -> Unit)?) {
 fun AppRoot(pendingEventId: String?, onPendingEventConsumed: () -> Unit, openSecurity: Boolean, onOpenSecurityConsumed: () -> Unit, openMonitoring: Boolean, onOpenMonitoringConsumed: () -> Unit) {
     val settings = (LocalContext.current.applicationContext as ScamMonitorApplication).container.settings
     val onboardingDone by settings.onboardingCompleted.collectAsStateWithLifecycle()
+    val container = (LocalContext.current.applicationContext as ScamMonitorApplication).container
+    val supporter by container.supporter.active.collectAsStateWithLifecycle()
 
+    CompositionLocalProvider(LocalAdGate provides AdGate(container.ads, supporter)) {
     AuroraBackground {
         // The start destination is decided once, after preferences have loaded, and never changes afterwards.
         var start by remember { mutableStateOf<String?>(null) }
@@ -143,6 +157,7 @@ fun AppRoot(pendingEventId: String?, onPendingEventConsumed: () -> Unit, openSec
             topBar = {
                 if (route == Routes.FLAGGED_DETAIL) GlassTopBar("Flagged item") { navController.popBackStack() }
                 else if (route == Routes.ONBOARDING) GlassTopBar("Set up", null)
+                else if (route == Routes.ABOUT) GlassTopBar("About") { navController.popBackStack() }
             },
             bottomBar = {
                 if (isTopLevel) GlassNavBar(topLevel, route, ::goTopLevel)
@@ -168,6 +183,7 @@ fun AppRoot(pendingEventId: String?, onPendingEventConsumed: () -> Unit, openSec
                             onOpenLog = { goTopLevel(Routes.LOG) },
                             onOpenMonitoring = { goTopLevel(Routes.SETTINGS) },
                             onOpenOnboarding = { navController.navigate(Routes.ONBOARDING) },
+                            onOpenAbout = { navController.navigate(Routes.ABOUT) { launchSingleTop = true } },
                         )
                     }
                     composable(Routes.FLAGGED) { FlaggedListScreen(onOpenItem = { navController.navigate(Routes.flaggedDetail(it)) }) }
@@ -176,9 +192,11 @@ fun AppRoot(pendingEventId: String?, onPendingEventConsumed: () -> Unit, openSec
                     }
                     composable(Routes.LOG) { SecurityLogScreen(onOpenFlagged = { navController.navigate(Routes.flaggedDetail(it)) }) }
                     composable(Routes.SECURITY) { SecurityScreen() }
-                    composable(Routes.SETTINGS) { SettingsScreen() }
+                    composable(Routes.SETTINGS) { SettingsScreen(onOpenAbout = { navController.navigate(Routes.ABOUT) { launchSingleTop = true } }) }
+                    composable(Routes.ABOUT) { AboutScreen() }
                 }
             }
         }
+    }
     }
 }

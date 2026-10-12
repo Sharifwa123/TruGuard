@@ -55,6 +55,10 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
     /** Use the learned intent model alongside the rules (catches scams worded in ways no rule anticipated). */
     val intentEnabled: StateFlow<Boolean> = _intentEnabled.asStateFlow()
 
+    private val _supporterCode = MutableStateFlow<String?>(null)
+    /** The ad-free supporter code the user entered, if any (checked against a public key elsewhere). */
+    val supporterCode: StateFlow<String?> = _supporterCode.asStateFlow()
+
     private val _securityAlertsEnabled = MutableStateFlow(true)
     /** Alerts about Play Protect/other protection changes and risky newly installed apps. */
     val securityAlertsEnabled: StateFlow<Boolean> = _securityAlertsEnabled.asStateFlow()
@@ -84,6 +88,7 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
                 _screenConfig.value = ScreenMonitorConfig.fromJson(prefs[SCREEN_CONFIG])
                 _securityAlertsEnabled.value = prefs[SECURITY_ALERTS] ?: true
                 _intentEnabled.value = prefs[INTENT_ENABLED] ?: true
+                _supporterCode.value = prefs[SUPPORTER_CODE]
                 _disabledRuleIds.value = prefs[DISABLED_RULES] ?: emptySet()
                 _onboardingCompleted.value = prefs[ONBOARDING_DONE] ?: false
                 loaded.complete(Unit)
@@ -98,6 +103,7 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
 
     suspend fun setWarningMinSeverity(severity: Severity) { store.edit { it[WARNING_MIN_SEVERITY] = severity.name } }
 
+    suspend fun setSupporterCode(code: String) { store.edit { it[SUPPORTER_CODE] = code } }
     suspend fun setIntentEnabled(on: Boolean) { store.edit { it[INTENT_ENABLED] = on } }
     suspend fun setAlertPopup(on: Boolean) { store.edit { it[ALERT_POPUP] = on } }
     suspend fun setAlertVibrate(on: Boolean) { store.edit { it[ALERT_VIBRATE] = on } }
@@ -134,6 +140,7 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
     private companion object {
         val WARNINGS_ENABLED = booleanPreferencesKey("warnings_enabled")
         val WARNING_MIN_SEVERITY = stringPreferencesKey("warning_min_severity")
+        val SUPPORTER_CODE = stringPreferencesKey("supporter_code")
         val INTENT_ENABLED = booleanPreferencesKey("intent_enabled")
         val ALERT_POPUP = booleanPreferencesKey("alert_popup")
         val ALERT_VIBRATE = booleanPreferencesKey("alert_vibrate")

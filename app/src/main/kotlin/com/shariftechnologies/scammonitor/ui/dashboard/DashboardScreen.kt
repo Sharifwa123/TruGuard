@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,7 +35,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.shariftechnologies.scammonitor.ui.AppViewModelFactory
+import com.shariftechnologies.scammonitor.ui.common.AdSlot
 import com.shariftechnologies.scammonitor.ui.common.CenteredLoading
+import com.shariftechnologies.scammonitor.ui.common.ClayIconButton
 import com.shariftechnologies.scammonitor.ui.common.ClayButton
 import com.shariftechnologies.scammonitor.ui.common.ClaySwitch
 import com.shariftechnologies.scammonitor.ui.common.ErrorState
@@ -51,14 +54,14 @@ import com.shariftechnologies.scammonitor.ui.common.relativeTime
 import com.shariftechnologies.scammonitor.ui.theme.LocalGlass
 
 @Composable
-fun DashboardScreen(onOpenFlagged: () -> Unit, onOpenLog: () -> Unit, onOpenMonitoring: () -> Unit, onOpenOnboarding: () -> Unit) {
+fun DashboardScreen(onOpenFlagged: () -> Unit, onOpenLog: () -> Unit, onOpenMonitoring: () -> Unit, onOpenOnboarding: () -> Unit, onOpenAbout: () -> Unit) {
     val vm: DashboardViewModel = viewModel(factory = AppViewModelFactory.Factory)
     val state by vm.state.collectAsStateWithLifecycle()
     OnResume { vm.refresh() }
     when (val s = state) {
         Loadable.Loading -> CenteredLoading()
         is Loadable.Failure -> ErrorState(s.message)
-        is Loadable.Success -> DashboardContent(vm, s.value, onOpenFlagged, onOpenLog, onOpenMonitoring, onOpenOnboarding)
+        is Loadable.Success -> DashboardContent(vm, s.value, onOpenFlagged, onOpenLog, onOpenMonitoring, onOpenOnboarding, onOpenAbout)
     }
 }
 
@@ -72,6 +75,7 @@ private fun DashboardContent(
     onOpenLog: () -> Unit,
     onOpenMonitoring: () -> Unit,
     onOpenOnboarding: () -> Unit,
+    onOpenAbout: () -> Unit,
 ) {
     val g = LocalGlass.current
     val context = LocalContext.current
@@ -92,7 +96,10 @@ private fun DashboardContent(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp).padding(top = 8.dp, bottom = 16.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
-        Text("TruGuard", style = MaterialTheme.typography.titleLarge, color = g.ink, modifier = Modifier.padding(start = 4.dp))
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text("TruGuard", style = MaterialTheme.typography.titleLarge, color = g.ink, modifier = Modifier.weight(1f).padding(start = 4.dp))
+            ClayIconButton(Icons.Filled.Info, "About TruGuard", onOpenAbout)
+        }
 
         GlassCard(Modifier.fillMaxWidth(), padding = PaddingValues(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -163,6 +170,8 @@ private fun DashboardContent(
                 }
             }
         }
+
+        AdSlot("dashboard")
     }
 }
 
