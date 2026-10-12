@@ -29,7 +29,26 @@ class SettingsViewModel(private val container: AppContainer) : ViewModel() {
     private val _clearResult = MutableStateFlow<String?>(null)
     val clearResult: StateFlow<String?> = _clearResult
 
+    private val _popupAvailable = MutableStateFlow(container.alertPopup.canShow())
+    /** A warning pop-up can currently be drawn (Accessibility service connected, or "display over other apps" allowed). */
+    val popupAvailable: StateFlow<Boolean> = _popupAvailable
+
+    fun setPopup(on: Boolean) { viewModelScope.launch { container.settings.setAlertPopup(on) } }
+    fun setVibrate(on: Boolean) { viewModelScope.launch { container.settings.setAlertVibrate(on) } }
+    fun setTone(on: Boolean) { viewModelScope.launch { container.settings.setAlertTone(on) } }
+    fun setAlertMinSeverity(severity: Severity) { viewModelScope.launch { container.settings.setAlertMinSeverity(severity) } }
+    fun testAlert() = container.alerts.test(Severity.HIGH)
+
+    fun openOverlaySettings(context: android.content.Context): Boolean = try {
+        context.startActivity(
+            android.content.Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, android.net.Uri.parse("package:" + context.packageName))
+                .addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK),
+        )
+        true
+    } catch (e: android.content.ActivityNotFoundException) { false }
+
     fun refresh() {
+        _popupAvailable.value = container.alertPopup.canShow()
         _accessEnabled.value = container.accessManager.isAccessEnabled()
         _notificationsAllowed.value = container.warningManager.canPostNotifications()
         _screenServiceEnabled.value = container.accessManager.isScreenServiceEnabled()
@@ -40,6 +59,8 @@ class SettingsViewModel(private val container: AppContainer) : ViewModel() {
 
     fun setWarningsEnabled(enabled: Boolean) { viewModelScope.launch { container.settings.setWarningsEnabled(enabled) } }
     val securityAlertsEnabled: StateFlow<Boolean> = container.settings.securityAlertsEnabled
+    val intentEnabled: StateFlow<Boolean> = container.settings.intentEnabled
+    fun setIntentEnabled(enabled: Boolean) { viewModelScope.launch { container.settings.setIntentEnabled(enabled) } }
     fun setSecurityAlertsEnabled(enabled: Boolean) { viewModelScope.launch { container.settings.setSecurityAlertsEnabled(enabled) } }
     // Screen monitoring: consent, pause, shortcut, and the apps chosen through the floating shortcut.
     val screenConsent: StateFlow<Boolean> = container.settings.screenConsent

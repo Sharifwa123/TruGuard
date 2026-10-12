@@ -1,0 +1,450 @@
+{"text": "You have successfully purchased 5GB data bundle valid for 30 days. Expiry: 11 Nov 2026. Dial *138# to check balance. Thank you.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Airtime top-up of GHS 10.00 successful. New balance GHS 12.35. Ref 88213344.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Dear customer, your postpaid bill of N8,450 is due on 20/10/2026. Pay via the MyTelco app or any authorised outlet. Ignore if already paid.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "ECG Notice: planned maintenance in Tema Community 9 on Sat 17 Oct, 8am-4pm. We apologise for the inconvenience.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "KRA reminder: the deadline for filing 2025 income tax returns is 30 June. File on iTax. Ignore if already filed.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Reminder: register your SIM before the deadline. Visit any official service centre with your ID. This is a free service. We will NEVER ask for your PIN by SMS.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Eskom: Load shedding Stage 2 today. Your area: 14:00-16:30 and 22:00-00:30. Check the EskomSePush app for updates.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Your 1GB night bundle has been activated. Valid till 6am. Dial *141# for balance.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "M-PESA: Confirmed. Ksh500.00 airtime purchase for 0700 000 111 on 12/10/26 at 3:14 PM. M-PESA balance is Ksh1,240.50.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Your Vodafone Cash wallet statement for September is ready on the app.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Water bill for Sept: GHS 46.20. Due 25 Oct. Pay at the GWCL office or via mobile money. Account ending 4471.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Hi, your fibre router will be serviced tomorrow between 9 and 12. A technician will call you before arrival.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Dear subscriber you have used 80% of your monthly data allowance. Top up on the app if you need more.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "BEDC: Your prepaid meter token purchase of N5,000 was successful. Units: 31.2kWh. Thanks for using our service.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "HMRC: Your Self Assessment tax return is due by 31 January. Sign in to your online account to file. We will never ask for bank details by text.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Your airtime loan of N200 has been repaid. Thank you for using Borrow Me Credit.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "MTN: Your SIM swap request was completed at 10:42. If you did not request this, visit the nearest service centre with your ID.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Power outage notice: Lekki Phase 1 on Thursday 15 Oct 10am-2pm for line upgrade. Eko DisCo.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Your Smart bill for Oct is ₱1,299. Due date Oct 28. Pay via GCash or the Smart app.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Congratulations! You've reached your 12 month anniversary. Your loyalty bonus of 2GB data has been added automatically. No action needed.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "DSTV: Your subscription expires in 3 days. Renew via the MyDStv app or *288#.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Dear customer your SIM card registration is complete. Thank you.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Jio: Your recharge of Rs 299 is successful. Validity 28 days, 1.5GB/day. Enjoy!", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "SARS eFiling: Your assessment for 2026 is available. Log in at the official SARS website to view it.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Reminder - council tax direct debit of £142.00 will be taken on 1 Nov. No action needed.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Telecel: data roll-over of 2GB applied to your new bundle. Dial *700# for details.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Your electricity token: 4021-8836-2290-5517-0024. Units 18.5. Thank you for buying from Prepaid.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Airtel: you have received 200MB free data on your birthday month. Have a good one!", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Your Starlink-like home internet payment of $50 was received. Next billing date Nov 3. Receipt on your account page.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Dear Customer, last day to link your NIN to your SIM is tomorrow. Visit the official portal or any service center. Do not share your NIN with anyone on calls.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "ESB Networks: A power cut is planned in your area on 14 Oct 9:30-13:00. Details at the official website.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Your gas cylinder refill is booked for Wed 14 Oct. Delivery boy will call. Pay on delivery.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Safaricom: you bought 50 minutes + 100 SMS bundle for Ksh 50 valid 7 days.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Low balance alert: your account balance is GHS 1.80. Dial *124# to top up.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "NAWEC planned outage Bakau tomorrow 10-3pm.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Your Spectrum internet bill is ready: $79.99, autopay on Oct 20.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Hi from DSWD / SSS: your monthly contribution is due this 31st. Pay via the official app or accredited banks.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Your data bundle of 10GB has expired. Buy a new one with *136#.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Your mobile number 0244 555 019 has been successfully ported. Welcome to the network!", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Water supply interruption on Oct 13 from 6am to 6pm in Ward 5 due to pipe repairs. Store water in advance.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Voter registration reminder: last day to update your details is 31 Oct. Visit your local office with ID.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Orange: votre forfait 10 Go a été activé. Valable 30 jours. Merci.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Vodacom: your 2GB WhatsApp bundle is almost finished. Buy more on the My Vodacom app.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Reminder: vehicle licence disc renewal due this month. Renew at the licensing department or online. Ignore if already done.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "Your TV licence payment of £14.50 failed this month. Please update your payment method on the TV Licensing website.", "label": "benign", "category": "genuine_telco_utility"}
+{"text": "New sign-in to your Google Account from Chrome on Windows. If this was you, you don't need to do anything. If not, open the Google app and review your recent activity.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Your password was changed on 12 Oct at 09:14. If this wasn't you, reset it from the official app settings.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Two-step verification is now ON for your account. You can manage it in Security settings.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "We blocked a sign-in attempt from a new device (iPhone, Lagos). If this was you, you can ignore this message. Otherwise open the app and secure your account.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Your verification code is 482913. Don't share this code with anyone. We will never call to ask for it.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Instagram: We noticed a login from Safari on Mac near Accra. Was this you? Open the app > Settings > Security to review.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Security alert: your Microsoft account recovery email was updated. If you made this change, no action needed.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Your Apple ID was used to sign in on a new iPad. If it was you, great. If not, go to Settings on your device and tap your name.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "GitHub: A new SSH key was added to your account. If you did this, ignore this email.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Facebook: Someone tried to log in to your account from an unrecognized browser. Open the Facebook app to review. We never ask for your password in a message.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Your 6-digit code: 207731. Expires in 10 minutes. If you didn't request it, you can ignore this message.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Bank alert: a card payment of $23.40 at SPOTIFY was made on your debit card ending 8821. Not you? Call the number on the back of your card.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "You've turned on login alerts. We'll let you know when someone logs in from an unknown device.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Dropbox: your account password was reset. If you didn't do this, contact support via the Help Centre in the app.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "X: Your account was logged in from a new device. If this was you, no need to act.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Your PIN was changed successfully. If you didn't make this change please visit your branch with ID.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Telegram: new login from Desktop (Windows 11), Kampala. If this wasn't you, terminate the session in Settings > Devices.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "WhatsApp code: 551-208. You can also tap this link to verify your device: whatsapp.example/v/551208. Don't share this code with others.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Netflix: a new device just started streaming on your account. Not you? Sign out of all devices in Account settings on the Netflix site.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Amazon: your security settings changed. A passkey was added. If it wasn't you, go to Your Account in the app.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "PayPal: Your login from Chrome on Android was successful. If you don't recognise this activity, change your password via the PayPal app.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Notice: your OTP for transaction of ₦12,000 to Chinedu A. is 734022. Do not share. If you did not initiate this, call our hotline 0800-000-0000 from the official website.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "LinkedIn: we noticed a new sign in. If it was you great! If not secure your account in the app.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Heads up: your Wi-Fi router admin password was changed from the app by you.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Your Slack workspace admin enabled 2FA requirement. You have 7 days to set it up in Preferences > Security.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Your Outlook sign-in was blocked because it looked unusual. Try again from your usual device.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Revolut: Your card was frozen at your request. Unfreeze it any time in the app.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Security tip: we will never ask for your OTP, PIN or password through SMS, WhatsApp or calls.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Epic Games: your two-factor code is 903417.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Sign-in request approved from Pixel 7. If this wasn't you, change your password now at the official website.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Snapchat login code 118 902. Never share it.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Your Bolt account password has been updated successfully.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Backup codes for your account were generated. Store them somewhere safe. Only you can see them.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Absa: Your online banking profile was accessed from a new device on 11/10 at 18:02. If it was you, no action needed.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Strava: new device authorised. Revoke it in settings if you don't recognise it.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Your Gmail recovery phone number was removed. If you didn't do this, check security.google.com directly in your browser.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Zoom: Your account was signed in on a new device. Not you? Change password in the Zoom app.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Alert: 3 failed login attempts on your Paytm account. Account is safe. Please try again after 30 mins or reset password in the official app.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Your Uber verification code is 6612.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Su cuenta tuvo un inicio de sesión nuevo desde Chrome en Windows. Si fuiste tú, ignora este mensaje.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Votre code de vérification est 390 221. Ne le partagez avec personne.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Discord: new login from Firefox on Linux. Check your Authorised Apps in the app if unsure.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Your Binance-style exchange withdrawal whitelist was updated. If this was you, no action required.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Cloudflare: API token created at 07:12 UTC. Review tokens in your dashboard.", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Your Steam Guard code: K4P7M", "label": "benign", "category": "genuine_security_notice"}
+{"text": "Hi, thanks for contacting Jumia support. Your ticket #482913 has been created. An agent will reply within 24 hours.", "label": "benign", "category": "customer_support_real"}
+{"text": "Your refund of GHS 120 has been processed to your original payment method. It may take 3-5 working days to show.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hello Ama, could you please share your order number so I can look into the delivery? It starts with JM.", "label": "benign", "category": "customer_support_real"}
+{"text": "Thanks for waiting. I've escalated your complaint to our logistics team. You'll hear from us by tomorrow.", "label": "benign", "category": "customer_support_real"}
+{"text": "Agent: Hi, can I get the email you used to place the order? We don't need your password, just the email 🙂", "label": "benign", "category": "customer_support_real"}
+{"text": "Your return request for order #A-77120 has been approved. Drop the parcel at any pickup station.", "label": "benign", "category": "customer_support_real"}
+{"text": "Sorry about the delay! Your rider is 10 minutes away.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hi John, this is Mary from MTN support. Following your complaint yesterday, your data issue has been fixed. Please restart your phone and let me know.", "label": "benign", "category": "customer_support_real"}
+{"text": "Your case #CS-20915 is now closed. If the issue comes back, just reply to this message.", "label": "benign", "category": "customer_support_real"}
+{"text": "Thank you for your feedback. We've credited ₦1,500 to your wallet as a goodwill gesture.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hello, your warranty claim was received. Please bring the device and your receipt to our service centre in Westlands.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hi, I want to cancel my order #5521 | Sure, I've cancelled it for you. A confirmation email is on the way.", "label": "benign", "category": "customer_support_real"}
+{"text": "Customer: my parcel hasnt come yet | Agent: Sorry to hear that. Can you share the tracking number from your confirmation email?", "label": "benign", "category": "customer_support_real"}
+{"text": "Your Airbnb host has accepted the refund request. You'll see the money in 5-7 days.", "label": "benign", "category": "customer_support_real"}
+{"text": "We've replaced the faulty charger. Courier tracking: TRK-009123 on the courier's site.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hi Sam, we got your message about the double charge on your invoice. Billing team is reviewing it. Ticket 33812.", "label": "benign", "category": "customer_support_real"}
+{"text": "Support: Please do not share your card PIN or OTP with us. We only need your order ID to continue.", "label": "benign", "category": "customer_support_real"}
+{"text": "Thanks for chatting with us today! How did we do? Reply 1-5.", "label": "benign", "category": "customer_support_real"}
+{"text": "Your complaint has been resolved. Reference no. 20261012-44.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hello, good afternoon. I'm following up on my laptop repair. It's been 2 weeks | Good afternoon sir, the part arrived today. Ready by Friday.", "label": "benign", "category": "customer_support_real"}
+{"text": "Dear customer, we have received your cancellation request for the gym membership. Your final payment will be on 1 Nov.", "label": "benign", "category": "customer_support_real"}
+{"text": "Chat transcript: Agent Priya: May I have your booking reference? | You: ABC123 | Agent Priya: Thanks, I can see it. I've moved you to the 6pm flight.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hi, we've resent your invoice to your email. Check spam too.", "label": "benign", "category": "customer_support_real"}
+{"text": "Your delivery attempt failed today. We will try again tomorrow between 10 and 2. Reply RESCHEDULE to pick a different day.", "label": "benign", "category": "customer_support_real"}
+{"text": "Thanks for reaching out to Takealot. Your refund of R349.00 has been issued.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hi, this is the pharmacy delivery guy. I'm outside your gate. Which house number?", "label": "benign", "category": "customer_support_real"}
+{"text": "Bank support: your dispute for the unrecognised transaction has been opened. Case ID 77231. We'll update you in 5 working days. We have not asked and will not ask for your PIN.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hello, regarding the broken screen on your order, we can offer a replacement or a refund. Which do you prefer?", "label": "benign", "category": "customer_support_real"}
+{"text": "Thanks for your patience, your account email has been changed as you requested.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hi, am I speaking to the person who reported the leak on Maple Street? A repair crew will be there tomorrow.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hola, gracias por contactarnos. Su pedido #9921 ya fue enviado. Número de guía: 55671.", "label": "benign", "category": "customer_support_real"}
+{"text": "Bonjour, votre remboursement de 45 € a été effectué. Il apparaîtra sous 5 jours ouvrés.", "label": "benign", "category": "customer_support_real"}
+{"text": "Agent: sorry for the wahala o. Please send me the order number make I check am.", "label": "benign", "category": "customer_support_real"}
+{"text": "Your ticket was updated: \"We have shipped a replacement.\" View the ticket in the help centre.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hello, we noticed your payment didn't go through. Please retry using the \"Pay now\" button in your order page on our site.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hi, can you confirm the delivery address for order 8812? Same as last time?", "label": "benign", "category": "customer_support_real"}
+{"text": "Your subscription has been cancelled. You'll keep access until 30 Oct. We're sorry to see you go.", "label": "benign", "category": "customer_support_real"}
+{"text": "Got your email about the wrong size. Free exchange, no stress. Print the label I attached.", "label": "benign", "category": "customer_support_real"}
+{"text": "You: still no refund | Support: I checked and it's been released by our side, your bank can take up to 7 working days. Here's the reference: RF-88123.", "label": "benign", "category": "customer_support_real"}
+{"text": "Your DStv technician visit is confirmed for Tuesday 13 Oct, 9am-1pm. Please have someone 18+ at home.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hi, quick follow up. Did the new router fix your connection problem?", "label": "benign", "category": "customer_support_real"}
+{"text": "Thank you for contacting Airtel Care. Your SIM replacement is ready for pickup with valid ID.", "label": "benign", "category": "customer_support_real"}
+{"text": "Feedback request: how was your delivery today? Tap to rate 1-5 stars.", "label": "benign", "category": "customer_support_real"}
+{"text": "Your order #77412 was delivered to the front desk. Photo attached.", "label": "benign", "category": "customer_support_real"}
+{"text": "Escalation done. A senior agent, Mr. Okoro, will call you from the official line today.", "label": "benign", "category": "customer_support_real"}
+{"text": "Hi Kwame, this is Linda from Acme HR. Are you free for a video interview on Thursday at 2pm? I'll send a Teams link by email.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Dear candidate, congratulations on your offer! Please find your offer letter attached. Kindly sign and return by Friday. Onboarding docs: ID copy, tax number, bank details for payroll (through the HR portal only).", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Your exam timetable for Semester 1 is now available on the student portal. First paper: ECON 201, 3 Nov, 9am.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Reminder: scholarship application closes 30 Oct. Upload your transcript on the official portal. Late submissions won't be considered.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Hi, thanks for applying for the Marketing Assistant role. We'd love to chat. Does tomorrow 10am work?", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Fee deadline: tuition fees for the second term are due by 1 Nov. Pay via the school bank account listed on the portal, or at the bursar's office.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Welcome to the team! Your first day is Monday 19 Oct, 8:30am. Bring your ID and signed contract. Your laptop will be ready.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Dear parents, school closes Friday at 12 noon for midterm break. Resumption: Monday 26 Oct.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Recruiter: we'd like to schedule a technical round | Me: sure, I'm free Wed after 4 | Recruiter: perfect, invite sent.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Your CV has been shortlisted for the next stage. Please complete the online assessment before Sunday.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "UNILAG: admission list has been released. Check your status on the official portal with your JAMB number.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Kindly resend your reference letters in PDF. Thanks.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Reminder: team standup moved to 9:15 tomorrow. Link in the calendar invite.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Unfortunately we have decided not to proceed with your application at this time. We wish you well.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Hi class, assignment 2 is due Monday 11:59pm on the LMS. No extensions please.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Payslip for September is available in the HR portal. If you see any errors let payroll know.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Your internship begins 2 Nov. Please complete the safety induction course on the learning platform before your start date.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Dear applicant, your interview is scheduled for 14 Oct at 11:00 at our Nairobi office, 4th floor. No fee is required at any stage of our hiring.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Prof says the exam will cover chapters 1-6 only 🙏", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Congratulations, you've been awarded the merit bursary! Your acceptance form is on the student portal, deadline 20 Oct.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Hey, can you send me your updated resume? I want to refer you to my manager.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Hi Mr Mensah, parent-teacher meeting is on Thursday 4pm. Please confirm attendance.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Your background check consent form is ready for e-signature. It was sent from our HR system to your email.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "LinkedIn recruiter: Hi! Your profile caught my eye. We're hiring a backend engineer, remote. Open to a quick call?", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Lecture cancelled today. Will be rescheduled. - Dr. Adeyemi", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Reminder to submit your timesheet by 5pm Friday. ", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Dear students, hostel allocation is out. Check your block and room on the portal. Payment of hostel fee is through the school's official account only.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Your visa letter for the exchange programme has been issued. Collect it from the international office.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Thanks for coming in today! We'll be in touch by end of next week.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Your application for the Chevening/Erasmus scholarship is incomplete: missing 1 reference. Please log in to the portal and add it before 15 Oct.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Mom, I got the job!!! 🎉🎉 starts Monday", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Interview tips: arrive 10 mins early, bring a printed CV and your certificates.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Résultats des examens disponibles sur l'espace étudiant. Connectez-vous avec votre identifiant habituel.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Good morning ma, I'm the HR from the company. Please resume on Monday by 8am. Dress code is corporate.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Please complete your direct deposit form by Friday so payroll can process your first paycheck.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Class rep here: test is on Wednesday, bring calculators and your student ID. ", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Hello, I'm Tunde from the placement office. Your internship letter is ready for pickup.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Exam hall seating: you are in Hall B, seat 112. Bring ID card. Phones not allowed.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Your leave request (20-24 Oct) has been approved by your manager.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Offer expires Friday. Take your time to read everything and ask me anything.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "SAT registration deadline is Oct 17. Late fee applies after that. Register on the College Board site.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Hi team, new hire Sarah joins us today. Say hi 👋", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Dear student, your library account will expire on 31 Oct. Renew at the desk with your student card.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Your PhD viva is scheduled for 4 Dec 2pm, Room 3.12. Examiners have been confirmed.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "Sir, I've submitted my project on the portal. Please confirm you received it.", "label": "benign", "category": "job_and_school_legit"}
+{"text": "I've sent the 200 for the tickets. Check your momo", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Thanks bro, received 🙏", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Rent is 1500 each, so I'll transfer mine on Friday after salary", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Can you send me your account number? I'll pay you back for the dinner", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Your share is 85 each for the cab and drinks 😅", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Sent! Reference is \"birthday gift\"", "label": "benign", "category": "money_talk_known_people"}
+{"text": "bro I'll pay u back the 5k on Monday, promise | no wahala", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Okay I got the money. Thank you so much, you saved me", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Chipping in for Ngozi's gift? 2k each, send to Dami before Saturday", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Is the 350 for the used bike still ok? I can bring cash tomorrow", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Mum I've transferred the school fees, please confirm it entered", "label": "benign", "category": "money_talk_known_people"}
+{"text": "payment received ✅ thank you for your patronage, your braids will be ready by 3", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Hi Aunty, I've paid the 40 cedis for the fabric. Pls check", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Who has not paid for the party snacks? we're short by 600", "label": "benign", "category": "money_talk_known_people"}
+{"text": "sent ur 20 quid on revolut, can u check", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Dude just Venmo me for the pizza, it's $12.50", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Landlord: rent due on the 1st as always. Same account as before.", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Nimeituma pesa kwa M-Pesa, angalia. Ni elfu mbili.", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Paid for both of us today, you can get next time 😉", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Customer: sent 15k for the shoes | Seller: received ✅ thank you ma, I'll dispatch tomorrow", "label": "benign", "category": "money_talk_known_people"}
+{"text": "can you lend me 50 till Friday? I'm broke af", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Repaid the 3000 I owed you. Sorry it took so long 🙏🏾", "label": "benign", "category": "money_talk_known_people"}
+{"text": "I've sold my old PS4 to Kojo, he's coming with cash tonight", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Pls confirm if you got the transfer, bank app is slow", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Split the Airbnb: 230 each. Sending now.", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Babe I transferred the 10k for your hair. Enjoy!", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Boss, the customer has paid, I saw the alert. You can release the goods.", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Thanks for covering me at lunch. I'll get you back, here's 15.", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Gracias hermano, ya recibí el dinero. Te debo una 🍻", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Je t'ai envoyé les 30 euros pour le cadeau de Marie, tu peux vérifier ?", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Please send me ur account number for the dues, we are collecting 1000 per person for the trip", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Money don land. Thank u my guy 🙏", "label": "benign", "category": "money_talk_known_people"}
+{"text": "I'll send you the transfer receipt screenshot after church", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Venmo request: \"groceries 🥦\" $34.20", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Aye did u get the 100 I cashapped u? | yep thanks 🔥", "label": "benign", "category": "money_talk_known_people"}
+{"text": "We need 5 more people to pay for the group gift. Account is in the pinned message from Tola, she's the treasurer.", "label": "benign", "category": "money_talk_known_people"}
+{"text": "How much for the table? 120? Ok I'll pick it up Sat and pay cash", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Papa has sent the 2 lakh for your fees. Please acknowledge when you get it.", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Pagbalik ko na lang yung 500 ha. Salamat sa pautang! GCash ko na lang bukas", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Ate, nakuha ko na GCash mo. Thank you po!", "label": "benign", "category": "money_talk_known_people"}
+{"text": "My customer just paid half upfront, will pay balance on delivery", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Bro u don pay for the cement abi? | Yes I paid this morning, I've the receipt", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Contribution for uncle's burial: any amount, send to Aunty Grace 0244 000 777 (the family account). God bless.", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Can you cover the electricity token for me? I'll pay when I get paid on the 28th", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Please resend the Mpesa message I can't see it | Done 👍", "label": "benign", "category": "money_talk_known_people"}
+{"text": "Reminder: you have an appointment at Ridge Clinic tomorrow 10:30am with Dr. Asante. Reply YES to confirm or call to reschedule.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Your lab results are ready. Please collect at reception between 8am and 4pm.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Flu shot reminder: you are due for your annual vaccination. Book a slot at your local pharmacy.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Your prescription is ready for pick up at Boots, 12 High Street.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Dental check-up on Friday 16 Oct, 2pm. Please arrive 10 minutes early.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Dr. Mwangi's note: rest for 3 days, drink plenty fluids, return if fever persists.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Hi, it's the clinic. Your blood test needs a fasting sample so no food after 10pm tonight.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Vaccination card for baby: next dose (Pentavalent 3) due on 20 Oct at Kenyatta Health Centre.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Your NHS appointment has been booked for 22 Oct at 09:20. Please bring your referral letter.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Hey, how was the doctor? Everything ok? | Yeah just stress and low iron, got some tablets", "label": "benign", "category": "health_and_appointments"}
+{"text": "Pharmacy: your refill of Metformin 500mg is ready. We close at 7pm.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Antenatal clinic is on Tuesdays and Thursdays. Come with your card.", "label": "benign", "category": "health_and_appointments"}
+{"text": "COVID/Flu booster available this week, walk-ins welcome 9-1.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Your appointment has been rescheduled to Wed 14 Oct, 11:00. We apologise for any inconvenience. Call the clinic if the new time doesn't work.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Eye test results: prescription updated, new glasses ready in 5 days.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Please bring your insurance card and ID to your appointment.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Hi, this is the lab. Your sample was haemolysed, could you come back for a redraw?", "label": "benign", "category": "health_and_appointments"}
+{"text": "Reminder: take your medication twice daily after meals. Complete the full course.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Physio session confirmed Thursday 5pm. Wear comfy clothes.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Your MRI is scheduled for Monday 8:15am. Remove all metal items and arrive early.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Doc said the malaria test came back negative 🙏", "label": "benign", "category": "health_and_appointments"}
+{"text": "Your x-ray report is available in the patient portal. Log in with your usual patient ID.", "label": "benign", "category": "health_and_appointments"}
+{"text": "NHIS renewal reminder: your card expires 31 Oct. Visit the scheme office with your old card.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Clinic closed Monday for public holiday. Open Tuesday 8am.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Mama is stable, she's resting. Visiting hours 4-6pm.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Appointment reminder: Dr Patel, Oct 15, 3:45 PM. Reply C to cancel.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Cita médica mañana a las 9:00. Por favor traiga su carnet.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Rappel: rendez-vous chez le dentiste lundi à 14h. Merci de prévenir en cas d'empêchement.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Your child's immunisation record has been updated. Next visit: 12 months.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Reminder to get your BP checked every month. Walk-in at the community pharmacy.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Vet: Bruno's rabies shot is due next week. Book online or call us.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Test results normal. No further action. See you at your next check-up in 6 months.", "label": "benign", "category": "health_and_appointments"}
+{"text": "pls remember to carry your old prescription when you come", "label": "benign", "category": "health_and_appointments"}
+{"text": "Hospital bill: outstanding balance GHS 340. You can pay at the cashier or via the hospital's mobile money number printed on your invoice.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Telehealth visit starts in 10 minutes. Click the link in your confirmation email to join.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Sir your hernia surgery is booked 3 Nov. Admission at 6am. Nothing to eat or drink after midnight.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Hi it's Nurse Joy, just checking how your wound is healing. Any redness or pus?", "label": "benign", "category": "health_and_appointments"}
+{"text": "Your therapist is running 10 min late, sorry!", "label": "benign", "category": "health_and_appointments"}
+{"text": "Your Hepatitis B vaccine, dose 2, is due. Available at the campus clinic Mon-Fri.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Appointment with Dr. Okafor confirmed. Consultation fee N10,000 payable at the clinic on the day.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Take 2 tabs paracetamol every 6 hrs. Don't exceed 8 in a day.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Your results are ready, collect at reception 👍", "label": "benign", "category": "health_and_appointments"}
+{"text": "Hospital Fund: reminder that your monthly premium of KES 500 is due. Pay via paybill 000000 (your insurer's official one on your card).", "label": "benign", "category": "health_and_appointments"}
+{"text": "Doc's office: please call us back regarding your referral. ", "label": "benign", "category": "health_and_appointments"}
+{"text": "Your COVID test was negative. A copy has been emailed to you.", "label": "benign", "category": "health_and_appointments"}
+{"text": "Kofi Mensah liked your photo.", "label": "benign", "category": "social_media_notifications"}
+{"text": "You have a new connection request from Sarah Lin, Product Manager at Brightly.", "label": "benign", "category": "social_media_notifications"}
+{"text": "Hey check out my new video!! just posted on YT 🔥 youtube.example/watch?v=xyz", "label": "benign", "category": "social_media_notifications"}
+{"text": "Ama commented on your post: \"Congrats girl! 😍\"", "label": "benign", "category": "social_media_notifications"}
+{"text": "Your video reached 10,000 views! Thanks for being part of TikTok.", "label": "benign", "category": "social_media_notifications"}
+{"text": "Tunde mentioned you in a comment: \"@you where is this place\"", "label": "benign", "category": "social_media_notifications"}
+{"text": "Hi is this still available? | Yes it is | Can you do 4500? | Last price 5k, come see it first", "label": "benign", "category": "social_media_notifications"}
+{"text": "Marketplace: Are you still selling the sofa? I can come see it today after 5.", "label": "benign", "category": "social_media_notifications"}
+{"text": "New reply in thread \"Best budget phone 2026\": I'd go with the Tecno Spark, battery is solid.", "label": "benign", "category": "social_media_notifications"}
+{"text": "Group admin: Welcome new members! Please read the rules in the group description.", "label": "benign", "category": "social_media_notifications"}
+{"text": "LOL did you see Chidi's story 😂😂😂", "label": "benign", "category": "social_media_notifications"}
+{"text": "John Smith and 3 others commented on your reel.", "label": "benign", "category": "social_media_notifications"}
+{"text": "You're invited to the event \"Friday Night Quiz\" by Accra Pub Quiz. Click Going or Interested.", "label": "benign", "category": "social_media_notifications"}
+{"text": "Bro your new profile pic is clean 🔥", "label": "benign", "category": "social_media_notifications"}
+{"text": "Your post got 120 likes today. ", "label": "benign", "category": "social_media_notifications"}
+{"text": "Anita sent you a message request. Open Messenger to see it.", "label": "benign", "category": "social_media_notifications"}
+{"text": "Someone shared your tweet. 🔁", "label": "benign", "category": "social_media_notifications"}
+{"text": "Admin: pls drop your location in the thread so we can plan the meetup", "label": "benign", "category": "social_media_notifications"}
+{"text": "New follower: @tech_naija_", "label": "benign", "category": "social_media_notifications"}
+{"text": "[Comment] First! Love this channel, subscribed.", "label": "benign", "category": "social_media_notifications"}
+{"text": "Reminder: Your LinkedIn profile had 18 views this week.", "label": "benign", "category": "social_media_notifications"}
+{"text": "Hey I'm live now! come join 😁", "label": "benign", "category": "social_media_notifications"}
+{"text": "Is this your new number? Sorry I lost my contacts | Yes it's me Femi lol save it", "label": "benign", "category": "social_media_notifications"}
+{"text": "Seen your story at the wedding, so beautiful!!", "label": "benign", "category": "social_media_notifications"}
+{"text": "Thread: anyone know a good mechanic in Kumasi? Please recommend, car is making a weird noise", "label": "benign", "category": "social_media_notifications"}
+{"text": "@Dave you're such a legend, thanks for the help with the code 🙌", "label": "benign", "category": "social_media_notifications"}
+{"text": "Facebook: You have 5 new notifications and 2 friend requests.", "label": "benign", "category": "social_media_notifications"}
+{"text": "Mod note: thread locked due to off-topic replies. Take it to the General section.", "label": "benign", "category": "social_media_notifications"}
+{"text": "Buyer: Hi I'm interested in the iPhone 12. Is battery health above 85? | Seller: it's 88%. Fully unlocked. We can meet at the mall.", "label": "benign", "category": "social_media_notifications"}
+{"text": "Pls vote for my daughter's dance video, link in my bio 🙏", "label": "benign", "category": "social_media_notifications"}
+{"text": "Sis your page is giving. Do you do collabs?", "label": "benign", "category": "social_media_notifications"}
+{"text": "Telegram group: Python Lagos – 12 new messages", "label": "benign", "category": "social_media_notifications"}
+{"text": "Here's the link to the playlist I made for the roadtrip: spotify.example/pl/roadtrip26", "label": "benign", "category": "social_media_notifications"}
+{"text": "Haha the memes in this group are unreal 😭", "label": "benign", "category": "social_media_notifications"}
+{"text": "Instagram: ninaxo started following you.", "label": "benign", "category": "social_media_notifications"}
+{"text": "Reddit: u/gearhead replied to your comment in r/cycling.", "label": "benign", "category": "social_media_notifications"}
+{"text": "Someone tagged you in a photo.", "label": "benign", "category": "social_media_notifications"}
+{"text": "Watching your live. First time here, greetings from Nairobi 🇰🇪", "label": "benign", "category": "social_media_notifications"}
+{"text": "dm me ur email and I'll send the template", "label": "benign", "category": "social_media_notifications"}
+{"text": "Happy birthday to my fave human 🥳 @Efua", "label": "benign", "category": "social_media_notifications"}
+{"text": "Which one should I post, 1 or 2?", "label": "benign", "category": "social_media_notifications"}
+{"text": "Pinned: the meeting link for tonight's book club is in the invite, same as always", "label": "benign", "category": "social_media_notifications"}
+{"text": "Nice bike! How much did you get it for? | 450 used, 2 years old", "label": "benign", "category": "social_media_notifications"}
+{"text": "Quién va al concierto del sábado? Yo ya tengo las entradas 🎶", "label": "benign", "category": "social_media_notifications"}
+{"text": "Your Spotify Wrapped is ready.", "label": "benign", "category": "social_media_notifications"}
+{"text": "BREAKING: Parliament passes the 2027 budget after a six-hour debate.", "label": "benign", "category": "news_and_info"}
+{"text": "Weather: Partly cloudy today, high 31°C, low 24°C. Chance of rain 20%.", "label": "benign", "category": "news_and_info"}
+{"text": "Full time: Arsenal 2-1 Spurs. Saka scored the winner in the 89th minute!", "label": "benign", "category": "news_and_info"}
+{"text": "Reminder: Community clean-up this Saturday 8am at the park. Bring gloves.", "label": "benign", "category": "news_and_info"}
+{"text": "Newsletter: This week's top 5 stories in tech, plus a recipe for jollof rice.", "label": "benign", "category": "news_and_info"}
+{"text": "Flight update: your flight BA082 is delayed by 45 minutes. New departure 14:25, Gate B12.", "label": "benign", "category": "news_and_info"}
+{"text": "Heavy rain expected tonight across Lagos. Avoid flood-prone roads.", "label": "benign", "category": "news_and_info"}
+{"text": "Recipe: 2 cups rice, 1 can tomatoes, onions, pepper, 3 tbsp oil. Simmer 30 mins. Enjoy! 🍲", "label": "benign", "category": "news_and_info"}
+{"text": "Photo caption: Sunset over Lake Victoria last night 🌅", "label": "benign", "category": "news_and_info"}
+{"text": "Voice note (0:42): \"Hey, just landing, will call when I'm out\"", "label": "benign", "category": "news_and_info"}
+{"text": "Event reminder: Tech meetup tomorrow 6pm at the Innovation Hub. Free entry, RSVP on Eventbrite.", "label": "benign", "category": "news_and_info"}
+{"text": "Fuel prices to drop by 5% from Monday - minister.", "label": "benign", "category": "news_and_info"}
+{"text": "The Black Stars will face Nigeria in the friendly on 14 Nov.", "label": "benign", "category": "news_and_info"}
+{"text": "Traffic alert: N1 closed near the toll plaza due to an accident. Use the alternate route.", "label": "benign", "category": "news_and_info"}
+{"text": "Weekend forecast: sunshine all the way ☀️", "label": "benign", "category": "news_and_info"}
+{"text": "Bus 42 is running 15 min late due to roadworks.", "label": "benign", "category": "news_and_info"}
+{"text": "Train services between Cape Town and Bellville are suspended due to a cable fault.", "label": "benign", "category": "news_and_info"}
+{"text": "Hurricane warning for the coast. Residents should follow official local government advice.", "label": "benign", "category": "news_and_info"}
+{"text": "Flash: Police confirm fire at the market, no casualties reported.", "label": "benign", "category": "news_and_info"}
+{"text": "Daily devotional: \"Be strong and courageous. Do not be afraid.\" - Joshua 1:9", "label": "benign", "category": "news_and_info"}
+{"text": "Match tonight 8pm, Man U vs Chelsea. Pub is on, first round on me.", "label": "benign", "category": "news_and_info"}
+{"text": "Fun fact: honey never spoils 🍯", "label": "benign", "category": "news_and_info"}
+{"text": "Your trip itinerary: Hotel check-in 2pm, airport pickup 9am. Have a great time!", "label": "benign", "category": "news_and_info"}
+{"text": "Election commission announces the date for the by-election: 21 November.", "label": "benign", "category": "news_and_info"}
+{"text": "Reminder: Clocks go back this Sunday. Extra hour of sleep!", "label": "benign", "category": "news_and_info"}
+{"text": "Cricket: India beat Australia by 5 wickets. Kohli 82*.", "label": "benign", "category": "news_and_info"}
+{"text": "Sharing this article, interesting read on how inflation affects small business: news.example/inflation-small-biz", "label": "benign", "category": "news_and_info"}
+{"text": "AFCON qualifiers fixtures out. Check the website of the football federation.", "label": "benign", "category": "news_and_info"}
+{"text": "Free webinar on personal finance Thursday 7pm. Link on our page.", "label": "benign", "category": "news_and_info"}
+{"text": "Garri prices are up again this month, traders say.", "label": "benign", "category": "news_and_info"}
+{"text": "Airport shuttle leaves every 30 minutes from the main gate.", "label": "benign", "category": "news_and_info"}
+{"text": "The ferry will not run tomorrow due to rough seas.", "label": "benign", "category": "news_and_info"}
+{"text": "Pic from the family reunion!! 👨‍👩‍👧‍👦", "label": "benign", "category": "news_and_info"}
+{"text": "Church announcement: Harvest thanksgiving next Sunday. Bring a food item.", "label": "benign", "category": "news_and_info"}
+{"text": "Eid Mubarak to all our listeners! Programme starts at 8am.", "label": "benign", "category": "news_and_info"}
+{"text": "Load shedding schedule for tomorrow has been updated. Check your municipality's site.", "label": "benign", "category": "news_and_info"}
+{"text": "Bank holiday Monday: most shops and banks closed.", "label": "benign", "category": "news_and_info"}
+{"text": "Market update: the naira closed at 1,520 per dollar.", "label": "benign", "category": "news_and_info"}
+{"text": "Pollen count is high today, take your meds if you have hay fever.", "label": "benign", "category": "news_and_info"}
+{"text": "Smog alert for Delhi, avoid outdoor exercise. AQI 312.", "label": "benign", "category": "news_and_info"}
+{"text": "Mapa ng bagyo: signal no. 2 sa Luzon. Mag-ingat po tayo.", "label": "benign", "category": "news_and_info"}
+{"text": "El partido de mañana se aplazó por la lluvia.", "label": "benign", "category": "news_and_info"}
+{"text": "Exposition ce week-end au musée, entrée libre pour les étudiants.", "label": "benign", "category": "news_and_info"}
+{"text": "Podcast ep 45 is out, we talk about remote work and money habits.", "label": "benign", "category": "news_and_info"}
+{"text": "Morning! 22 degrees in London, grab a brolly ☂️", "label": "benign", "category": "news_and_info"}
+{"text": "Sorry for yelling earlier. I was stressed and took it out on you. I love you ❤️", "label": "benign", "category": "emotional_and_personal"}
+{"text": "You are stronger than you think. Keep going, I believe in you.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Happy birthday dear!! Wishing you long life and prosperity 🎂🎉", "label": "benign", "category": "emotional_and_personal"}
+{"text": "So sorry for your loss. My thoughts and prayers are with you and your family.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Good morning my love. Didn't sleep well without you 😘", "label": "benign", "category": "emotional_and_personal"}
+{"text": "You never listen to me!! Always on that phone | that's not fair, I'm trying", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Miss you mama, call me when you're free", "label": "benign", "category": "emotional_and_personal"}
+{"text": "God is faithful. Don't give up, your breakthrough is near 🙏", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Forwarded: \"Don't wait for the perfect moment. Take the moment and make it perfect.\"", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Babe where are you? I've been calling since 9 | Sorry my phone died, on my way", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Congrats on the new baby!!! Can't wait to meet her 😭😭", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Thinking of you today. I know it's the anniversary. I'm here if you want to talk.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "I'm really disappointed in you but I still love you", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Happy anniversary to my king. 5 years and counting 💍", "label": "benign", "category": "emotional_and_personal"}
+{"text": "We need to talk tonight. Not angry, just want to sort this out.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Proud of you son. Keep working hard.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Don't forget to eat something. Take care of yourself 🥺", "label": "benign", "category": "emotional_and_personal"}
+{"text": "I forgive you. Let's move on.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Rest in peace Grandpa. You'll always be in our hearts. 🕊️", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Lord, watch over my family tonight. Amen.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Stop being dramatic lol 😂 come here", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Tomorrow will be better. Sleep well.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "I'm sorry I missed your call. Work was crazy. Dinner tonight?", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Please forgive me for the things I said. I didn't mean any of it.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Feliz cumpleaños, hermana! Que Dios te bendiga siempre 🎈", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Je t'aime mon cœur, bonne nuit 💕", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Mera bhai, tu best hai yaar. Thanks for always being there 🙏", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Bestie I'm so proud of you!!! You did it!!", "label": "benign", "category": "emotional_and_personal"}
+{"text": "I miss our old days. Can we meet this weekend?", "label": "benign", "category": "emotional_and_personal"}
+{"text": "This is why I'm leaving. You don't care. | Please don't go. Let's talk.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Walk good, my brother. Safe journey.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Happy Mother's Day to the strongest woman I know!", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Hang in there. This too shall pass.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Hey stranger! It's been ages. How's life?", "label": "benign", "category": "emotional_and_personal"}
+{"text": "My friend, I'm praying for your exam. You will pass in Jesus name.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "I'm not mad. I'm just tired. ", "label": "benign", "category": "emotional_and_personal"}
+{"text": "You looked so beautiful today 😍", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Mi vida, perdóname por lo de ayer. Te quiero mucho.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Thank you for being there when I needed someone. I won't forget it.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Dad's surgery went well. Thank God. Pray with us.", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Happy new month! May this month bring you favour 🙏🏽", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Love you to the moon and back 🌙", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Sorry, can't make it tonight. Not feeling well. Rain check?", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Cheer up! You've got this 💪", "label": "benign", "category": "emotional_and_personal"}
+{"text": "Remember to smile today :)", "label": "benign", "category": "emotional_and_personal"}
+{"text": "You won the bet! Dinner is on me 🍕", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "URGENT: meeting moved to 3pm, conference room B.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Click the link in the group description to join the quiz tonight, everyone is on it.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "I'll send you the code for the door lock, it's 4417 for the airbnb. Don't tell anyone lol", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Dev: why is the printer asking for a PIN? | I'll send the PIN to the printer from the script, 1234 is the test value", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Welcome! Please verify your email to finish signing up: app.example/verify?t=abc123. You created this account just now.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Who has the account number for class dues? Treasurer pls drop it", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Promo code SAVE15 gives you 15% off your next order at Mr Price. Valid till 31 Oct.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Lol you win, I give up. Your prize is a free coffee ☕", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Urgent!! Where are you? The bus is leaving now", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Please transfer the files to the shared drive, I can't access your laptop", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Verify the batch numbers on the shipment before signing | ok checking", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Bank is closed today, it's a holiday. Go tomorrow.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Congratulations to the winner of our office raffle: Efe from accounting! Come to the pantry for your prize hamper.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Can you click the link and RSVP for the baby shower? Mama sent it already: rsvp.example/baby-shower", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "The wifi password is \"mangoes2026\" if guests need it", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Send me the pin of the location na, I dey lost (drops a map pin)", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Account manager Kelechi will call you tomorrow about the contract.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Pay attention in class tomorrow, test is coming!", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "My bank card was swallowed by the ATM so I'm heading to the branch now. Wish me luck", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "We have a winner!! Tola guessed the score right. Prize: bragging rights 🏆", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Don't forget to click 'Attending' on the event so I know the numbers", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Hotel booking confirmed. Pay the balance at check-in. Ref KB-2290.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "I'll Venmo you the code for the Netflix profile pin. It's 0000 lol", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Urgent: bring your charger, my phone is at 2%", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Secret santa draw is done 🎅 check the link the organiser sent in the group", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Pls transfer 3GB of the movie via Xender", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Your Domino's voucher: FREEPIZZA10. Show it at the counter. Valid this week only. Sent by Domino's after your order #4412.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Free trial ends tomorrow. Cancel anytime in Settings > Subscription.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "bro how do i reset my own bank pin? i forgot it | go to the branch with ur ID, they cant do it by phone", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Reminder: The PIN for the gym locker is changing Monday. New one at the front desk.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Verification of your documents at the embassy is Thursday 10am. Bring originals.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Lucky draw at the church bazaar tonight! Tickets 5 cedis each, I have extra if you want 🎟️", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Link to the zoom for tonight's family call: zoom.example/j/123456789. Same as last week.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Is this the right account for the ward dues? 0123456789 – class prefect, see the notice on the board", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Winner winner chicken dinner 🍗 we won the game!", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Code review: please verify the PR before merging, link is in Slack", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "I clicked the wrong link by mistake and opened the wrong doc, my bad", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Won't pay more than 2k for that tbh. It's overpriced", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "The OTP for the demo env is 123456 in the readme. That's the sandbox, not prod.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "I need to urgently send you my CV. What's your email?", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Sunday raffle: first prize a goat 🐐. Tickets from the committee, ask Pastor Joe.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Call me back ASAP, I've got news!!", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Account opened successfully. Welcome to Standard Bank! Visit any branch with your ID to collect your card.", "label": "benign", "category": "tricky_lookalikes"}
+{"text": "Black Friday sale starts at midnight. Use code BF26 at checkout on our website.", "label": "benign", "category": "tricky_lookalikes"}

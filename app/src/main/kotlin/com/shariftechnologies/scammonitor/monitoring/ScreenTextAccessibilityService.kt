@@ -47,6 +47,7 @@ class ScreenTextAccessibilityService : AccessibilityService() {
         val c = container
         c.screenController.extraExcluded = enabledKeyboardPackages()
         c.monitorStatus.setScreenConnected(true)
+        c.alertPopup.attach(this)
         c.start()
         val shortcut = ScreenShortcutOverlay(this, c, ::readCurrentContext)
         overlay = shortcut
@@ -96,6 +97,7 @@ class ScreenTextAccessibilityService : AccessibilityService() {
         handler.removeCallbacks(scanRunnable)
         overlay?.destroy()
         overlay = null
+        container.alertPopup.attach(null)
         scope?.cancel()
         scope = null
         active = false
@@ -107,7 +109,7 @@ class ScreenTextAccessibilityService : AccessibilityService() {
     private fun trackForeground(pkg: String) {
         val c = container
         if (pkg == "com.android.systemui" || pkg in c.screenController.extraExcluded) return
-        if (pkg == packageName && overlay?.recentlyChangedOwnWindows() == true) return // our own shield/panel appearing
+        if (pkg == packageName && (overlay?.recentlyChangedOwnWindows() == true || container.alertPopup.recentlyChangedWindows())) return // our own shield/panel/pop-up appearing
         val monitorable = if (c.screenController.isMonitorable(pkg)) pkg else null
         c.screenController.setForeground(monitorable)
         overlay?.setCurrent(monitorable)

@@ -71,4 +71,12 @@ data class WarningPreferences(
     val minSeverity: Severity = Severity.LOW,
     /** Show the warning text on the lock screen so it can be read without unlocking or opening the app. */
     val showOnLockScreen: Boolean = true,
+    /** Also show a pop-up card over whatever app is open, so a warning cannot be missed. */
+    val popup: Boolean = true,
+    /** Strong vibration with the warning. */
+    val vibrate: Boolean = true,
+    /** Play an alert tone with the warning (off by default; it can be loud). */
+    val tone: Boolean = false,
+    /** Pop-up, vibration and tone start at this severity; lower ones get only the notification. */
+    val alertMinSeverity: Severity = Severity.MEDIUM,
 )

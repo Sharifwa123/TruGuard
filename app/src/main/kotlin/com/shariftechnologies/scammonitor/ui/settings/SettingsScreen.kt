@@ -69,12 +69,14 @@ fun SettingsScreen() {
     val notificationsAllowed by vm.notificationsAllowed.collectAsStateWithLifecycle()
     val clearResult by vm.clearResult.collectAsStateWithLifecycle()
     val securityAlerts by vm.securityAlertsEnabled.collectAsStateWithLifecycle()
+    val intentEnabled by vm.intentEnabled.collectAsStateWithLifecycle()
     val screenConsent by vm.screenConsent.collectAsStateWithLifecycle()
     val screenPaused by vm.screenPaused.collectAsStateWithLifecycle()
     val screenShortcut by vm.screenShortcut.collectAsStateWithLifecycle()
     val screenConfig by vm.screenConfig.collectAsStateWithLifecycle()
     val screenConnected by vm.screenConnected.collectAsStateWithLifecycle()
     val screenServiceEnabled by vm.screenServiceEnabled.collectAsStateWithLifecycle()
+    val popupAvailable by vm.popupAvailable.collectAsStateWithLifecycle()
     var showScreenDisclosure by remember { mutableStateOf(false) }
     var confirmClear by remember { mutableStateOf(false) }
     var rulesExpanded by remember { mutableStateOf(false) }
@@ -121,6 +123,7 @@ fun SettingsScreen() {
         GlassCard(Modifier.fillMaxWidth(), padding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)) {
             SectionLabel("Warnings")
             SwitchRow("Warn me about scams", prefs.enabled, vm::setWarningsEnabled)
+            SwitchRow("Smart intent detection", intentEnabled, vm::setIntentEnabled, hint = "Spots scams by what they ask for, not exact words")
             SwitchRow("Show on lock screen", prefs.showOnLockScreen, vm::setShowOnLockScreen, hint = "Who and why, without unlocking", enabled = prefs.enabled)
             Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("Warn from", style = MaterialTheme.typography.titleSmall, color = g.ink, modifier = Modifier.weight(1f))
@@ -135,6 +138,29 @@ fun SettingsScreen() {
                     ClayButton("Allow", { permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS) }, tone = Tone.Danger, compact = true)
                 }
             }
+            GlassDivider()
+            Text("Make it impossible to miss", style = MaterialTheme.typography.titleSmall, color = g.ink, modifier = Modifier.padding(top = 10.dp))
+            SwitchRow("Pop-up over any app", prefs.popup, vm::setPopup, hint = "A card you must dismiss", enabled = prefs.enabled)
+            SwitchRow("Strong vibration", prefs.vibrate, vm::setVibrate, hint = "Long pulses for high risk", enabled = prefs.enabled)
+            SwitchRow("Alert tone", prefs.tone, vm::setTone, hint = "A short beep on the alarm volume", enabled = prefs.enabled)
+            Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text("Alert from", style = MaterialTheme.typography.titleSmall, color = g.ink, modifier = Modifier.weight(1f))
+                listOf(Severity.LOW, Severity.MEDIUM, Severity.HIGH).forEach { sev ->
+                    GlassChip(sev.name.lowercase().replaceFirstChar { it.uppercase() }, prefs.alertMinSeverity == sev, { vm.setAlertMinSeverity(sev) }, enabled = prefs.enabled)
+                }
+            }
+            if (prefs.popup && !(popupAvailable || screenConnected)) {
+                Text(
+                    "The pop-up needs “Display over other apps”, or the screen monitor switched on.",
+                    style = MaterialTheme.typography.bodySmall, color = g.danger, modifier = Modifier.padding(vertical = 4.dp),
+                )
+                ClayButton("Allow pop-ups", {
+                    if (!vm.openOverlaySettings(context)) Toast.makeText(context, "Open Settings › Apps › Special access › Display over other apps.", Toast.LENGTH_LONG).show()
+                }, tone = Tone.Danger, compact = true)
+                Spacer(Modifier.size(8.dp))
+            }
+            ClayButton("Test alert", { vm.testAlert() }, tone = Tone.Warn, compact = true)
+            Spacer(Modifier.size(4.dp))
             GlassDivider()
             SwitchRow("Phone security alerts", securityAlerts, vm::setSecurityAlertsEnabled, hint = "Play Protect, screen lock, risky installs")
         }

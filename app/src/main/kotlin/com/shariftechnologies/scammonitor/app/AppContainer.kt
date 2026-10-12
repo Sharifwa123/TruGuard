@@ -27,6 +27,10 @@ import com.shariftechnologies.scammonitor.monitoring.ScreenMonitorController
 import com.shariftechnologies.scammonitor.notifications.ScreenMonitorNotifier
 import com.shariftechnologies.scammonitor.monitoring.pipeline.NotificationEventDispatcher
 import com.shariftechnologies.scammonitor.monitoring.pipeline.NotificationScanProcessor
+import com.shariftechnologies.scammonitor.alerts.AlertCoordinator
+import com.shariftechnologies.scammonitor.domain.intent.IntentClassifier
+import com.shariftechnologies.scammonitor.alerts.AlertEffects
+import com.shariftechnologies.scammonitor.alerts.AlertPopup
 import com.shariftechnologies.scammonitor.notifications.WarningNotificationManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -57,6 +61,9 @@ class AppContainer(context: Context) {
     val screenController = ScreenMonitorController(settings, scope, appContext.packageName)
     val screenNotifier = ScreenMonitorNotifier(appContext)
     val warningManager = WarningNotificationManager(appContext, labels) { settings.warningPreferences.value.showOnLockScreen }
+    val alertEffects = AlertEffects(appContext)
+    val alertPopup = AlertPopup(appContext)
+    val alerts = AlertCoordinator(warningManager, alertEffects, alertPopup, labels) { settings.warningPreferences.value }
 
     // Device security: app permission audit, protection state, install and change alerts.
     val riskTable: PermissionRiskTable by lazy { PermissionRiskTable.parse(assets.readOrNull("permission_risks.json")) }
@@ -76,15 +83,19 @@ class AppContainer(context: Context) {
     )
     private val installMonitor = InstallMonitor(appContext, scope, appScanner, { riskTable }, securityNotifier)
 
+    /** The learned intent model, parsed once on first use (always on a background thread); null if the file is damaged. */
+    private val intentModel: IntentClassifier? by lazy { IntentClassifier.parse(assets.readOrNull("intent_model.json")) }
+
     private val engine = ScamDetectionEngine(
         rules = { ruleRepository.current() },
         reputation = { reputation.checker },
+        intent = { if (settings.intentEnabled.value) intentModel else null },
     )
 
     private val processor = NotificationScanProcessor(
         engine = engine,
         sink = scanRepository,
-        warnings = warningManager,
+        warnings = alerts,
         preferences = { settings.warningPreferences.value },
     )
 
