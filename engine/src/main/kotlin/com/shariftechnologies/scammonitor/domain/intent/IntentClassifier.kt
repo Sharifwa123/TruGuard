@@ -41,11 +41,13 @@ class IntentClassifier private constructor(
     val version: String,
     private val bias: Double,
     private val scale: Double,
-    private val weights: Map<Int, Int>,
     val groups: List<String>,
     private val groupBias: DoubleArray,
     private val groupScale: Double,
-    private val groupWeights: List<Map<Int, Int>>,
+    /** Feature buckets that carry a weight in any head, ascending. */
+    private val keys: IntArray,
+    /** Row per key: the scam weight, then one weight per manipulation group. */
+    private val table: IntArray,
     val thresholds: IntentThresholdsDto,
 ) {
     /** Probability bands, calibrated on held-out data at training time (see docs/INTENT_MODEL.md). */
@@ -69,15 +71,22 @@ class IntentClassifier private constructor(
 
     fun classify(text: String, tags: Collection<String> = emptyList()): IntentVerdict {
         val v = IntentFeatures.extract(text, tags)
+        val rowLen = 1 + groups.size
         var z = 0.0
-        for (k in v.indices.indices) z += (weights[v.indices[k]] ?: 0) * v.values[k]
+        val s = DoubleArray(groups.size)
+        for (k in v.indices.indices) {
+            val pos = java.util.Arrays.binarySearch(keys, v.indices[k])
+            if (pos < 0) continue
+            val x = v.values[k]
+            val row = pos * rowLen
+            z += table[row] * x
+            for (c in s.indices) s[c] += table[row + 1 + c] * x
+        }
         val p = 1.0 / (1.0 + exp(-(bias + scale * z).coerceIn(-30.0, 30.0)))
         var best = 0
         var bestZ = Double.NEGATIVE_INFINITY
         for (c in groups.indices) {
-            var s = 0.0
-            for (k in v.indices.indices) s += (groupWeights[c][v.indices[k]] ?: 0) * v.values[k]
-            val zc = groupBias[c] + groupScale * s
+            val zc = groupBias[c] + groupScale * s[c]
             if (zc > bestZ) { bestZ = zc; best = c }
         }
         return IntentVerdict(p, groups[best])
@@ -92,11 +101,21 @@ class IntentClassifier private constructor(
             val dto = runCatching { json.decodeFromString(IntentModelDto.serializer(), text) }.getOrNull() ?: return null
             if (dto.buckets != IntentFeatures.BUCKETS || dto.scam.idx.size != dto.scam.w.size || dto.groups.isEmpty()) return null
             if (dto.group.idx.size != dto.groups.size || dto.group.w.size != dto.groups.size || dto.group.bias.size != dto.groups.size) return null
+            val all = java.util.TreeSet<Int>()
+            all.addAll(dto.scam.idx)
+            dto.group.idx.forEach { all.addAll(it) }
+            val keys = all.toIntArray()
+            val rowLen = 1 + dto.groups.size
+            val table = IntArray(keys.size * rowLen)
+            for (i in dto.scam.idx.indices) table[java.util.Arrays.binarySearch(keys, dto.scam.idx[i]) * rowLen] = dto.scam.w[i]
+            for (c in dto.groups.indices) {
+                val ids = dto.group.idx[c]; val ws = dto.group.w[c]
+                if (ids.size != ws.size) return null
+                for (i in ids.indices) table[java.util.Arrays.binarySearch(keys, ids[i]) * rowLen + 1 + c] = ws[i]
+            }
             return IntentClassifier(
-                dto.version, dto.scam.bias, dto.scam.scale, dto.scam.idx.zip(dto.scam.w).toMap(),
-                dto.groups, dto.group.bias.toDoubleArray(), dto.group.scale,
-                dto.group.idx.indices.map { c -> dto.group.idx[c].zip(dto.group.w[c]).toMap() },
-                dto.thresholds,
+                dto.version, dto.scam.bias, dto.scam.scale, dto.groups, dto.group.bias.toDoubleArray(), dto.group.scale,
+                keys, table, dto.thresholds,
             )
         }
     }
