@@ -42,8 +42,8 @@ def fnv(s: str) -> int:
     return h
 
 
-def features(text: str):
-    """Returns (indices, values): a sparse, L2-normalised vector."""
+def features(text: str, tags=()):
+    """Returns (indices, values): a sparse, L2-normalised vector. `tags` are rule ids that matched (extra features)."""
     toks = tokens(text)
     counts = {}
 
@@ -59,6 +59,8 @@ def features(text: str):
         for n in (3, 4, 5):
             for i in range(len(w) - n + 1):
                 add("c:" + w[i : i + n])
+    for t in tags:
+        add("r:" + t)
     add("s:len" + str(min(9, (len(toks) + 1).bit_length() - 1)))
     if "?" in text:
         add("s:q")

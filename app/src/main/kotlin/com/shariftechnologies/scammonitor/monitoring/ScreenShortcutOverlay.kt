@@ -242,22 +242,34 @@ class ScreenShortcutOverlay(
         if (panel != null) { hidePanel(); return }
         val pkg = currentPackage ?: return
         val content = buildPanel(pkg)
-        val maxWidth = (metrics.widthPixels - dp(24)).coerceAtMost(dp(340))
-        content.measure(View.MeasureSpec.makeMeasureSpec(maxWidth, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
-        val w = content.measuredWidth
-        val h = content.measuredHeight
+        // A fixed width (never measured from the content): a wrap-content overlay window could collapse to a sliver.
+        val w = (metrics.widthPixels - dp(24)).coerceAtMost(dp(PANEL_WIDTH_DP)).coerceAtLeast(dp(200))
         val bp = bubbleParams
         val bubbleWindow = dp(BUBBLE_DP) + 2 * dp(BUBBLE_PAD_DP)
         val bubbleX = bp?.x ?: (metrics.widthPixels - bubbleWindow)
         val bubbleY = bp?.y ?: dp(120)
-        val below = bubbleY + bubbleWindow - dp(8)
-        val screenH = metrics.heightPixels
-        val y = (if (below + h > screenH - dp(24)) bubbleY - h + dp(8) else below).coerceIn(dp(24), (screenH - h - dp(24)).coerceAtLeast(dp(24)))
         val x = (if (bubbleX + bubbleWindow / 2 > metrics.widthPixels / 2) metrics.widthPixels - w - dp(4) else dp(4)).coerceAtLeast(0)
-        val params = overlayParams(w, h, touchOutside = true).apply { this.x = x; this.y = y }
+        val params = overlayParams(w, WindowManager.LayoutParams.WRAP_CONTENT, touchOutside = true).apply {
+            this.x = x
+            this.y = bubbleY + bubbleWindow - dp(8) // below the shield for now; corrected once the real height is known
+        }
         content.setOnTouchListener { _, e ->
             if (e.action == MotionEvent.ACTION_OUTSIDE && !touchIsOnBubble(e)) { hidePanel(); true } else false
         }
+        // Once laid out, move the panel above the shield if it would run off the bottom, and keep it on screen.
+        content.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
+            override fun onLayoutChange(v: View, l: Int, t: Int, r: Int, b: Int, ol: Int, ot: Int, or: Int, ob: Int) {
+                val h = b - t
+                if (h <= 0 || h == ob - ot) return
+                val screenH = metrics.heightPixels
+                val below = bubbleY + bubbleWindow - dp(8)
+                val wanted = (if (below + h > screenH - dp(24)) bubbleY - h + dp(8) else below).coerceIn(dp(24), (screenH - h - dp(24)).coerceAtLeast(dp(24)))
+                if (wanted != params.y) {
+                    params.y = wanted
+                    try { wm.updateViewLayout(v, params) } catch (e: RuntimeException) { /* removed meanwhile */ }
+                }
+            }
+        })
         noteOwnWindowChange()
         try { wm.addView(content, params); panel = content } catch (e: RuntimeException) { panel = null }
     }
@@ -319,7 +331,7 @@ class ScreenShortcutOverlay(
         }
         val root = FrameLayout(themed).apply {
             setPadding(dp(12), dp(10), dp(12), dp(14))
-            addView(card, FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT))
+            addView(card, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT))
         }
 
         // header: shield, names, close
@@ -440,5 +452,6 @@ class ScreenShortcutOverlay(
         const val OWN_WINDOW_QUIET_MILLIS = 1000L
         const val BUBBLE_DP = 52
         const val BUBBLE_PAD_DP = 8
+        const val PANEL_WIDTH_DP = 320
     }
 }

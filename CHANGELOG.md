@@ -2,6 +2,16 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.7.0 - 2026-10-12
+
+- **Fewer false alarms, more real catches (the model now judges, the rules advise).** Device screenshots showed TruGuard flagging a legitimate FORGE30 course announcement as HIGH (a loose "WhatsApp + updates + link" rule plus a model that had never seen ordinary promotions), flagging a chat about this app as HIGH (words from unrelated bubbles and buttons combining), and missing "there's a code in it we need to add you to the group". Fixes:
+  - The learned model is retrained on 3,180 examples (up from 1,600), adding legitimate promotions, programme and group announcements, enquiries, developer/assistant prose, screen dumps, and split-bubble scam lures.
+  - Rules are now *features* the model weighs: it learned how reliable each rule is, so sloppy rules count for little. Severity comes from a calibrated probability (cut-offs set so ordinary messages reach LOW/MEDIUM/HIGH at most 4%/1.5%/0.5% of the time).
+  - On-screen text is judged in windows of three neighbouring pieces (bubbles, paragraphs), not as one blob, so a scam spread over a few bubbles is still caught but unrelated text cannot combine.
+  - On two independent blind tests (319 and 400 messages) the detector now flags 87-91% of scams at LOW+ (rules alone: 21-31%) with 3-7.5% false alarms on a look-alike-heavy set, and 56-64% at HIGH (rules alone: 8-12%). Method, numbers and limits: `docs/INTENT_MODEL.md`.
+- **Shield options panel** now has a fixed width and is positioned after layout; the screenshot showed it collapsing to a blank white bar under the shield.
+- Maintainer tools: `DumpRuleHits` (records which rules fire on each training example) and rule-tag features in the trainer.
+
 ## 1.6.0 - 2026-10-12
 
 - **About screen** (Home ▸ ⓘ, and Settings ▸ About TruGuard): developer details, support, help, privacy and share. Developer details come from `app/src/main/res/values/about.xml` (empty values hide their rows); email, website, WhatsApp, privacy policy and the payment page still need your details.

@@ -19,7 +19,17 @@ class IntentHeadDto(val bias: Double, val scale: Double, val idx: List<Int>, val
 class IntentGroupDto(val bias: List<Double>, val scale: Double, val idx: List<List<Int>>, val w: List<List<Int>>)
 
 @Serializable
-class IntentModelDto(val version: String, val buckets: Int, val scam: IntentHeadDto, val groups: List<String>, val group: IntentGroupDto)
+class IntentThresholdsDto(val low: Double = 0.65, val medium: Double = 0.85, val high: Double = 0.95)
+
+@Serializable
+class IntentModelDto(
+    val version: String,
+    val buckets: Int,
+    val scam: IntentHeadDto,
+    val groups: List<String>,
+    val group: IntentGroupDto,
+    val thresholds: IntentThresholdsDto = IntentThresholdsDto(),
+)
 
 /**
  * A small statistical model (hashed word and character n-grams -> logistic regression) trained on example scam and
@@ -36,9 +46,29 @@ class IntentClassifier private constructor(
     private val groupBias: DoubleArray,
     private val groupScale: Double,
     private val groupWeights: List<Map<Int, Int>>,
+    val thresholds: IntentThresholdsDto,
 ) {
-    fun classify(text: String): IntentVerdict {
-        val v = IntentFeatures.extract(text)
+    /** Probability bands, calibrated on held-out data at training time (see docs/INTENT_MODEL.md). */
+    fun severityFor(probability: Double): com.shariftechnologies.scammonitor.domain.model.Severity = when {
+        probability >= thresholds.high -> com.shariftechnologies.scammonitor.domain.model.Severity.HIGH
+        probability >= thresholds.medium -> com.shariftechnologies.scammonitor.domain.model.Severity.MEDIUM
+        probability >= thresholds.low -> com.shariftechnologies.scammonitor.domain.model.Severity.LOW
+        else -> com.shariftechnologies.scammonitor.domain.model.Severity.INFO
+    }
+
+    /** A 0..100 score whose bands line up with the severities (15 = LOW, 35 = MEDIUM, 60 = HIGH). */
+    fun riskScore(probability: Double): Int {
+        val t = thresholds
+        return when {
+            probability >= t.high -> 60 + ((probability - t.high) / (1.0 - t.high) * 40).toInt().coerceIn(0, 40)
+            probability >= t.medium -> 35 + ((probability - t.medium) / (t.high - t.medium) * 24).toInt().coerceIn(0, 24)
+            probability >= t.low -> 15 + ((probability - t.low) / (t.medium - t.low) * 19).toInt().coerceIn(0, 19)
+            else -> (probability / t.low * 14).toInt().coerceIn(0, 14)
+        }
+    }
+
+    fun classify(text: String, tags: Collection<String> = emptyList()): IntentVerdict {
+        val v = IntentFeatures.extract(text, tags)
         var z = 0.0
         for (k in v.indices.indices) z += (weights[v.indices[k]] ?: 0) * v.values[k]
         val p = 1.0 / (1.0 + exp(-(bias + scale * z).coerceIn(-30.0, 30.0)))
@@ -66,6 +96,7 @@ class IntentClassifier private constructor(
                 dto.version, dto.scam.bias, dto.scam.scale, dto.scam.idx.zip(dto.scam.w).toMap(),
                 dto.groups, dto.group.bias.toDoubleArray(), dto.group.scale,
                 dto.group.idx.indices.map { c -> dto.group.idx[c].zip(dto.group.w[c]).toMap() },
+                dto.thresholds,
             )
         }
     }
