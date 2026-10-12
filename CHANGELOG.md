@@ -2,6 +2,11 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.7.1 - 2026-10-12
+
+- **Shield stays out of the way.** After 2.5 seconds untouched the floating shield fades to 35% so it no longer hides chat bubbles or notification text; touching it brings it back at full strength.
+- Reminder from device testing: a warm opener with no ask yet (for example a romance-style "my answer is YES") is rated LOW (28/100) and notifies silently. Pop-up and vibration start at MEDIUM; choose Settings > Alert from > Low to be alerted for these too.
+
 ## 1.7.0 - 2026-10-12
 
 - **Fewer false alarms, more real catches (the model now judges, the rules advise).** Device screenshots showed TruGuard flagging a legitimate FORGE30 course announcement as HIGH (a loose "WhatsApp + updates + link" rule plus a model that had never seen ordinary promotions), flagging a chat about this app as HIGH (words from unrelated bubbles and buttons combining), and missing "there's a code in it we need to add you to the group". Fixes:
