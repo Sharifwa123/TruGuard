@@ -139,7 +139,19 @@ class ScreenShortcutOverlay(
             bubble = wrapper
             bubbleParams = params
             applyBubbleLook()
+            restBubbleSoon()
         } catch (e: RuntimeException) { bubble = null }
+    }
+
+    /** When untouched the shield fades back so it doesn't cover chat bubbles or notification text. */
+    private val restBubble = Runnable { bubble?.animate()?.alpha(IDLE_ALPHA)?.setDuration(400)?.start() }
+
+    private fun restBubbleSoon() {
+        bubble?.let {
+            it.removeCallbacks(restBubble)
+            it.animate().alpha(1f).setDuration(120).start()
+            it.postDelayed(restBubble, 2500)
+        }
     }
 
     private fun applyBubbleLook() {
@@ -178,6 +190,7 @@ class ScreenShortcutOverlay(
         override fun onTouch(v: View, e: MotionEvent): Boolean {
             when (e.action) {
                 MotionEvent.ACTION_DOWN -> {
+                    restBubbleSoon()
                     startX = params.x; startY = params.y; touchX = e.rawX; touchY = e.rawY; moved = false
                     view.animate().scaleX(0.92f).scaleY(0.92f).setDuration(80).start()
                 }
@@ -194,6 +207,7 @@ class ScreenShortcutOverlay(
                 }
                 MotionEvent.ACTION_UP -> {
                     view.animate().scaleX(1f).scaleY(1f).setDuration(120).start()
+                    restBubbleSoon()
                     if (moved) snapToEdge(params, view) else onShieldTap()
                 }
                 MotionEvent.ACTION_CANCEL -> view.animate().scaleX(1f).scaleY(1f).setDuration(120).start()
@@ -453,6 +467,7 @@ class ScreenShortcutOverlay(
         const val OWN_WINDOW_QUIET_MILLIS = 1000L
         const val BUBBLE_DP = 52
         const val BUBBLE_PAD_DP = 8
+        const val IDLE_ALPHA = 0.35f
         const val PANEL_WIDTH_DP = 320
     }
 }
