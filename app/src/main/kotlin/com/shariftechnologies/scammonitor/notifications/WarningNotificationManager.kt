@@ -68,8 +68,11 @@ class WarningNotificationManager(
             else -> context.getString(R.string.warning_title_low)
         }
         val from = request.sourceTitle.trim().take(60).let { if (it.isEmpty()) source else "$source ($it)" }
-        val text = context.getString(R.string.warning_text, from, request.result.summary)
-        val details = text + "\n" + context.getString(R.string.warning_advice)
+        val reason = firstSentence(request.result.summary)
+        val text = context.getString(R.string.warning_text, from, reason)
+        // On-screen findings have no notification to look at, so quote (masked) what was found.
+        val quote = if (request.origin == EventOrigin.SCREEN) request.result.evidence.firstOrNull()?.let { "“" + it.trim().take(100) + "”" } else null
+        val details = listOfNotNull(text, quote, context.getString(R.string.warning_advice)).joinToString("\n")
         val visibility = if (showOnLockScreen()) Notification.VISIBILITY_PUBLIC else Notification.VISIBILITY_PRIVATE
 
         val open = Intent(context, MainActivity::class.java)
@@ -97,6 +100,12 @@ class WarningNotificationManager(
             .setOnlyAlertOnce(true)
             .build()
         manager.notify(NOTIFICATION_TAG, request.eventId.hashCode(), notification)
+    }
+
+    /** The first sentence of an explanation: the reason, without the long advice that follows it. */
+    private fun firstSentence(text: String): String {
+        val end = text.indexOf(". ").let { if (it < 0) text.length else it + 1 }
+        return text.substring(0, end).trim().let { if (it.length > 140) it.take(139) + "…" else it }
     }
 
     private fun channelFor(severity: Severity) = when (severity) {

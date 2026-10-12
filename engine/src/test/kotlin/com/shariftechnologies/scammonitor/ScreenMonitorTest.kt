@@ -122,6 +122,14 @@ class ScreenAnalyzerTest {
         assertTrue(a.chunks.any { it.startsWith("pleas we hav") })
     }
 
+    @Test fun `day separators times and counters are not chat titles but names and numbers are`() {
+        listOf("Yesterday", "Today", "Monday", "6:52 PM", "18:03", "12/10/2026", "Oct 12", "12 Oct 2026", "1 unread message", "3", "last seen today", "online", "typing...")
+            .forEach { assertFalse("\"$it\" must not be a title", ScreenAnalyzer.isChatTitle(it)) }
+        listOf("+233 59 925 4830", "Kofi Mensah", "Family group", "MTN MoMo", "Mom").forEach { assertTrue("\"$it\" is a title", ScreenAnalyzer.isChatTitle(it)) }
+        val a = ScreenAnalyzer.analyze(listOf(ScreenNode("Yesterday", 120, 10, false), ScreenNode("+233 59 925 4830", 100, 10, false), ScreenNode("1 unread message", 150, 10, false)), height)
+        assertEquals(listOf("+233 59 925 4830"), a.context.titleCandidates)
+    }
+
     @Test fun `editable text such as the address bar or what the user is typing is never message text`() {
         val chunks = ScreenAnalyzer.analyze(nodes, height).chunks
         assertFalse(chunks.any { it.contains("typed draft") })

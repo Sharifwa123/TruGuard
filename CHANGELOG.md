@@ -2,6 +2,21 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.4.0 - 2026-10-12
+
+- **New interface: glass, clay and soft shadows.** A drifting aurora backdrop under frosted-glass cards, puffy clay buttons and switches that spring when pressed, soft-shadow stat tiles that press in, a floating glass tab bar whose selected tab grows into a glowing pill, expandable cards, haptic ticks and animated screen transitions. Light and dark themes. No new libraries (shadows are drawn, not blurred, so it looks the same on every Android version).
+  - Dashboard rebuilt around a protection status orb, three tappable stat tiles (flagged, scanned, apps watched), a screen-monitor card with a live on/off switch, and a short recent list. The privacy paragraph and most explanatory text are gone.
+  - Flagged, Log and Security show one glass card per item; details open in place with a tap instead of dialogs. Security opens with a health summary.
+  - Settings is grouped into cards (access, warnings, screen monitor, rules, data). Each monitored app can be stopped from there with one tap.
+  - Onboarding is three short points and one button.
+- **Fixed (from device screenshots):**
+  - The 1.3.0 bottom bar was clipped by its fixed height and its label was unreadable; it is replaced.
+  - Setting descriptions were cut off mid-sentence; the copy is shorter and never truncated.
+  - The chat shortcut offered "Only this chat: Yesterday". Day separators, times, unread counters and similar chrome are no longer taken for chat names.
+  - The shield panel could open off-screen near the bottom; it is now placed inside the screen, closes when you tap elsewhere, and the shield glides to the nearest screen edge after a drag.
+  - Two shields could appear: Android's own faded accessibility button uses the same shield icon as the app. TruGuard's accessibility service now has its own eye icon, Settings explains how to hide Android's button, and a service reconnect can no longer leave a second TruGuard shield behind.
+  - Warnings are shorter (reason in one line) and quote the masked text that triggered an on-screen warning, so you can tell which message it was about.
+
 ## 1.3.0 - 2026-10-12
 
 - **Shield is now one tap.** Tapping the floating shield over an app that is not monitored switches monitoring on for it and says so ("TruGuard is now monitoring WhatsApp"). The shield turns green while the app in front is monitored; tapping it then opens the panel (only this chat / website, resume, settings, the "Monitor <app>" switch to turn it off).

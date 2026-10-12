@@ -56,6 +56,7 @@
         <service
             android:name=".monitoring.ScreenTextAccessibilityService"
             android:exported="true"
+            android:icon="@drawable/ic_a11y_eye"
             android:label="@string/screen_service_label"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>

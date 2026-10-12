@@ -56,6 +56,12 @@ class SettingsViewModel(private val container: AppContainer) : ViewModel() {
     fun openAccessibilitySettings(context: android.content.Context) = container.accessManager.openAccessibilitySettings(context)
     fun appLabel(packageName: String): String = container.labels.labelOrPackage(packageName)
 
+    /** Stops monitoring one app and forgets what was already analysed in it. */
+    fun stopMonitoring(packageName: String) {
+        container.screenController.tracker.forget(packageName)
+        container.screenController.updateConfig { it.disableApp(packageName) }
+    }
+
     /** Stops monitoring every app and forgets what was already analysed. */
     fun stopAllScreenMonitoring() {
         container.settings.screenConfig.value.enabledPackages.forEach { container.screenController.tracker.forget(it) }
