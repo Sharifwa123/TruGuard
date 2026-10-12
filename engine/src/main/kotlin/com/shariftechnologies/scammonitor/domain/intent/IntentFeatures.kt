@@ -43,7 +43,11 @@ object IntentFeatures {
         return (h and MASK.toLong()).toInt()
     }
 
-    fun extract(text: String): Vector {
+    /**
+     * [tags] are extra evidence the caller already has about the text (the ids of the rules that matched). They become
+     * features of their own, so the trainer can learn how much each rule is worth instead of trusting it blindly.
+     */
+    fun extract(text: String, tags: Collection<String> = emptyList()): Vector {
         val toks = token.findAll(normalize(text)).map { it.value }.toList()
         val counts = HashMap<String, Int>(toks.size * 12)
         fun add(f: String) { counts[f] = (counts[f] ?: 0) + 1 }
@@ -57,6 +61,7 @@ object IntentFeatures {
                 while (i + n <= w.length) { add("c:" + w.substring(i, i + n)); i++ }
             }
         }
+        for (t in tags) add("r:$t")
         add("s:len" + minOf(9, 31 - Integer.numberOfLeadingZeros(toks.size + 1)))
         if ('?' in text) add("s:q")
         if ('!' in text) add("s:ex")

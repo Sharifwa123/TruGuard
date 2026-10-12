@@ -1,0 +1,400 @@
+{"text": "Hello, I would like to know more about your product", "label": "benign", "category": "question_about_something"}
+{"text": "Can you send me the details?", "label": "benign", "category": "question_about_something"}
+{"text": "Is this still available?", "label": "benign", "category": "question_about_something"}
+{"text": "What time does it start?", "label": "benign", "category": "question_about_something"}
+{"text": "Where can I register?", "label": "benign", "category": "question_about_something"}
+{"text": "hi how much is the 2 bedroom", "label": "benign", "category": "question_about_something"}
+{"text": "Do you deliver to Westlands?", "label": "benign", "category": "question_about_something"}
+{"text": "what's the price for the blue one", "label": "benign", "category": "question_about_something"}
+{"text": "Is the venue open on sundays??", "label": "benign", "category": "question_about_something"}
+{"text": "Hello. Can I get the link to the registration form please", "label": "benign", "category": "question_about_something"}
+{"text": "How do i apply for the evening class", "label": "benign", "category": "question_about_something"}
+{"text": "whats the address of the clinic", "label": "benign", "category": "question_about_something"}
+{"text": "do u have this in size M", "label": "benign", "category": "question_about_something"}
+{"text": "Good afternoon, is the room still available for next month?", "label": "benign", "category": "question_about_something"}
+{"text": "Which account type do you recommend for students?", "label": "benign", "category": "question_about_something"}
+{"text": "how long does shipping take", "label": "benign", "category": "question_about_something"}
+{"text": "Hi, what are your opening hours on Saturday", "label": "benign", "category": "question_about_something"}
+{"text": "Is there parking at the hotel", "label": "benign", "category": "question_about_something"}
+{"text": "Can you tell me the cost of the course and when it begins", "label": "benign", "category": "question_about_something"}
+{"text": "where is the nearest pharmacy", "label": "benign", "category": "question_about_something"}
+{"text": "Hello is the car still for sale", "label": "benign", "category": "question_about_something"}
+{"text": "Do I need to bring anything to the interview?", "label": "benign", "category": "question_about_something"}
+{"text": "How do I reset the code on my locker, anyone know", "label": "benign", "category": "question_about_something"}
+{"text": "what is the fee for late check-in", "label": "benign", "category": "question_about_something"}
+{"text": "Hi! Is the gym open on public holidays?", "label": "benign", "category": "question_about_something"}
+{"text": "which bus goes to the airport", "label": "benign", "category": "question_about_something"}
+{"text": "Please how much is the transport from Accra to Kumasi", "label": "benign", "category": "question_about_something"}
+{"text": "Can I pay on delivery or must I verify the order first?", "label": "benign", "category": "question_about_something"}
+{"text": "what time does the pharmacy close", "label": "benign", "category": "question_about_something"}
+{"text": "Hello, I saw your ad. Is the laptop still there?", "label": "benign", "category": "question_about_something"}
+{"text": "Does the plan include free calls?", "label": "benign", "category": "question_about_something"}
+{"text": "Where do I collect my certificate", "label": "benign", "category": "question_about_something"}
+{"text": "hey whats the wifi at the new cafe, is there a password", "label": "benign", "category": "question_about_something"}
+{"text": "How can I join the choir?", "label": "benign", "category": "question_about_something"}
+{"text": "Is the group tour fully booked", "label": "benign", "category": "question_about_something"}
+{"text": "Could you tell me how to update my address on the school portal?", "label": "benign", "category": "question_about_something"}
+{"text": "do you have a link to the menu", "label": "benign", "category": "question_about_something"}
+{"text": "what's the deadline for submitting the form", "label": "benign", "category": "question_about_something"}
+{"text": "Hello, can I know the price of the tickets for Friday", "label": "benign", "category": "question_about_something"}
+{"text": "Is there a discount for bulk orders?", "label": "benign", "category": "question_about_something"}
+{"text": "Can you send me the file?", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Please share the link to the meeting", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Send me the photos from yesterday", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Pls forward the doc", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Can you share the address?", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "send me the group link", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "can u send the pdf of the notes", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Please send the slides before tonight", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "share the location bro", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Send me the recipe you told me about", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "pls send me the zoom link, mine is not working", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Can you forward me that email from Mr. Okoye", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Drop me the playlist link", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "send the pictures from the wedding pls", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Hey can you share the Google doc with me again", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Please resend the invoice for the printer, I lost it", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "can you send me ur number for the plumber", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Send me the code for the lecture hall door, I forgot", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "can u add me to the group? send me the invite link", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "share the timetable pls", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Pls send me the video of the match", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "send me the notes from class abeg", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Could you send the minutes of the last meeting", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Forward me the link to the form", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Can you share your screen later? I need to see the sheet", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "send me ur account details for the class contribution", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Please send me the agenda", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "can you send me the pic of the receipt", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Send me the gate code when you get a minute", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Please share the folder with me, I'll update the budget", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Mom can you send me the recipe for the stew", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "send the link to the stream pls", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Can you update me on where u are", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Pls send the minutes by noon", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "send me the link to join the study group", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Hey, can you send me the spare key picture so I know which one", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "share the doc so i can edit", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Can you verify the numbers on the sheet and send back?", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "Send me your address, I'll mail the card", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "pls forward the group rules to me", "label": "benign", "category": "requests_between_acquaintances"}
+{"text": "The code for the Wi-Fi is on the fridge", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "I forgot my Netflix password, can you remind me — it's on the family sheet", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "what's your account number for the class dues", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "your account has been credited", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "I opened an account at the bank today", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "gate code is 4821, don't share it with the delivery guy lol", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Use my referral code SAM25 and we both get a free month", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "The locker code is the same as last time", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "promo code SUMMER10 works at checkout", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Door code changed to 0000 temporarily, landlord will fix it", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Thanks, I got the code you sent for the bike lock", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "I just updated my account details on the school portal", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "my Spotify account is on the family plan, I'll add you", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Your account balance is 1,200 after the transfer from savings", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Did you verify your email on the library account?", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Forgot the pin for the safe, was it your birthday?", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "The parcel locker code is 55-1234, pick it up before Friday", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Can you check if my account got the salary yet", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Which account do I use for the electricity bill", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "I changed my password to something I won't forget this time haha", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Account number for dues is on the pinned sheet, ask Mrs Banda", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Reminder: the Wi-Fi code at the cabin is cabin2026", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Coupon code PIZZA2 gives 2 for 1 on Tuesdays", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "I linked my account to the app, works now", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "The alarm code is the kids' birthdays, remember?", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Got the verification code from the clinic by SMS, it's in", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Link your card to the account in the app, then you can pay the group trip", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Opened a savings account for the baby today 🎉", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "code for the building entrance is on the notice board", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Can you ask the bank about my blocked card? I'm at work", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "I got blocked out of the Wi-Fi again, what's the code", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Use this discount code at the bookstore: READ15", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "your account at the gym is active until December", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Library account says 2 books due, I'll return them tomorrow", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Password for the shared Netflix is the one we used for the router", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Please update your account name on the class list", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "My account is verified now, finally", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "the door code for the studio is 1357, come at 6", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "Who has the spare key code for the garage", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "can you pay me on my account, the number is in the notes", "label": "benign", "category": "code_and_account_talk_innocent"}
+{"text": "test", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "hello hello", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "testing 1 2 3", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "this is a test of the scam detector", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "hello i would like to know more about your product (test)", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "buy milk, eggs, bread, rice", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "note to self: call dentist monday", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "Reminder: pay electricity bill by the 15th", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "check check", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "https://example.com/article-to-read-later", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "test message pls ignore", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "asdfgh", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "remember to renew passport in march", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "Shopping list: tomatoes, onions, soap, detergent, 2L oil", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "Draft: Dear all, the meeting is moved to Thursday at 4pm. Please confirm.", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "testing the link detection www.example.test/page", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "123456 is just a sample number for the form", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "Hello, I would like to know more about the course", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "Hello, I would like to know more about this house", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "hi", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "mic test", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "send help lol just kidding, testing", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "copied from website: Free delivery on orders over 50", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "idea: app that reminds me to drink water", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "wifi code kitchen: eggplant99", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "Test 2, account verify urgent click link (just seeing what the model says)", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "Things to do today: gym, laundry, call mum, email Prof", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "announcement draft: Church picnic is on Saturday, bring a dish!", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "trying the new keyboard hello", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "Hello, can you send me the details? (test)", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "booking ref ABC123 for the train", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "list: passport, charger, headphones, snacks", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "Meeting notes: budget approved, next review in 2 weeks", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "test test test", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "note: dad's birthday 3 Nov, buy a card", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "todo: update CV, apply for 3 jobs", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "hello world", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "saved link for later: example.org/recipes/jollof", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "what happens if I type a code here 8841", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "Draft post: Please join our group for weekend hikes, link below", "label": "benign", "category": "test_messages_self_chat"}
+{"text": "Only admins can send messages for now, thanks", "label": "benign", "category": "group_admin_messages"}
+{"text": "Welcome new members 👋 please read the rules in the description", "label": "benign", "category": "group_admin_messages"}
+{"text": "Use the link to invite friends but no spam please", "label": "benign", "category": "group_admin_messages"}
+{"text": "Please update your profile name so we know who you are", "label": "benign", "category": "group_admin_messages"}
+{"text": "Verify your attendance by replying YES", "label": "benign", "category": "group_admin_messages"}
+{"text": "Payments for dues go to the treasurer — see pinned message", "label": "benign", "category": "group_admin_messages"}
+{"text": "No forwarding of unverified news in this group please", "label": "benign", "category": "group_admin_messages"}
+{"text": "Group rules: be respectful, no ads, no politics", "label": "benign", "category": "group_admin_messages"}
+{"text": "Reminder: monthly dues are due on the 5th, pay the treasurer only", "label": "benign", "category": "group_admin_messages"}
+{"text": "Admins: please approve the pending requests", "label": "benign", "category": "group_admin_messages"}
+{"text": "New members, introduce yourselves with name and house number", "label": "benign", "category": "group_admin_messages"}
+{"text": "This group is for estate security updates only", "label": "benign", "category": "group_admin_messages"}
+{"text": "Please mute the group during exam week if it's too much", "label": "benign", "category": "group_admin_messages"}
+{"text": "Meeting link will be posted here 10 minutes before", "label": "benign", "category": "group_admin_messages"}
+{"text": "Reply with your size for the team shirts", "label": "benign", "category": "group_admin_messages"}
+{"text": "Group link is in the description, share only with neighbours", "label": "benign", "category": "group_admin_messages"}
+{"text": "Please do not send voice notes longer than 2 min", "label": "benign", "category": "group_admin_messages"}
+{"text": "Who has not paid the dues? Check the pinned list", "label": "benign", "category": "group_admin_messages"}
+{"text": "I have changed the group name to Class of 2019 Reunion", "label": "benign", "category": "group_admin_messages"}
+{"text": "Kindly update your phone number in the sheet", "label": "benign", "category": "group_admin_messages"}
+{"text": "Poll is open till Friday, vote in the pinned message", "label": "benign", "category": "group_admin_messages"}
+{"text": "Admin here: messages about sales go in the market group", "label": "benign", "category": "group_admin_messages"}
+{"text": "Welcome Kemi and Tunde! 🎉", "label": "benign", "category": "group_admin_messages"}
+{"text": "Please verify your name on the attendance list before Sunday", "label": "benign", "category": "group_admin_messages"}
+{"text": "Late joiners, read the pinned post before you ask questions", "label": "benign", "category": "group_admin_messages"}
+{"text": "Only members from Block C are allowed here", "label": "benign", "category": "group_admin_messages"}
+{"text": "Our new group link is below, the old one is blocked", "label": "benign", "category": "group_admin_messages"}
+{"text": "The treasurer's account details are in the pinned message, please confirm payment with a screenshot", "label": "benign", "category": "group_admin_messages"}
+{"text": "Group will be closed to messages from 10pm to 6am", "label": "benign", "category": "group_admin_messages"}
+{"text": "Please stop sharing the invite link outside the estate", "label": "benign", "category": "group_admin_messages"}
+{"text": "Don't forget to RSVP for the potluck, reply yes or no", "label": "benign", "category": "group_admin_messages"}
+{"text": "Update: the parent group now has 120 members", "label": "benign", "category": "group_admin_messages"}
+{"text": "Pin: Exam timetable. Check and confirm.", "label": "benign", "category": "group_admin_messages"}
+{"text": "Admins removed a few inactive numbers, rejoin through the link if needed", "label": "benign", "category": "group_admin_messages"}
+{"text": "Reminder to everyone: use the thread for replies", "label": "benign", "category": "group_admin_messages"}
+{"text": "We are collecting 20 each for the gift, send to the class rep", "label": "benign", "category": "group_admin_messages"}
+{"text": "Please change your display picture to a clear photo", "label": "benign", "category": "group_admin_messages"}
+{"text": "Friendly reminder, no screenshots of private chats", "label": "benign", "category": "group_admin_messages"}
+{"text": "Today's agenda is pinned, please review", "label": "benign", "category": "group_admin_messages"}
+{"text": "Payment of association dues now open, see treasurer's note", "label": "benign", "category": "group_admin_messages"}
+{"text": "call me now it's urgent", "label": "benign", "category": "urgent_but_real"}
+{"text": "the meeting moved to 3pm urgent", "label": "benign", "category": "urgent_but_real"}
+{"text": "mum is asking for you", "label": "benign", "category": "urgent_but_real"}
+{"text": "power outage tonight from 8 to 11, charge your phones", "label": "benign", "category": "urgent_but_real"}
+{"text": "your bus leaves in 10 minutes", "label": "benign", "category": "urgent_but_real"}
+{"text": "I need the report today", "label": "benign", "category": "urgent_but_real"}
+{"text": "emergency exit is on the left", "label": "benign", "category": "urgent_but_real"}
+{"text": "Urgent: the lift is down, use the stairs", "label": "benign", "category": "urgent_but_real"}
+{"text": "pls call me asap, the baby has a fever", "label": "benign", "category": "urgent_but_real"}
+{"text": "Where are you?? Class started already", "label": "benign", "category": "urgent_but_real"}
+{"text": "Need the keys now, I'm locked out", "label": "benign", "category": "urgent_but_real"}
+{"text": "Quick! The kettle is boiling over 😂 jk but come to the kitchen", "label": "benign", "category": "urgent_but_real"}
+{"text": "Please reply urgently, the caterer needs a headcount", "label": "benign", "category": "urgent_but_real"}
+{"text": "It's urgent pls call dad", "label": "benign", "category": "urgent_but_real"}
+{"text": "Water will be cut off tomorrow 6am to noon, store some", "label": "benign", "category": "urgent_but_real"}
+{"text": "Hurry, doors close at 5", "label": "benign", "category": "urgent_but_real"}
+{"text": "Send me the budget file urgently, the boss is waiting", "label": "benign", "category": "urgent_but_real"}
+{"text": "The flight is delayed 2 hours, no need to rush", "label": "benign", "category": "urgent_but_real"}
+{"text": "Meeting starts in 5 min, join now", "label": "benign", "category": "urgent_but_real"}
+{"text": "Call me back, it's about grandma", "label": "benign", "category": "urgent_but_real"}
+{"text": "road is blocked by the flood, use the other route", "label": "benign", "category": "urgent_but_real"}
+{"text": "Please come now, the doctor is ready to see you", "label": "benign", "category": "urgent_but_real"}
+{"text": "Need the form signed today or I miss the deadline", "label": "benign", "category": "urgent_but_real"}
+{"text": "Fire drill at 10am, everyone go to the assembly point", "label": "benign", "category": "urgent_but_real"}
+{"text": "URGENT: Please move your car, the truck needs to pass", "label": "benign", "category": "urgent_but_real"}
+{"text": "the plumber is here, can you open the gate", "label": "benign", "category": "urgent_but_real"}
+{"text": "We are leaving in 5, where are you", "label": "benign", "category": "urgent_but_real"}
+{"text": "Pick up the phone, it's important", "label": "benign", "category": "urgent_but_real"}
+{"text": "Last call for boarding, gate 14", "label": "benign", "category": "urgent_but_real"}
+{"text": "Reply asap, I need to confirm the booking before noon", "label": "benign", "category": "urgent_but_real"}
+{"text": "Can you come over now? The kids are asking for you", "label": "benign", "category": "urgent_but_real"}
+{"text": "I need that code for the safe now, the bank closes soon", "label": "benign", "category": "urgent_but_real"}
+{"text": "Rain is coming, bring in the laundry!!", "label": "benign", "category": "urgent_but_real"}
+{"text": "Don't forget the exam is tomorrow 8am sharp", "label": "benign", "category": "urgent_but_real"}
+{"text": "Urgent: please update the roster before the shift starts", "label": "benign", "category": "urgent_but_real"}
+{"text": "It's an emergency, can you drive me to the hospital", "label": "benign", "category": "urgent_but_real"}
+{"text": "the exam hall changed to Room 4, important", "label": "benign", "category": "urgent_but_real"}
+{"text": "Security alert in the estate tonight, lock gates early", "label": "benign", "category": "urgent_but_real"}
+{"text": "Please call the school, they said it is urgent but nothing serious", "label": "benign", "category": "urgent_but_real"}
+{"text": "Come quick, the puppy escaped 🐶", "label": "benign", "category": "urgent_but_real"}
+{"text": "Your account will be suspended if the payment fails. Please make sure your card on the app is up to date.", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Library: 'The Great Gatsby' is overdue. Fine so far is 1.50. Please return it this week.", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Parking notice: vehicles without permits will be towed from Lot B after Friday.", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your subscription expires tomorrow, renew in the app.", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Reminder from your landlord: rent is due on the 1st, please pay by bank transfer.", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "School fee reminder: Term 2 fees are due 20 Oct, please see the bursar's office.", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Hi, your gym membership will lapse on the 30th unless renewed at the front desk", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your internet bill is due in 3 days. Pay via the provider's official app.", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Notice: the water bill is overdue, please settle at the office to avoid disconnection", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Reminder: your dentist appointment is tomorrow 9am. Reply C to confirm.", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your library card will be blocked if the fines are not cleared", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Final reminder: your car insurance renews on Nov 2", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Dear parent, please update your emergency contact on the school portal", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your free trial ends in 2 days. Cancel anytime in settings.", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Please clear your outstanding balance with the tuition office before exams", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "The landlord says no loud music after 10pm or he'll give a warning", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your phone plan will be paused if the bill stays unpaid, pay in the provider app", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Reminder: bins go out tonight, fines apply if left out late", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Heads up, the estate levy is overdue, security may stop the gate access", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your domain example.test expires in 7 days, renew in your dashboard", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your parking ticket must be paid within 14 days at the city office", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Dear member, annual subscription payment failed. Please update your card in the app.", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Class dues are late again, please settle with Mr. Adu by Friday", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your prescription is ready, it will be returned to stock after 7 days", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your electricity token is almost finished, please buy before the weekend", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Reminder: tax filing deadline is 31 Oct", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your account has a low balance of 5.20. Top up to avoid fees.", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your video call subscription will auto-renew on the 3rd", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Please return the borrowed drill by Sunday, or I'll come get it 😂", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your child's school fees for Term 3 are due. Please pay at the registered bank branch.", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Reminder: lease ends in 30 days. Please let us know if renewing.", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your delivery will be returned if nobody is home on the next attempt", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Notice to tenants: please verify your contact details with the management", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "The clinic will cancel your slot if you don't confirm by 5pm", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your cloud storage is almost full, delete old files or upgrade your plan", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Penalty applies for returning the car late, per the agreement we signed", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your membership card is blocked after 3 wrong PIN attempts, bring ID to the branch", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your bus pass expires on Friday, top up at the station", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Rent receipt attached. Next month's rent is due on the 1st.", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "Your account will be locked after 3 failed logins, I got that on my work laptop", "label": "benign", "category": "polite_threats_and_warnings_legit"}
+{"text": "I sent the 200 for tickets", "label": "benign", "category": "money_talk_known"}
+{"text": "can you lend me 50 till Friday", "label": "benign", "category": "money_talk_known"}
+{"text": "I'll pay you back tomorrow, promise", "label": "benign", "category": "money_talk_known"}
+{"text": "Your share of the bill is 23.50", "label": "benign", "category": "money_talk_known"}
+{"text": "Send my pocket money pls, it's finished 😅", "label": "benign", "category": "money_talk_known"}
+{"text": "Church offering this Sunday is for the roof repair", "label": "benign", "category": "money_talk_known"}
+{"text": "Rent receipt is in the folder, I paid on the 1st", "label": "benign", "category": "money_talk_known"}
+{"text": "Pls pay the shopkeeper for me, I'll refund you tonight", "label": "benign", "category": "money_talk_known"}
+{"text": "Split the Uber? it was 14 total", "label": "benign", "category": "money_talk_known"}
+{"text": "Did you get the transfer? I sent 150 this morning", "label": "benign", "category": "money_talk_known"}
+{"text": "Dad sent the school fees to the bursar yesterday", "label": "benign", "category": "money_talk_known"}
+{"text": "I owe you 30 for lunch, sending now", "label": "benign", "category": "money_talk_known"}
+{"text": "Abeg borrow me 20 till payday", "label": "benign", "category": "money_talk_known"}
+{"text": "Who has paid for the cake? We need 10 each", "label": "benign", "category": "money_talk_known"}
+{"text": "Can you pay for the tickets first and I will send you my part", "label": "benign", "category": "money_talk_known"}
+{"text": "Sending you 75 for the gas, thanks for filling up", "label": "benign", "category": "money_talk_known"}
+{"text": "Pls tell Auntie I paid her money last week", "label": "benign", "category": "money_talk_known"}
+{"text": "Remember to pay the taxi guy 5 bucks", "label": "benign", "category": "money_talk_known"}
+{"text": "The total for groceries is 62.80, we split it", "label": "benign", "category": "money_talk_known"}
+{"text": "I paid the electricity, you owe me half", "label": "benign", "category": "money_talk_known"}
+{"text": "Sent the money for the gift, check your account", "label": "benign", "category": "money_talk_known"}
+{"text": "Can you cover me this time? I'll send it in the morning", "label": "benign", "category": "money_talk_known"}
+{"text": "Mum, I need 40 for the school trip", "label": "benign", "category": "money_talk_known"}
+{"text": "Tithe is due, I'll drop it Sunday", "label": "benign", "category": "money_talk_known"}
+{"text": "Paid the plumber 100 cash, keep the receipt", "label": "benign", "category": "money_talk_known"}
+{"text": "Please remind Dave to pay back the 25", "label": "benign", "category": "money_talk_known"}
+{"text": "Venmo me your part of the dinner when you can", "label": "benign", "category": "money_talk_known"}
+{"text": "Your allowance has been sent to your account", "label": "benign", "category": "money_talk_known"}
+{"text": "I'll settle up at the end of the month, ok?", "label": "benign", "category": "money_talk_known"}
+{"text": "Thanks for the loan, I'll return the 300 on Friday", "label": "benign", "category": "money_talk_known"}
+{"text": "Payment for dues done, I'll send the screenshot", "label": "benign", "category": "money_talk_known"}
+{"text": "Can you pay the tailor for me? I'll send you the cash", "label": "benign", "category": "money_talk_known"}
+{"text": "Rent is 450 each, can you send before the 5th", "label": "benign", "category": "money_talk_known"}
+{"text": "Send me your bank details so I can pay my share", "label": "benign", "category": "money_talk_known"}
+{"text": "Did u pay the mechanic or should I", "label": "benign", "category": "money_talk_known"}
+{"text": "We still owe 12 for the pizza", "label": "benign", "category": "money_talk_known"}
+{"text": "I put 10 in your piggy bank 😊", "label": "benign", "category": "money_talk_known"}
+{"text": "Not today, I can pay the balance Monday", "label": "benign", "category": "money_talk_known"}
+{"text": "Treasurer got my payment, I have the receipt", "label": "benign", "category": "money_talk_known"}
+{"text": "Keep the change, buy yourself a drink", "label": "benign", "category": "money_talk_known"}
+{"text": "good morning ☀️", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "how was your day", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "miss you", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "are you free this weekend?", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "you looked so good yesterday 😊", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "lol you're so funny", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Hey stranger, long time no see!", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Good night, sleep well 🌙", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Just thinking about you", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Wanna grab coffee tomorrow?", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Voice note: hey babe, just landed, will call when I reach the hotel", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "that dress suits you!!", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "send me a pic of the sunset you're watching", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "I can't stop laughing at that meme you sent", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "How's your mum? Hope she's better", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Hope your exam went well! Proud of you", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "you free tonight? movie?", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Hey! Did you get home safe?", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "my day was long but seeing your text made it better", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "haha you always win at cards, I'm done", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Hello beautiful, how are you today", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Happy birthday!! 🎂🎉 Let's celebrate soon", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "hey it's me, saved your number from the group", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Morning sunshine, don't forget your umbrella", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "I had fun last night, we should do it again", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "You busy? Just want to hear your voice", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Voice note transcript: Hi love, I'm at the market, do you want tomatoes or peppers?", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Lol u sent that to the wrong chat 😂", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "what are you up to this weekend, hiking?", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Come on, send me a selfie, I miss your face", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Hey, long day? Call me when you're free", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "omg I just saw your post, you look amazing", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Good evening, hope work wasn't too crazy", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Wanna join our game night? Link to the group is below", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Sweet dreams ❤️", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Thanks for the lovely dinner, my place next time?", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "you made my day", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Heyyy what's up", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "I'm bored, entertain me lol", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Remember me? We met at Tola's wedding", "label": "benign", "category": "flirty_and_friendly_openers"}
+{"text": "Abeg, make you send me the link for the group", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Wetin be the price of this one?", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "I dey come, wait for me for gate", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "How far? You don pay the dues?", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Oga, the code for the gate na 4412", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Chale, borrow me 20 cedis till Friday, I go pay you", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Medaase, I received the money you sent", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Mepa wo kyew, send me the address", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Hujambo, naomba unitumie link ya mkutano", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Habari za asubuhi, bei ya hii ni ngapi?", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Nitakutumia pesa ya tiketi kesho", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Tafadhali nitumie namba ya akaunti ya michango", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Ni dharura, nipigie sasa", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Mtandao umeisha, nitakupigia baadaye", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Bhai, file bhej do please", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Kal meeting kitne baje hai?", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Yaar mujhe woh link bhej na group ka", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Mera account number class ke paise ke liye bhejta hoon", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Aaj raat power cut hai, phone charge kar lo", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Paise kal wapas kar dunga, tension mat lo", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Ẹ jọ̀wọ́, send me the account number for the aso-ebi", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "E kaaro, how body? Wetin dey happen?", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Mo ti sanwo, check your account", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Don Allah ka turo min link din group", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Ina kwana, ina son sanin farashin wannan", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Hola, ¿me puedes mandar el enlace de la reunión?", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Buenos días, ¿a qué hora empieza la clase?", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Te envié los 200 para las entradas", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Urgente: llámame, es sobre la abuela", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "El código de la puerta es 3392, no se lo des a nadie jaja", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Bonjour, pouvez-vous m'envoyer l'adresse s'il vous plaît ?", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Salut, tu peux me prêter 50 jusqu'à vendredi ?", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Le code du Wi-Fi est sur le frigo", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "C'est urgent, appelle-moi maintenant", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Olá, pode me mandar o link do grupo?", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Bom dia! Quanto custa esse?", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Já fiz a transferência, confere na tua conta", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Preciso do relatório hoje, é urgente", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Sister, send me the photos for wedding, abeg", "label": "benign", "category": "pidgin_swahili_hindi_etc"}
+{"text": "Bhai kya haal hai, kal milte hain?", "label": "benign", "category": "pidgin_swahili_hindi_etc"}

@@ -54,14 +54,15 @@ class ScreenChunkTracker(private val maxPerPackage: Int = 600, private val maxPa
 }
 
 object ScreenEventFactory {
-    const val MIN_CHUNK = 10
+    const val MIN_CHUNK = 6
     const val MAX_CHUNK = 1000
     const val MAX_CHUNKS = 80
     private val whitespace = Regex("\\s+")
 
     /**
-     * Builds one event from newly visible text. Chunks are scanned together so a scam spread over several
-     * chat bubbles ("we sent you a code" / "send it to me") is still one message to the detector.
+     * Builds one event from newly visible text. The engine judges runs of neighbouring chunks together, so a scam
+     * spread over a few chat bubbles ("we sent you a code" / "send it to me") is still one message to the detector,
+     * while unrelated bubbles, labels and buttons far apart on the screen cannot combine.
      */
     fun create(packageName: String, chunks: List<String>, nowMillis: Long): NotificationEvent? {
         val cleaned = chunks
@@ -69,7 +70,7 @@ object ScreenEventFactory {
             .filter { it.length >= MIN_CHUNK }
             .take(MAX_CHUNKS)
         if (cleaned.isEmpty()) return null
-        val input = ScanInput("", TextSanitizer.truncate(cleaned.joinToString("\n"), NotificationContentAssembler.MAX_BODY))
+        val input = ScanInput("", TextSanitizer.truncate(cleaned.joinToString("\n"), NotificationContentAssembler.MAX_BODY), segments = cleaned)
         val key = "screen:$packageName"
         val fingerprint = NotificationContentAssembler.fingerprint(packageName, input)
         return NotificationEvent(

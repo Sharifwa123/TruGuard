@@ -1,477 +1,630 @@
 [
 {
 "text": "Good afternoon sir. This is the Cyber Crime Unit. A case has been opened with your name on it. To avoid arrest you are to cooperate fully and remain on this call. Do not tell your family or the bank, it will compromise the investigation",
-"p": 0.9075682195586378,
+"tags": [
+"secrecy_pressure"
+],
+"p": 0.9223754225976352,
 "group": "threat_pressure"
 },
 {
 "text": "Friend request from Ama Serwaa. Open the app to accept.",
-"p": 0.03144395343427335,
+"tags": [],
+"p": 0.028665688525361322,
 "group": "access_install"
 },
 {
 "text": "Kindly review attached invoice and pay today. Our account changed. Reply to confirm receipt of this email. 🙏",
-"p": 0.9857891471724199,
+"tags": [],
+"p": 0.9973535931186398,
 "group": "payment_request"
 },
 {
 "text": "Pls bro help me confirm if this number is yours - i sent something. Whats the code that came?",
-"p": 0.670919993205665,
+"tags": [],
+"p": 0.9669654331162996,
 "group": "secret_request"
 },
 {
 "text": "A big thank you to everyone who donated to the clinic fund. We raised the target. Receipts will be issued at church.",
-"p": 0.02447186866117455,
+"tags": [],
+"p": 0.012869293671896941,
 "group": "threat_pressure"
 },
 {
 "text": "This is an automated reminder that your subscription renews on 1 Nov for 9.99. Manage it in Settings.",
-"p": 0.0009844745525249708,
+"tags": [],
+"p": 0.000478108718757465,
 "group": "reward_bait"
 },
 {
 "text": "Can u send me the pic of the receipt again? Accounts needs it for reimbursement",
-"p": 0.40084752959503206,
+"tags": [],
+"p": 0.8862253183336233,
 "group": "payment_request"
 },
 {
 "text": "Congratulations, you have been shortlisted. Kindly provide a scan of your passport and bank statement to complete onboarding. Salary starts Monday.",
-"p": 0.6602942354318875,
+"tags": [
+"pin_otp_request"
+],
+"p": 0.48052759314057425,
 "group": "reward_bait"
 },
 {
 "text": "Could you please resend the invoice? The PDF didn't open on my phone.",
-"p": 0.05128883702394839,
+"tags": [],
+"p": 0.01880002572155611,
 "group": "impersonation_trust"
 },
 {
 "text": "Urgent: Dad is in surgery at Korle Bu. Come to the 3rd floor waiting room when you can.",
-"p": 0.01544919255337703,
+"tags": [
+"urgency"
+],
+"p": 0.00900395948471603,
 "group": "impersonation_trust"
 },
 {
 "text": "BREAKING: Central bank holds interest rate at 27.5%. Naira steady at the parallel market.",
-"p": 0.08577851701624323,
+"tags": [],
+"p": 0.07243448587528012,
 "group": "payment_request"
 },
 {
 "text": "Your parcel #GB88421 is out for delivery today between 2pm and 5pm. Track it at the courier app.",
-"p": 0.004550802378556871,
+"tags": [],
+"p": 0.0021344525586227485,
 "group": "payment_request"
 },
 {
 "text": "Congratulations 🎉 your SIM was selected in the weekly draw. To claim, send the 4 digit pin sent by our system to confirm you are the owner",
-"p": 0.9951991550251703,
+"tags": [
+"pin_otp_request"
+],
+"p": 0.9988737958201948,
 "group": "reward_bait"
 },
 {
 "text": "Oga, na me Emeka. my phone don spoil. make you add 2 thousand airtime and use ur ATM pin buy data for this other number",
-"p": 0.8654764353957747,
+"tags": [],
+"p": 0.9029376171784693,
 "group": "reward_bait"
 },
 {
 "text": "New message from HR: Please complete the attached salary review form with your portal username and password.",
-"p": 0.04872051895651769,
+"tags": [],
+"p": 0.03560356289679745,
 "group": "access_install"
 },
 {
 "text": "My money no come o. The bank says it was reversed. I go call dem tomorrow",
-"p": 0.008245560492422099,
+"tags": [],
+"p": 0.01894706217802242,
 "group": "payment_request"
 },
 {
 "text": "Salamat po sa pagbabayad. Natanggap na namin ang 1,200 pesos para sa bill ninyo.",
-"p": 0.27114932148890447,
+"tags": [],
+"p": 0.6144029189911347,
 "group": "reward_bait"
 },
 {
 "text": "Hi! Quick one, can you scan this QR to confirm your attendance at the event? You'll need to put in your bank PIN to confirm",
-"p": 0.21718181681249682,
+"tags": [
+"pin_otp_request"
+],
+"p": 0.7298521522735831,
 "group": "payment_request"
 },
 {
 "text": "We sent you 3000 by mistake, please send back 2500 now and keep 500 for your trouble. My boss will kill me",
-"p": 0.995975461691476,
+"tags": [
+"fake_reversal"
+],
+"p": 0.9983488412089966,
 "group": "payment_request"
 },
 {
 "text": "Compliance notice: staff must re-enter their email password at the portal before Friday for the new mailbox migration. IT Dept.",
-"p": 0.02362154550727484,
+"tags": [
+"pin_otp_request"
+],
+"p": 0.05015621763629433,
 "group": "reward_bait"
 },
 {
 "text": "Rain delayed my trip. Please tell the principal I will be there by 10",
-"p": 0.2847574610996294,
+"tags": [],
+"p": 0.3621475844548156,
 "group": "payment_request"
 },
 {
 "text": "UR PH0NE has virus! tap here to clean: bit.ly-secure.example/fix",
-"p": 0.9934669535738501,
+"tags": [],
+"p": 0.9801271787562432,
 "group": "secret_request"
 },
 {
 "text": "Hi love, I trust you more than anyone. I am sending a package with my inheritance to you, the courier needs a clearing fee. Please be my partner in this",
-"p": 0.9913011248224375,
+"tags": [],
+"p": 0.9979025671338404,
 "group": "impersonation_trust"
 },
 {
 "text": "Safaricom promo: dial the code we sent and enter your M-Pesa PIN to claim double bonus airtime",
-"p": 0.8850155085029939,
+"tags": [
+"pin_otp_request"
+],
+"p": 0.9868567152141491,
 "group": "secret_request"
 },
 {
 "text": "Customer service: we're sorry about the delay. We have escalated your complaint and a supervisor will call you tomorrow by 11am.",
-"p": 0.30635652027403265,
+"tags": [],
+"p": 0.17796071392725551,
 "group": "threat_pressure"
 },
 {
 "text": "hey beautiful | how was ur day | I feel so close to u | listen my wallet got stolen in lagos | can u load 100 gift card on itunes | i swear ill pay u",
-"p": 0.9886647620181738,
+"tags": [],
+"p": 0.9875866769730541,
 "group": "impersonation_trust"
 },
 {
 "text": "Win a Samsung! Pay 1 for postage to enter. Just 1! Text your card digits to this number",
-"p": 0.9888827135722061,
+"tags": [],
+"p": 0.9999323801212355,
 "group": "reward_bait"
 },
 {
 "text": "Your driving licence renewal is complete. Collection from the post office within 14 days with your receipt.",
-"p": 0.033707420543956965,
-"group": "secret_request"
+"tags": [],
+"p": 0.0014578724441676415,
+"group": "payment_request"
 },
 {
 "text": "PLEASE hold. Very important. Install the update from this file immediately or your banking app will stop working, I am the developer",
-"p": 0.9270062129971974,
+"tags": [
+"urgency"
+],
+"p": 0.4583401439706538,
 "group": "access_install"
 },
 {
 "text": "Habari yako? Nitafika kesho jioni. Tafadhali niandalie chai 😄",
-"p": 0.16535032854721127,
-"group": "impersonation_trust"
+"tags": [],
+"p": 0.10878148891864982,
+"group": "payment_request"
 },
 {
 "text": "kindly re-activate your email by replying with ur login. we are removing inactive users from the server tonight",
-"p": 0.9509335152886828,
+"tags": [],
+"p": 0.9510925378683633,
 "group": "secret_request"
 },
 {
 "text": "I found your wallet at the cafe. Call me, I'm at the counter.",
-"p": 0.06921931869853164,
+"tags": [],
+"p": 0.2453706231555116,
 "group": "impersonation_trust"
 },
 {
 "text": "Wo ho te sɛn? Me pɛ sɛ me hu sɛ wo ho yɛ. Call me when you are free",
-"p": 0.14885827388633874,
+"tags": [],
+"p": 0.20144004393442994,
 "group": "impersonation_trust"
 },
 {
 "text": "You know I wouldn't ask unless it was serious. Please don't mention this to Kofi. I just need a little cover until Friday",
-"p": 0.12411296959018607,
+"tags": [],
+"p": 0.3318213840290586,
 "group": "impersonation_trust"
 },
 {
 "text": "Mum I lost my wallet and phone. This is a friend's. Please send me 250 on Venmo, I'll pay back double",
-"p": 0.9946237424973566,
+"tags": [],
+"p": 0.9944561174171631,
 "group": "impersonation_trust"
 },
 {
 "text": "I can help u pass the exam. 100 first then 200 after you pass. Send now before the list closes",
-"p": 0.8853751033812856,
+"tags": [],
+"p": 0.9428458328963938,
 "group": "payment_request"
 },
 {
 "text": "Final reminder from your landlord: the deposit was paid to the old account, please send the rent to the new IBAN today. thx",
-"p": 0.07161197951583428,
+"tags": [],
+"p": 0.1328289047424166,
 "group": "payment_request"
 },
 {
 "text": "Appointment with Mr Banda is at 3pm. He asked you to bring last 3 months payslips.",
-"p": 0.08230909784475371,
+"tags": [],
+"p": 0.04813666037406314,
 "group": "reward_bait"
 },
 {
 "text": "The deadline for submitting your tax return is 31 January. File online at the official government portal.",
-"p": 0.010056740238628516,
+"tags": [],
+"p": 0.0067588317936362816,
 "group": "payment_request"
 },
 {
 "text": "Is there load shedding tonight? Stage 4 from 8pm to 10:30pm in Sandton",
-"p": 0.019146728527856514,
+"tags": [],
+"p": 0.0024205981351426696,
 "group": "payment_request"
 },
 {
 "text": "Ur mum gave me ur number. She said u would help me: just a small loan for my shop. I pay back with interest, so just send to this momo",
-"p": 0.999666164037796,
+"tags": [],
+"p": 0.9999448584706067,
 "group": "payment_request"
 },
 {
 "text": "Debit alert: NGN 12,500.00 withdrawn at ATM Ikeja. Avail bal NGN 80,320.11. If you did not make this call 0700-000-0000.",
-"p": 0.029662808239899034,
+"tags": [],
+"p": 0.019739939174982395,
 "group": "reward_bait"
 },
 {
 "text": "Hi, your Tinder match here. Can you verify you're real by texting me the code Google just sent you? Lots of bots lately",
-"p": 0.508653821475907,
+"tags": [
+"code_forwarding"
+],
+"p": 0.8465724450277826,
 "group": "secret_request"
 },
 {
 "text": "Mr. Adeyemi, kindly confirm your BVN and ATM pin so we can credit the compensation sent from the central office. Thank you for your cooperation",
-"p": 0.5778197103295083,
+"tags": [
+"pin_otp_request"
+],
+"p": 0.47125958457271416,
 "group": "payment_request"
 },
 {
 "text": "Security alert: new sign-in to your Google account from Chrome on Windows. If this was you, no action needed.",
-"p": 0.12694926463364453,
+"tags": [],
+"p": 0.2657239396732826,
 "group": "access_install"
 },
 {
 "text": "Don't ignore this. Your nudes will be sent to your contacts. Pay 150 in bitcoin to the wallet below",
-"p": 0.9986257943844747,
+"tags": [],
+"p": 0.9997123631118449,
 "group": "threat_pressure"
 },
 {
 "text": "Exam results out Friday. Good luck everyone, I know you worked so hard",
-"p": 0.04308446317246959,
+"tags": [],
+"p": 0.0016189584560315216,
 "group": "impersonation_trust"
 },
 {
 "text": "Your Instagram violated copyright. Appeal in 24h by logging in at insta-appeal.example or your page is deleted",
-"p": 0.5658723470344074,
+"tags": [],
+"p": 0.958452152437594,
 "group": "threat_pressure"
 },
 {
 "text": "Mtu wangu, nimekupa kazi online. Unaweka 1000 kwanza kama dhamana, kisha unalipwa kila siku. Ni salama kabisa",
-"p": 0.5689966965735218,
+"tags": [],
+"p": 0.854124059188903,
 "group": "impersonation_trust"
 },
 {
 "text": "If you get any text asking for your bank PIN, delete it. It's a scam. Be careful o.",
-"p": 0.006857625942668118,
+"tags": [
+"pin_otp_request"
+],
+"p": 0.022661429418398955,
 "group": "threat_pressure"
 },
 {
 "text": "Your Apple ID was used to sign in on a new device near Manila. If this wasn't you, review: apple-id-review.example.ph",
-"p": 0.7800614499599687,
+"tags": [],
+"p": 0.8376360840205651,
 "group": "secret_request"
 },
 {
 "text": "Hello, regarding the broken screen on your order, we can offer a replacement or a refund. Which do you prefer?",
-"p": 0.03904037290854666,
+"tags": [],
+"p": 0.01299281634012168,
 "group": "payment_request"
 },
 {
 "text": "Service of songs for the late Chief Mensah is Friday at 6pm. Burial on Saturday. Dress code: black and red.",
-"p": 0.000500504484917074,
+"tags": [],
+"p": 7.1629990351493445e-06,
 "group": "payment_request"
 },
 {
 "text": "Your phone battery is damaged by 4 viruses. Tap here to clean now!!! phone-clean-fake.example.com",
-"p": 0.9871966984052261,
+"tags": [],
+"p": 0.9642461243833581,
 "group": "access_install"
 },
 {
 "text": "Physio session confirmed Thursday 5pm. Wear comfy clothes.",
-"p": 0.003713985127067613,
+"tags": [],
+"p": 0.0009388251605224161,
 "group": "payment_request"
 },
 {
 "text": "Hello I am travelling to Lagos for my marriage. I want your rent. Pay my agent 3 months as I will arrive tomorrow night.",
-"p": 0.9540560615533004,
+"tags": [],
+"p": 0.938632101167408,
 "group": "payment_request"
 },
 {
 "text": "Bonjour, ici la Gendarmerie nationale. Vous êtes convoqué pour fraude. Pour éviter l'arrestation, réglez l'amende de 180 euros par coupons PCS.",
-"p": 0.9562831535146376,
+"tags": [],
+"p": 0.9285339297146159,
 "group": "threat_pressure"
 },
 {
 "text": "Code review: please verify the PR before merging, link is in Slack",
-"p": 0.004300068254706338,
+"tags": [],
+"p": 0.005557073565130381,
 "group": "secret_request"
 },
 {
 "text": "Your lab results are ready for collection at the front desk, Mon-Fri 8-5. Please carry your ID. No results are sent over WhatsApp.",
-"p": 0.03462873832587885,
+"tags": [],
+"p": 0.016584969829724332,
 "group": "secret_request"
 },
 {
 "text": "My love, I'm stuck at the airport in Istanbul. My card is blocked and I need 600 dollars for a ticket to come see you. Please, I will pay you back. I love you so much 💔",
-"p": 0.9721759792495785,
+"tags": [],
+"p": 0.9613744762681642,
 "group": "impersonation_trust"
 },
 {
 "text": "Your verification code is 482913. Don't share this code with anyone. We will never call to ask for it.",
-"p": 0.0021490555983867603,
+"tags": [
+"secrecy_pressure"
+],
+"p": 0.002451917954327673,
 "group": "secret_request"
 },
 {
 "text": "Posta Kenya: Parcel No. KE000 held. Pay KES 250 storage to Mpesa 0700 000 000.",
-"p": 0.992129304511015,
+"tags": [],
+"p": 0.9942373574087044,
 "group": "payment_request"
 },
 {
 "text": "Is this bike still for sale? I can come see it tomorrow.",
-"p": 0.00037246604498676194,
+"tags": [],
+"p": 0.0003725852315428471,
 "group": "payment_request"
 },
 {
 "text": "M-Pesa: Imepokea Ksh 1,000 kutoka kwa JANE WANJIRU. Salio lako ni Ksh 1,450. Asante.",
-"p": 0.08114462268742662,
+"tags": [],
+"p": 0.0892016483288431,
 "group": "payment_request"
 },
 {
 "text": "Wetin dey happen, one guy dey pose as bank officer dey call people for OTP. No give any person your code o. Pass am give your people.",
-"p": 0.04797151604729155,
+"tags": [],
+"p": 0.04732165024734119,
 "group": "secret_request"
 },
 {
 "text": "Just sent you 40 for the ticket. Check your account and confirm?",
-"p": 0.022701000413051488,
+"tags": [],
+"p": 0.05400763037023613,
 "group": "payment_request"
 },
 {
 "text": "John Smith and 3 others commented on your reel.",
-"p": 0.015215602161960938,
+"tags": [],
+"p": 0.022457345408809015,
 "group": "reward_bait"
 },
 {
 "text": "Call me back ASAP, I've got news!!",
-"p": 0.0016047369192692808,
+"tags": [
+"urgency"
+],
+"p": 0.0006019644254314745,
 "group": "impersonation_trust"
 },
 {
 "text": "Please beware of fake job offers asking you to pay for 'registration' or 'training'. Real employers never charge applicants.",
-"p": 0.032636875900123125,
+"tags": [],
+"p": 0.01913956300284744,
 "group": "threat_pressure"
 },
 {
 "text": "Dear Sir, Your email has won £1,500,000 from the Microsoft Anniversary Promo. You MUST NOT discuss this with anyone until claimed.",
-"p": 0.9215203657930802,
+"tags": [],
+"p": 0.9535218340439239,
 "group": "reward_bait"
 },
 {
 "text": "Your electricity token: 4021-8836-2290-5517-0024. Units 18.5. Thank you for buying from Prepaid.",
-"p": 0.01029087975922642,
+"tags": [],
+"p": 0.008969307251451687,
 "group": "reward_bait"
 },
 {
 "text": "Your Fidelity card has been blocked at your request. To unblock, visit a branch with valid ID.",
-"p": 0.037667614540223375,
+"tags": [
+"account_block_threat",
+"credential_phishing"
+],
+"p": 0.04431206417327252,
 "group": "threat_pressure"
 },
 {
 "text": "Student accommodation, near campus 😍 only GHS 600/mo. Send 300 cedi reservation to hold the room, many people viewing today!",
-"p": 0.9480596181705923,
+"tags": [],
+"p": 0.9724315384784885,
 "group": "payment_request"
 },
 {
 "text": "PayPal: payment of $540 to Mr. Smith. If this wasn't you, please call 1-800-000-0000 right away to dispute it.",
-"p": 0.923873211332576,
+"tags": [],
+"p": 0.9773602928778405,
 "group": "access_install"
 },
 {
 "text": "123456 is your Discord verification code. DO NOT share it with anyone",
-"p": 0.008628033511526707,
+"tags": [],
+"p": 0.001123812850602377,
 "group": "secret_request"
 },
 {
 "text": "Free webinar on personal finance Thursday 7pm. Link on our page.",
-"p": 0.0009827335354668702,
+"tags": [],
+"p": 0.0002503373777608355,
 "group": "reward_bait"
 },
 {
 "text": "Dear Beneficiary, the diplomat who is transporting your consignment is at the airport, he requires cash for diplomatic clearance. Contact him on +00 000 000 0000.",
-"p": 0.9221347800699479,
+"tags": [],
+"p": 0.9198651577788624,
 "group": "payment_request"
 },
 {
 "text": "GCash: You have received PHP 1,000.00 of GCash from MARIA C. on Oct 12, 2026 4:15 PM. Ref No. 1234 567 890.",
-"p": 0.05186840684050909,
+"tags": [],
+"p": 0.02933451707164447,
 "group": "payment_request"
 },
 {
 "text": "Hi John, this is Mary from MTN support. Following your complaint yesterday, your data issue has been fixed. Please restart your phone and let me know.",
-"p": 0.0854227359947063,
+"tags": [
+"impersonation"
+],
+"p": 0.06266774641551374,
 "group": "access_install"
 },
 {
 "text": "The CBN is paying compensation to victims of fraud. Register here: cbn-compensation.example.ng",
-"p": 0.9945229816263859,
+"tags": [],
+"p": 0.9747590220516034,
 "group": "secret_request"
 },
 {
 "text": "",
-"p": 0.006344720794400504,
-"group": "secret_request"
+"tags": [],
+"p": 0.03688950392465691,
+"group": "reward_bait"
 },
 {
 "text": "OK",
-"p": 0.04695197911082875,
+"tags": [],
+"p": 0.0011797925793293827,
 "group": "secret_request"
 },
 {
 "text": "ＳＥＮＤ ＭＥ ＴＨＥ ＣＯＤＥ ＮＯＷ",
-"p": 0.1350733783272816,
+"tags": [],
+"p": 0.03501388949511517,
 "group": "secret_request"
 },
 {
 "text": "pls send the code 🙏🙏🙏 urgent!!!",
-"p": 0.1527586624653596,
+"tags": [],
+"p": 0.020114983539670294,
 "group": "secret_request"
 },
 {
 "text": "click bit.ly/abc123 or https://secure-login.example.com/verify now",
-"p": 0.999484170552137,
+"tags": [],
+"p": 0.6680445558622482,
 "group": "secret_request"
 },
 {
 "text": "Your OTP is 482913. Do not share it with anyone.",
-"p": 0.00207195897715326,
+"tags": [],
+"p": 0.0015483933104431414,
 "group": "secret_request"
 },
 {
 "text": "Call 0244 123 4567 or 233244123456 today",
-"p": 0.14096323229309798,
+"tags": [],
+"p": 0.036721816287244795,
 "group": "reward_bait"
 },
 {
 "text": "ÀÉÎÕÜ café naïve résumé",
-"p": 0.013021559397355166,
+"tags": [],
+"p": 0.01614492215996237,
 "group": "threat_pressure"
 },
 {
 "text": "HELLO THERE THIS IS AN URGENT MESSAGE FROM YOUR BANK",
-"p": 0.0998187092203683,
+"tags": [],
+"p": 0.18858267379299246,
 "group": "secret_request"
 },
 {
 "text": "Ṕḷḗḁṡḗ ṡḗṉḋ ṁḗ ṯḥḗ ċȯḋḗ",
-"p": 0.0047133834578960134,
-"group": "secret_request"
+"tags": [],
+"p": 0.006660335680536345,
+"group": "reward_bait"
 },
 {
 "text": "a",
-"p": 0.05396726053729807,
+"tags": [],
+"p": 6.793902619874679e-06,
 "group": "secret_request"
 },
 {
 "text": "?!",
-"p": 0.0014325597299151885,
+"tags": [],
+"p": 0.009525619655513816,
 "group": "reward_bait"
 },
 {
 "text": "1234567",
-"p": 0.3674326708076906,
+"tags": [],
+"p": 0.030781638143647056,
 "group": "reward_bait"
 },
 {
 "text": "日本語のメッセージ send money",
-"p": 0.2599519139754273,
+"tags": [],
+"p": 0.13931479485497827,
 "group": "payment_request"
 },
 {
 "text": "kwame..send me d code abeg",
-"p": 0.09487322482589829,
+"tags": [],
+"p": 0.005848765005996248,
+"group": "secret_request"
+},
+{
+"text": "send it to me so we can add you to the group",
+"tags": [
+"code_forwarding"
+],
+"p": 0.8656675130288757,
+"group": "secret_request"
+},
+{
+"text": "Join our WhatsApp group for updates [GROUP LINK]",
+"tags": [
+"credential_phishing"
+],
+"p": 0.0007652978699602045,
+"group": "reward_bait"
+},
+{
+"text": "Dear customer your account is blocked, visit bit.ly/x",
+"tags": [
+"signal.suspicious_link",
+"combo.block_threat_link"
+],
+"p": 0.9668946683963959,
 "group": "secret_request"
 }
 ]

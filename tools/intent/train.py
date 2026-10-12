@@ -44,10 +44,32 @@ def load(names):
     return rows
 
 
+_HITS = None
+
+
+def rule_hits():
+    """sha1(text) -> rule ids the Kotlin engine fires on it (written by DumpRuleHits)."""
+    global _HITS
+    if _HITS is None:
+        _HITS = {}
+        path = os.path.join(HERE, "data", "rulehits.jsonl")
+        if os.path.exists(path):
+            for line in open(path, encoding="utf-8"):
+                if line.strip():
+                    o = json.loads(line)
+                    _HITS[o["sha"]] = o["rules"]
+    return _HITS
+
+
+def tags_of(text):
+    import hashlib
+    return rule_hits().get(hashlib.sha1(text.encode("utf-8")).hexdigest(), [])
+
+
 def to_csr(rows):
     idx, val, ptr = [], [], [0]
     for r in rows:
-        i, v = features(r["text"])
+        i, v = features(r["text"], tags_of(r["text"]))
         idx.extend(i)
         val.extend(v)
         ptr.append(len(idx))
@@ -73,7 +95,7 @@ def sigmoid(z):
     return 1.0 / (1.0 + np.exp(-np.clip(z, -30, 30)))
 
 
-def fit_binary(csr, y, l2, sample_w, epochs=250, lr=0.15):
+def fit_binary(csr, y, l2, sample_w, epochs=400, lr=0.15):
     idx, val, ptr = csr
     rid = row_ids(ptr)
     w = np.zeros(BUCKETS)
@@ -95,7 +117,7 @@ def fit_binary(csr, y, l2, sample_w, epochs=250, lr=0.15):
     return w, b
 
 
-def fit_softmax(csr, y, k, l2, epochs=250, lr=0.15):
+def fit_softmax(csr, y, k, l2, epochs=300, lr=0.15):
     idx, val, ptr = csr
     rid = row_ids(ptr)
     n = len(y)
@@ -129,28 +151,62 @@ def prune_quantise(w, keep):
     return [int(i) for i in order[keepmask]], [int(x) for x in q[keepmask]], scale
 
 
+def oof_probs(rows, l2, folds=5, epochs=400):
+    """Out-of-fold probabilities: every example is scored by a model that never saw it."""
+    y = np.array([1 if r["label"] == "scam" else 0 for r in rows])
+    feats = [to_csr([r]) for r in rows]
+
+    def sub(ix):
+        idx = np.concatenate([feats[i][0] for i in ix]); val = np.concatenate([feats[i][1] for i in ix])
+        ptr = np.concatenate([[0], np.cumsum([len(feats[i][0]) for i in ix])])
+        return idx, val, ptr
+
+    p = np.zeros(len(rows))
+    for f in range(folds):
+        te = [i for i in range(len(rows)) if i % folds == f]
+        tr = [i for i in range(len(rows)) if i % folds != f]
+        w, b = fit_binary(sub(tr), y[tr], l2, np.ones(len(tr)), epochs=epochs)
+        p[te] = sigmoid(logits(w, b, sub(te)))
+    return p, y
+
+
+# Benign-side false-alarm budgets for the three severities. Real traffic is overwhelmingly ordinary, so they are tight.
+FPR_TARGETS = {"low": 0.04, "medium": 0.015, "high": 0.005}
+
+
+def calibrate(p, y):
+    """Thresholds such that at most FPR_TARGETS of ordinary messages reach each severity (out-of-fold)."""
+    benign = np.sort(p[y == 0])[::-1]
+    th = {}
+    for name, target in FPR_TARGETS.items():
+        k = int(len(benign) * target)
+        th[name] = float(min(0.999, max(0.5, benign[k] + 1e-6 if k < len(benign) else 0.5)))
+    # keep strictly increasing
+    th["medium"] = max(th["medium"], th["low"] + 0.02)
+    th["high"] = max(th["high"], th["medium"] + 0.02)
+    return th
+
+
+def report(p, y, th):
+    for name in ("low", "medium", "high"):
+        flagged = p >= th[name]
+        print(f"  {name:6s} threshold {th[name]:.3f}: scams caught {(flagged & (y == 1)).sum()/max(1,(y==1).sum()):.3f}, "
+              f"ordinary falsely flagged {(flagged & (y == 0)).sum()/max(1,(y==0).sum()):.3f}", flush=True)
+
+
 def cv(rows, l2s, folds=5):
     random.Random(1).shuffle(rows)
-    y_all = np.array([1 if r["label"] == "scam" else 0 for r in rows])
     for l2 in l2s:
-        correct = 0; tp = fp = fn = 0
-        for f in range(folds):
-            te = [i for i in range(len(rows)) if i % folds == f]
-            tr = [i for i in range(len(rows)) if i % folds != f]
-            csr_tr = to_csr([rows[i] for i in tr]); csr_te = to_csr([rows[i] for i in te])
-            ytr = y_all[tr]; yte = y_all[te]
-            sw = np.where(ytr == 0, 1.5, 1.0)
-            w, b = fit_binary(csr_tr, ytr, l2, sw)
-            p = sigmoid(logits(w, b, csr_te))
-            pred = p >= 0.5
-            correct += int((pred == (yte == 1)).sum()); tp += int((pred & (yte == 1)).sum()); fp += int((pred & (yte == 0)).sum()); fn += int((~pred & (yte == 1)).sum())
-        print(f"l2={l2:g} acc={correct/len(rows):.4f} precision={tp/max(1,tp+fp):.4f} recall={tp/max(1,tp+fn):.4f} (fp={fp}, fn={fn})", flush=True)
+        p, y = oof_probs(rows, l2, folds)
+        th = calibrate(p, y)
+        print(f"l2={l2:g} accuracy@0.5={((p >= 0.5) == (y == 1)).mean():.4f}", flush=True)
+        report(p, y, th)
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--cv", action="store_true")
-    ap.add_argument("--l2", type=float, default=1e-5)
+    ap.add_argument("--l2", type=float, default=3e-6)
     ap.add_argument("--keep", type=int, default=24000)
     args = ap.parse_args()
     rows = load(["train_*.jsonl"])
@@ -159,6 +215,13 @@ def main():
         cv(list(rows), [1e-5, 3e-5, 1e-4])
         return
     y = np.array([1 if r["label"] == "scam" else 0 for r in rows])
+    print("rows with rule-hit data:", sum(1 for r in rows if tags_of(r["text"])), "of", len(rows), flush=True)
+    random.Random(1).shuffle(rows)
+    y = np.array([1 if r["label"] == "scam" else 0 for r in rows])
+    p_oof, y_oof = oof_probs(rows, args.l2)
+    thresholds = calibrate(p_oof, y_oof)
+    print("out-of-fold results with calibrated thresholds:")
+    report(p_oof, y_oof, thresholds)
     csr = to_csr(rows)
     w, b = fit_binary(csr, y, args.l2, np.ones(len(y)))
     scam_rows = [r for r in rows if r["label"] == "scam" and r.get("category") in CATEGORY_GROUP]
@@ -174,10 +237,11 @@ def main():
         m = q != 0
         gidx.append([int(i) for i in order[m]]); gw.append([int(x) for x in q[m]])
     model = {
-        "version": "2026.10.1", "buckets": BUCKETS,
+        "version": "2026.10.2", "buckets": BUCKETS,
         "scam": {"bias": float(b), "scale": sscale, "idx": sidx, "w": sw},
         "groups": GROUPS,
         "group": {"bias": [float(x) for x in B], "scale": gscale, "idx": gidx, "w": gw},
+        "thresholds": {k: round(v, 4) for k, v in thresholds.items()},
     }
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w") as fh:

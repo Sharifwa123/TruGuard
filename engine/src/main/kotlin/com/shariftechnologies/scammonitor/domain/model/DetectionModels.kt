@@ -4,6 +4,12 @@ package com.shariftechnologies.scammonitor.domain.model
 data class ScanInput(
     val title: String,
     val body: String,
+    /**
+     * For text read off a screen: the separate pieces (chat bubbles, paragraphs, buttons). The engine then judges
+     * short runs of neighbouring pieces instead of the whole screen at once, so scattered words from unrelated
+     * bubbles and buttons cannot combine into a false match. Null for an ordinary single message.
+     */
+    val segments: List<String>? = null,
 ) {
     val isEmpty: Boolean get() = title.isBlank() && body.isBlank()
 }

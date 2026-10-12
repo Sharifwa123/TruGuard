@@ -2,6 +2,7 @@ package com.shariftechnologies.scammonitor.domain.engine
 
 import com.shariftechnologies.scammonitor.core.TextSanitizer
 import com.shariftechnologies.scammonitor.domain.intent.IntentClassifier
+import com.shariftechnologies.scammonitor.domain.intent.IntentVerdict
 import com.shariftechnologies.scammonitor.domain.intent.IntentScoring
 import com.shariftechnologies.scammonitor.domain.model.DetectionResult
 import com.shariftechnologies.scammonitor.domain.model.DomainFinding
@@ -32,6 +33,33 @@ class ScamDetectionEngine(
     private val intent: () -> IntentClassifier? = { null },
 ) {
     fun analyze(input: ScanInput): DetectionResult {
+        val segments = input.segments
+        if (segments == null || segments.size < 2) return analyzeOne(input)
+        return analyzeWindows(segments)
+    }
+
+    /**
+     * Screen text arrives as many separate pieces. Each piece, together with the next one or two, is judged as one
+     * message and the most worrying window wins. A scam split over a few bubbles still reads as one message, but
+     * words from bubbles far apart (or from buttons and labels) never meet.
+     */
+    private fun analyzeWindows(segments: List<String>): DetectionResult {
+        val windows = LinkedHashSet<String>()
+        for (i in segments.indices) {
+            windows += segments.subList(i, minOf(i + WINDOW, segments.size)).joinToString("\n")
+            if (windows.size >= MAX_WINDOWS) break
+        }
+        var best: DetectionResult? = null
+        val started = nanoTime()
+        for (text in windows) {
+            val r = analyzeOne(ScanInput("", text))
+            if (best == null || r.riskScore > best.riskScore) best = r
+            if (nanoTime() - started > WINDOWS_BUDGET_NANOS) break
+        }
+        return requireNotNull(best)
+    }
+
+    private fun analyzeOne(input: ScanInput): DetectionResult {
         val ruleSet = rules()
         val now = clock()
         if (input.isEmpty) return emptyResult(now)
@@ -91,23 +119,54 @@ class ScamDetectionEngine(
             matches += RuleMatch(combo.id, "combination", combo.score, combo.explanation)
         }
 
-        // The learned model looks at how the message is built rather than which words it uses, so it also catches
-        // scams worded in ways no rule anticipated. It adds to what the rules found and never replaces it.
-        intent()?.let { model ->
-            val verdict = try { model.classify(rawText) } catch (e: RuntimeException) { null }
-            if (verdict != null) {
-                val add = IntentScoring.contribution(verdict.probability, matches.sumOf { it.score })
-                if (add > 0) matches += RuleMatch(IntentScoring.RULE_ID, "intent", add, IntentScoring.explanation(verdict.group))
-            }
-        }
+        val ordered = matches.sortedByDescending { it.score }
+        val model = intent()
+        val verdict = model?.let { m -> try { m.classify(rawText, matches.map { it.ruleId }) } catch (e: RuntimeException) { null } }
+        if (model != null && verdict != null) return modelResult(ruleSet, model, verdict, matches, domains, blocked != null, now)
 
         val score = matches.sumOf { it.score }.coerceAtMost(100)
         val severity = ruleSet.thresholds.severityFor(score)
-        val ordered = matches.sortedByDescending { it.score }
         return DetectionResult(
             riskScore = score,
             severity = severity,
             flagged = severity.atLeast(ruleSet.thresholds.flagMinSeverity) && matches.isNotEmpty(),
+            matches = ordered,
+            domains = domains,
+            summary = buildSummary(severity, ordered),
+            detectedAtMillis = now,
+        )
+    }
+
+    /**
+     * With the learned model present, the rules are *evidence* it weighs (each rule's reliability was learned from
+     * thousands of examples, so a sloppy rule counts for little) and the verdict comes from its calibrated probability.
+     * The one exception is a domain on the blocklist, which is a fact, not a guess, and always keeps its severity.
+     */
+    private fun modelResult(
+        ruleSet: CompiledRuleSet,
+        model: IntentClassifier,
+        verdict: IntentVerdict,
+        ruleMatches: List<RuleMatch>,
+        domains: List<DomainFinding>,
+        blocklisted: Boolean,
+        now: Long,
+    ): DetectionResult {
+        val p = verdict.probability
+        var severity = model.severityFor(p)
+        var score = model.riskScore(p)
+        if (blocklisted) {
+            val floor = ruleSet.blocklistedDomainScore
+            if (floor > score) score = floor
+            severity = maxOf(severity, ruleSet.thresholds.severityFor(floor))
+        }
+        val matches = ruleMatches.toMutableList()
+        // Name the kind of manipulation in plain words when the model is fairly sure; rules, if any, are listed first.
+        if (severity.atLeast(Severity.LOW)) matches += RuleMatch(IntentScoring.RULE_ID, "intent", 0, IntentScoring.explanation(verdict.group))
+        val ordered = matches.sortedByDescending { it.score }
+        return DetectionResult(
+            riskScore = score,
+            severity = severity,
+            flagged = severity.atLeast(ruleSet.thresholds.flagMinSeverity) && ordered.isNotEmpty(),
             matches = ordered,
             domains = domains,
             summary = buildSummary(severity, ordered),
@@ -173,5 +232,9 @@ class ScamDetectionEngine(
 
     companion object {
         const val MAX_TEXT = 4000
+        /** How many neighbouring screen pieces are judged together as one message. */
+        const val WINDOW = 3
+        const val MAX_WINDOWS = 40
+        private const val WINDOWS_BUDGET_NANOS = 900_000_000L
     }
 }

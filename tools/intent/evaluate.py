@@ -22,9 +22,10 @@ class Model:
         self.gs = g["scale"]
         self.gb = g["bias"]
         self.gw = [dict(zip(i, w)) for i, w in zip(g["idx"], g["w"])]
+        self.th = m.get("thresholds", {"low": 0.65, "medium": 0.85, "high": 0.95})
 
-    def predict(self, text):
-        idx, val = features(text)
+    def predict(self, text, tags=()):
+        idx, val = features(text, tags)
         z = self.sb + self.ss * sum(self.sw.get(i, 0) * v for i, v in zip(idx, val))
         p = 1 / (1 + math.exp(-max(-30, min(30, z))))
         zs = [self.gb[c] + self.gs * sum(self.gw[c].get(i, 0) * v for i, v in zip(idx, val)) for c in range(len(self.groups))]
@@ -32,13 +33,15 @@ class Model:
         return p, self.groups[top]
 
 
-def main(path, thresholds=(0.5, 0.6, 0.7, 0.8, 0.9)):
+def main(path, thresholds=None):
+    from train import tags_of
     rows = [json.loads(l) for l in open(path, encoding="utf-8") if l.strip()]
     model = Model()
-    scores = [(model.predict(r["text"])[0], r["label"] == "scam", r) for r in rows]
+    scores = [(model.predict(r["text"], tags_of(r["text"]))[0], r["label"] == "scam", r) for r in rows]
     n_s = sum(1 for _, s, _ in scores if s)
     n_b = len(scores) - n_s
-    print(f"{path}: {len(rows)} rows ({n_s} scam, {n_b} benign)")
+    print(f"{path}: {len(rows)} rows ({n_s} scam, {n_b} benign); shipped thresholds {model.th}")
+    thresholds = thresholds or (model.th["low"], model.th["medium"], model.th["high"], 0.5, 0.9)
     for t in thresholds:
         tp = sum(1 for p, s, _ in scores if p >= t and s)
         fp = sum(1 for p, s, _ in scores if p >= t and not s)
