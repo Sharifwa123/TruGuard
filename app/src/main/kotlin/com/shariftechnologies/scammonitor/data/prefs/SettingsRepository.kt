@@ -51,6 +51,10 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
     /** Which apps (and which chats / sites inside them) the user chose to monitor. Empty means none. */
     val screenConfig: StateFlow<ScreenMonitorConfig> = _screenConfig.asStateFlow()
 
+    private val _intentEnabled = MutableStateFlow(true)
+    /** Use the learned intent model alongside the rules (catches scams worded in ways no rule anticipated). */
+    val intentEnabled: StateFlow<Boolean> = _intentEnabled.asStateFlow()
+
     private val _securityAlertsEnabled = MutableStateFlow(true)
     /** Alerts about Play Protect/other protection changes and risky newly installed apps. */
     val securityAlertsEnabled: StateFlow<Boolean> = _securityAlertsEnabled.asStateFlow()
@@ -69,12 +73,17 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
                     enabled = prefs[WARNINGS_ENABLED] ?: true,
                     minSeverity = prefs[WARNING_MIN_SEVERITY]?.let { runCatching { Severity.valueOf(it) }.getOrNull() } ?: Severity.LOW,
                     showOnLockScreen = prefs[SHOW_ON_LOCK_SCREEN] ?: true,
+                    popup = prefs[ALERT_POPUP] ?: true,
+                    vibrate = prefs[ALERT_VIBRATE] ?: true,
+                    tone = prefs[ALERT_TONE] ?: false,
+                    alertMinSeverity = prefs[ALERT_MIN_SEVERITY]?.let { runCatching { Severity.valueOf(it) }.getOrNull() } ?: Severity.MEDIUM,
                 )
                 _screenConsent.value = prefs[SCREEN_CONSENT] ?: false
                 _screenPaused.value = prefs[SCREEN_PAUSED] ?: false
                 _screenShortcut.value = prefs[SCREEN_SHORTCUT] ?: true
                 _screenConfig.value = ScreenMonitorConfig.fromJson(prefs[SCREEN_CONFIG])
                 _securityAlertsEnabled.value = prefs[SECURITY_ALERTS] ?: true
+                _intentEnabled.value = prefs[INTENT_ENABLED] ?: true
                 _disabledRuleIds.value = prefs[DISABLED_RULES] ?: emptySet()
                 _onboardingCompleted.value = prefs[ONBOARDING_DONE] ?: false
                 loaded.complete(Unit)
@@ -88,6 +97,12 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
     suspend fun setWarningsEnabled(enabled: Boolean) { store.edit { it[WARNINGS_ENABLED] = enabled } }
 
     suspend fun setWarningMinSeverity(severity: Severity) { store.edit { it[WARNING_MIN_SEVERITY] = severity.name } }
+
+    suspend fun setIntentEnabled(on: Boolean) { store.edit { it[INTENT_ENABLED] = on } }
+    suspend fun setAlertPopup(on: Boolean) { store.edit { it[ALERT_POPUP] = on } }
+    suspend fun setAlertVibrate(on: Boolean) { store.edit { it[ALERT_VIBRATE] = on } }
+    suspend fun setAlertTone(on: Boolean) { store.edit { it[ALERT_TONE] = on } }
+    suspend fun setAlertMinSeverity(severity: Severity) { store.edit { it[ALERT_MIN_SEVERITY] = severity.name } }
 
     suspend fun setScreenConsent(consent: Boolean) { store.edit { it[SCREEN_CONSENT] = consent } }
     suspend fun setScreenPaused(paused: Boolean) { store.edit { it[SCREEN_PAUSED] = paused } }
@@ -119,6 +134,11 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
     private companion object {
         val WARNINGS_ENABLED = booleanPreferencesKey("warnings_enabled")
         val WARNING_MIN_SEVERITY = stringPreferencesKey("warning_min_severity")
+        val INTENT_ENABLED = booleanPreferencesKey("intent_enabled")
+        val ALERT_POPUP = booleanPreferencesKey("alert_popup")
+        val ALERT_VIBRATE = booleanPreferencesKey("alert_vibrate")
+        val ALERT_TONE = booleanPreferencesKey("alert_tone")
+        val ALERT_MIN_SEVERITY = stringPreferencesKey("alert_min_severity")
         val SCREEN_CONSENT = booleanPreferencesKey("screen_consent")
         val SCREEN_PAUSED = booleanPreferencesKey("screen_paused")
         val SCREEN_SHORTCUT = booleanPreferencesKey("screen_shortcut")

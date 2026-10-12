@@ -2,6 +2,12 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.5.0 - 2026-10-12
+
+- **Intent detection that does not depend on exact words.** A small learned model (hashed word and character n-grams, trained on 1,600 example messages) scores how a message is built and what it asks for, so reworded, misspelled, shorthand or code-mixed scams that no phrase list anticipated can still be caught. It adds to the rules. On a separate blind test of 319 adversarially worded messages, the rules alone flagged 21% of scams and rules plus the model flag 85% (67% at MEDIUM and above), with false alarms on ordinary messages at 7.5% (2.5% at MEDIUM and above) on a test deliberately full of look-alikes. Training data is model-written, not real victims' messages, so expect real-world results to differ. Details, method and limits: `docs/INTENT_MODEL.md`. New Settings switch "Smart intent detection".
+- **Warnings you cannot miss.** Besides the notification, a warning at or above your chosen level (default MEDIUM) now shows a **pop-up card over whatever app is open** (needs the Accessibility service on, or "Display over other apps" allowed), with **strong vibration** (long repeated pulses for high risk) and an **optional alert tone** (short beep on the alarm volume). Settings: pop-up, strong vibration and tone switches, the level they start at, an "Allow pop-ups" shortcut and a **Test alert** button. The pop-up never appears on the lock screen (the lock-screen privacy setting applies to the notification), a high-risk card shakes and needs a button press, a medium one fades after 12 seconds. Vibration and tone use the alarm audio usage so they still work on silent.
+- Adds the `VIBRATE` and `SYSTEM_ALERT_WINDOW` permissions.
+
 ## 1.4.0 - 2026-10-12
 
 - **New interface: glass, clay and soft shadows.** A drifting aurora backdrop under frosted-glass cards, puffy clay buttons and switches that spring when pressed, soft-shadow stat tiles that press in, a floating glass tab bar whose selected tab grows into a glowing pill, expandable cards, haptic ticks and animated screen transitions. Light and dark themes. No new libraries (shadows are drawn, not blurred, so it looks the same on every Android version).

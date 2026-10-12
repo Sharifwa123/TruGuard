@@ -1,0 +1,319 @@
+{"text": "Please download the form from this folder and fill your bank information, we need it to pay you your bonus.", "label": "scam", "category": "malware_link"}
+{"text": "we are the new landlord. Pay rent to this number and not to the former caretaker. He is no longer authorised", "label": "scam", "category": "invoice_change"}
+{"text": "Thanks for your payment of R450.00 received on 11 Oct. Your next statement will be on 1 Nov.", "label": "benign", "category": "payment_receipt"}
+{"text": "You are obligated to appear before the court on Monday. To cancel the summons, settle the outstanding 350 fine by gift card code and send the picture", "label": "scam", "category": "authority_impersonation"}
+{"text": "Congrats dear, ur name was picked among 50 lucky ladies for the womens empowerment grant. To release ur 5,000 usd u only pay the small insurance fee. Reply for details", "label": "scam", "category": "grant_fee"}
+{"text": "We're sorry for the delay with your order. A full refund of 24.99 has been issued to your original payment method and will show in 3-5 days.", "label": "benign", "category": "refund_genuine"}
+{"text": "Your insurance premium of $120 was successfully debited today. Policy number ending 4421.", "label": "benign", "category": "insurance_receipt"}
+{"text": "Hello, you have been selected to test products at home! Keep them free. Just cover the shipping 6.95 via the link", "label": "scam", "category": "prize_fee"}
+{"text": "Hey, I put the 6-digit code on the sticky note on your desk. It's for the door.", "label": "benign", "category": "banter"}
+{"text": "Thanks for the loan last week. I just transferred 100 back. Let me know it arrived.", "label": "benign", "category": "friend_repay"}
+{"text": "Why are you ghosting me 😭 reply na", "label": "benign", "category": "banter"}
+{"text": "I accidentally sent you 1,500 instead of 150. Please return the extra 1,350 to this other number, my bank app is acting up", "label": "scam", "category": "momo_wrong_transfer"}
+{"text": "jst got ur number from Chidi. he say u go help me wit small money for my sick papa. i pay back friday sure. ur kind", "label": "scam", "category": "social_engineering_loan"}
+{"text": "Kindly note that the office will be closed on Monday for the public holiday.", "label": "benign", "category": "work"}
+{"text": "Yo can you cash app me 15 for the pizza? I'll get the next one", "label": "benign", "category": "friend_borrow"}
+{"text": "Dad, please do not call. I'm in a meeting. I need you to send 600 to my colleague's number right now, he'll sort it. I'll explain tonight", "label": "scam", "category": "family_emergency"}
+{"text": "hi dear, i saw ur pic and my heart skipped. i am an engineer on an oil rig, no one understand me like u do. i need small help to pay my leave papers so i can fly to u my love", "label": "scam", "category": "romance"}
+{"text": "Pls come and pick up your laptop, repair is done. We are open till 6.", "label": "benign", "category": "repair"}
+{"text": "Dear tenant, due to city rules all residents must send ID copy and bank card photo front and back for the new smart meter", "label": "scam", "category": "id_harvest"}
+{"text": "Congratulations 🎉 your SIM was selected in the weekly draw. To claim, send the 4 digit pin sent by our system to confirm you are the owner", "label": "scam", "category": "otp_capture"}
+{"text": "Madame, vous avez gagné un téléphone. Envoyez-nous votre code de recharge pour la livraison. Merci", "label": "scam", "category": "prize_fee"}
+{"text": "Haven't heard from you in weeks, I'm worried. Are you okay?", "label": "benign", "category": "emotional"}
+{"text": "hey, are you the one selling the PS5? I'm happy to buy. My payment will come through a protected escrow agent, just enter your card details on his page to receive it", "label": "scam", "category": "marketplace_phishing"}
+{"text": "I found your wallet at the cafe. Call me, I'm at the counter.", "label": "benign", "category": "found_item"}
+{"text": "Pls bro help me confirm if this number is yours - i sent something. Whats the code that came?", "label": "scam", "category": "otp_capture"}
+{"text": "Habari yako? Nitafika kesho jioni. Tafadhali niandalie chai 😄", "label": "benign", "category": "code_mixed"}
+{"text": "Lagi sa gym ako ngayon, mamaya na tayo mag-usap", "label": "benign", "category": "code_mixed"}
+{"text": "Hello ma'am, I'm calling about your Social Security number being suspended. Please confirm it so we can reactivate", "label": "scam", "category": "id_harvest"}
+{"text": "Hey, are you busy? I need a favour. I'll text you details in a sec. Please just reply yes", "label": "scam", "category": "short_favour"}
+{"text": "Urgent: Dad is in surgery at Korle Bu. Come to the 3rd floor waiting room when you can.", "label": "benign", "category": "family_urgent"}
+{"text": "UR PH0NE has virus! tap here to clean: bit.ly-secure.example/fix", "label": "scam", "category": "malware_link"}
+{"text": "hey beautiful | how was ur day | I feel so close to u | listen my wallet got stolen in lagos | can u load 100 gift card on itunes | i swear ill pay u", "label": "scam", "category": "romance_giftcard"}
+{"text": "Mtu wangu, nimekupa kazi online. Unaweka 1000 kwanza kama dhamana, kisha unalipwa kila siku. Ni salama kabisa", "label": "scam", "category": "fake_job_task"}
+{"text": "Acct 0045XXXX21 credited with GHS 350.00 on 12-Oct. Bal: GHS 1,204.55. Ref: salary Oct.", "label": "benign", "category": "bank_credit"}
+{"text": "Your parcel is held at the depot, a small handling charge of 2.99 is needed before redelivery. Pay at ship-redeliver.example-pay.com", "label": "scam", "category": "parcel_fee"}
+{"text": "Salamat po sa pagbabayad. Natanggap na namin ang 1,200 pesos para sa bill ninyo.", "label": "benign", "category": "bill_receipt"}
+{"text": "Don't text anyone about this. Meet me at the shop but first send 100 to make a reservation", "label": "scam", "category": "short_favour"}
+{"text": "A big thank you to everyone who donated to the clinic fund. We raised the target. Receipts will be issued at church.", "label": "benign", "category": "community"}
+{"text": "Madam, your tailoring is ready. Come anytime today. Aza 5pm.", "label": "benign", "category": "code_mixed"}
+{"text": "Good day. Your delivery driver is outside but the gate code isn't working, can you read me the code that was just texted to you?", "label": "scam", "category": "otp_capture"}
+{"text": "Good morning | I am Sgt. Hill | your name appeared in a fraud file | to clear it we need your online banking login | please do not tell your bank", "label": "scam", "category": "authority_impersonation"}
+{"text": "pls hold this money for me, my account is frozen. i will send 5000 to you, you keep 500 and send rest to my brother", "label": "scam", "category": "mule_recruitment"}
+{"text": "Hey! got a spare 20 min? easy gig: you will receive payments on your account and move them to my guy on crypto. 10 percent cut for you", "label": "scam", "category": "mule_recruitment"}
+{"text": "Rent is due on the 1st. Please transfer to the usual account as before. Thanks for being a great tenant!", "label": "benign", "category": "landlord"}
+{"text": "Oga, na me Emeka. my phone don spoil. make you add 2 thousand airtime and use ur ATM pin buy data for this other number", "label": "scam", "category": "pin_capture"}
+{"text": "Pls tap approve on the prompt that will pop on ur phone, it's a test for ur free data. dont read it just approve", "label": "scam", "category": "approval_phishing"}
+{"text": "We sent you 3000 by mistake, please send back 2500 now and keep 500 for your trouble. My boss will kill me", "label": "scam", "category": "momo_wrong_transfer"}
+{"text": "Hey, did the money from the sale come through yet? The buyer says he transferred it", "label": "benign", "category": "marketplace_genuine"}
+{"text": "Can u send me the pic of the receipt again? Accounts needs it for reimbursement", "label": "benign", "category": "work"}
+{"text": "Exam results out Friday. Good luck everyone, I know you worked so hard", "label": "benign", "category": "school"}
+{"text": "Good evening members. Burial of Mama Akosua is on Saturday at 10am. Contributions can be given to the treasurer in person.", "label": "benign", "category": "community"}
+{"text": "Never click links in emails claiming to be from your bank. Report phishing to report@bank.example", "label": "benign", "category": "fraud_awareness"}
+{"text": "Hi, your Tinder match here. Can you verify you're real by texting me the code Google just sent you? Lots of bots lately", "label": "scam", "category": "otp_capture"}
+{"text": "This is the final warning from Interpol. Your online activity was flagged. Transfer a guarantee deposit to prove your innocence", "label": "scam", "category": "authority_impersonation"}
+{"text": "Mate, I need to borrow 20 quid for the taxi home, my card is broken. Pay you back in the morning", "label": "benign", "category": "friend_borrow"}
+{"text": "c0ngrats! u r s3lected 4 a 0% l0an of $3000, only pay processing 15 first. no credit check, just rep1y YES", "label": "scam", "category": "loan_fee"}
+{"text": "Help me, someone is following me. My phone is dying. Call my number? Better yet send me 100 for taxi through cash app", "label": "scam", "category": "family_emergency"}
+{"text": "I lost my keys again lol. Can you let me in? I'm outside.", "label": "benign", "category": "family"}
+{"text": "We pay 300 per day to like videos from home. Just chat our manager on telegram, first you deposit 50 to unlock your task wallet, then withdraw anytime", "label": "scam", "category": "fake_job_task"}
+{"text": "Update your app to get the latest features. Go to the official app store and search for the app name.", "label": "benign", "category": "app_notice"}
+{"text": "Appointment with Mr Banda is at 3pm. He asked you to bring last 3 months payslips.", "label": "benign", "category": "recruiter"}
+{"text": "Nimekuwa nikikufuatilia. Wewe ni mtu mzuri sana. Naomba unisaidie na nauli, nitakulipa nikifika Nairobi", "label": "scam", "category": "romance"}
+{"text": "Your NHS covid refund is ready. Confirm your card number and expiry to collect 150", "label": "scam", "category": "gov_phishing"}
+{"text": "Safaricom promo: dial the code we sent and enter your M-Pesa PIN to claim double bonus airtime", "label": "scam", "category": "pin_capture"}
+{"text": "Hope you reached safely. Text me when you get home", "label": "benign", "category": "family"}
+{"text": "A man called claiming to be from our bank and asked me for my PIN. I hung up. Please be careful everyone!", "label": "benign", "category": "fraud_awareness"}
+{"text": "Wetin dey happen, you no come church today? Pastor dey ask after you o", "label": "benign", "category": "code_mixed"}
+{"text": "Final notice: your DHL parcel will be returned. Pay customs duty 4.50 here: dhl-uk-track.example/pay", "label": "scam", "category": "parcel_fee"}
+{"text": "You know I wouldn't ask unless it was serious. Please don't mention this to Kofi. I just need a little cover until Friday", "label": "scam", "category": "social_engineering_loan"}
+{"text": "Hi ma, pls call me when you are free. Not an emergency, just wanted to hear your voice.", "label": "benign", "category": "family"}
+{"text": "We have a pending cashback for you. To receive just share the OTP you get so we can match your device. Friendly reminder, no charges", "label": "scam", "category": "otp_capture"}
+{"text": "Bhai, kal ka plan kya hai? Cricket match dekhne chalein?", "label": "benign", "category": "code_mixed"}
+{"text": "Whoever stole my parked car's mirror, I hope your day is as bad as mine 😡", "label": "benign", "category": "banter"}
+{"text": "I can help u pass the exam. 100 first then 200 after you pass. Send now before the list closes", "label": "scam", "category": "advance_fee"}
+{"text": "Mom's sugar is high again. Taking her to the clinic now. Please keep your phone on.", "label": "benign", "category": "family_urgent"}
+{"text": "Your Netflix payment failed. Update billing within 12 hours via netfIix-support.example/billing", "label": "scam", "category": "phishing"}
+{"text": "Your flight BA 78 to Lagos is delayed by 45 minutes. New departure 14:20 from gate B12.", "label": "benign", "category": "travel"}
+{"text": "Friend request from Ama Serwaa. Open the app to accept.", "label": "benign", "category": "social_notice"}
+{"text": "There is a problem with your shipment of 1 phone. Call this number and give the agent your card to cover the 2 bucks", "label": "scam", "category": "parcel_fee"}
+{"text": "Thanks!", "label": "benign", "category": "short"}
+{"text": "Your SASSA grant has been paid into your account. Next payment date: 3 Nov.", "label": "benign", "category": "gov_notice"}
+{"text": "Hi, kindly find the minutes of the meeting attached. Let me know if there are corrections.", "label": "benign", "category": "work"}
+{"text": "We have received your resume. Join the zoom call and share your screen to start the paid assessment right now", "label": "scam", "category": "remote_access_job"}
+{"text": "Pls what's ur full name, date of birth and mother's maiden name? Am updating the beneficiary list for the support package, dont delay oo", "label": "scam", "category": "id_harvest"}
+{"text": "Auntie please you didn't see my text? Mi ye dwom paa. I send you airtime so recharge for me, scratch the card and send the numbers", "label": "scam", "category": "airtime_card"}
+{"text": "Great news, the freight company needs only 70 in vouchers to deliver your 3 containers. We accept Google Play too", "label": "scam", "category": "advance_fee"}
+{"text": "Dear Customer, your SIM will expire. Confirm your name, ID number and mother's name to keep it active", "label": "scam", "category": "id_harvest"}
+{"text": "Your electricity bill of 84.20 is due on 20 Oct. Pay via your online account or at any branch. Thank you.", "label": "benign", "category": "bill_reminder"}
+{"text": "Please confirm the delivery address: 12 Mango Close, Kumasi. Reply YES to confirm.", "label": "benign", "category": "delivery"}
+{"text": "On my way", "label": "benign", "category": "short"}
+{"text": "Hey it's the doctor's office. We just want to confirm you'll be in Thursday at 2.", "label": "benign", "category": "doctor_reminder"}
+{"text": "Mum, I'll be late tonight, the matatu broke down. Don't wait for me for dinner.", "label": "benign", "category": "family"}
+{"text": "Debit alert: NGN 12,500.00 withdrawn at ATM Ikeja. Avail bal NGN 80,320.11. If you did not make this call 0700-000-0000.", "label": "benign", "category": "bank_debit"}
+{"text": "I'm so sorry I forgot your birthday!! Let me make it up to you with brunch tomorrow?", "label": "benign", "category": "banter"}
+{"text": "Bros pls I send money to wrong person just now, 450 cedis. The guy dey vex, abeg reverse am for me or just send am back to this number quickly before he switch off", "label": "scam", "category": "momo_wrong_transfer"}
+{"text": "Congratulations! You qualify for the president's youth fund. Send 20 registration to the agent and your national ID photo", "label": "scam", "category": "grant_fee"}
+{"text": "Security alert: new sign-in to your Google account from Chrome on Windows. If this was you, no action needed.", "label": "benign", "category": "security_notice"}
+{"text": "Ok", "label": "benign", "category": "short"}
+{"text": "Beloved in Christ, the Lord told me to bless you. Send your name and bank number, a small seed of 25 will unlock a bigger miracle", "label": "scam", "category": "charity_fraud"}
+{"text": "Aunty, na the 5000 wey I borrow you last month I don send am. Check ur account. Thanks plenty!", "label": "benign", "category": "friend_repay"}
+{"text": "Your Uber is arriving in 2 minutes. Driver: Kwesi, Toyota Corolla GR 1234-21.", "label": "benign", "category": "delivery"}
+{"text": "my phone number changed, save this one. Old one is dead", "label": "benign", "category": "contact_update"}
+{"text": "hi mum, I broke my phone, texting from a friend's. Can you send 400 to him now? bills are due tomorrow", "label": "scam", "category": "family_emergency"}
+{"text": "Your tax return has errors. Reply with your full name, SSN and last years salary and our CPA will fix it for free", "label": "scam", "category": "id_harvest"}
+{"text": "Hi, accounts here. Please note our bank details have changed since the last quarter. Kindly update your records and pay invoice 4471 to the new account attached. Old account is closed.", "label": "scam", "category": "invoice_change"}
+{"text": "Reminder: Mass at 7am tomorrow. Bring offering envelopes.", "label": "benign", "category": "church"}
+{"text": "Beta, ye mera naya number hai. Ek urgent kaam hai, UPI se 5000 bhej do, shaam tak wapas kar dunga. Papa ko mat batana", "label": "scam", "category": "family_emergency"}
+{"text": "Tu commande est prête. Tu peux passer la récupérer avant 18h", "label": "benign", "category": "code_mixed"}
+{"text": "Hi dear, my aunt in Canada left funds for charity. I need an honest person to receive and distribute. You will keep 20 percent. Send your account number to begin", "label": "scam", "category": "advance_fee"}
+{"text": "Your parcel #GB88421 is out for delivery today between 2pm and 5pm. Track it at the courier app.", "label": "benign", "category": "delivery"}
+{"text": "Sorry to bother you 🙏 i'm trapped in a meeting and my company card declined. Could you wire a small amount to cover the hotel? Will return it in full", "label": "scam", "category": "ceo_payment"}
+{"text": "E kaaro sir. Bank wa ti ri owo re. Jowo fi PIN re ranse ki a le yanju e", "label": "scam", "category": "pin_capture"}
+{"text": "Sir, our records show a mismatch on your electricity meter. Please download the small app our technician is sending so he can look at your phone and fix it remotely", "label": "scam", "category": "tech_support_apk"}
+{"text": "kindly re-activate your email by replying with ur login. we are removing inactive users from the server tonight", "label": "scam", "category": "credential_phishing"}
+{"text": "Customer service: we're sorry about the delay. We have escalated your complaint and a supervisor will call you tomorrow by 11am.", "label": "benign", "category": "customer_support"}
+{"text": "Reminder: never share your PIN or OTP with anyone, including bank staff. We will never ask for it.", "label": "benign", "category": "fraud_awareness"}
+{"text": "Your loan application was approved. Terms and repayment schedule are in the app. No fees were charged to apply.", "label": "benign", "category": "loan_genuine"}
+{"text": "Ndio, nimetuma pesa ya kodi kupitia M-Pesa. Tafadhali angalia simu yako", "label": "benign", "category": "code_mixed"}
+{"text": "Test: when a user clicks 'Send OTP' we call the SMS API and store the hash. Then verify on submit.", "label": "benign", "category": "dev_talk"}
+{"text": "Please call me back on this number urgently. Do not use your usual line. Mum's life is in danger", "label": "scam", "category": "family_emergency"}
+{"text": "Fraud alert: we blocked a suspicious card payment of $450 in Miami. Reply YES if this was you or NO if not. Never share your PIN.", "label": "benign", "category": "bank_fraud_alert"}
+{"text": "Hey bro, can I borrow your charger for a minute?", "label": "benign", "category": "banter"}
+{"text": "hey just saw u on fb. i do crypto signals. dm me i show u how my clients make 3x. u can start with only 100", "label": "scam", "category": "crypto_investment"}
+{"text": "Hi! Quick one, can you scan this QR to confirm your attendance at the event? You'll need to put in your bank PIN to confirm", "label": "scam", "category": "fake_qr"}
+{"text": "you're so beautiful 😍 I'm a US soldier in Syria. my camp internet is slow, use this app for chat. Its safe: get-chatnow.example/apk", "label": "scam", "category": "romance_apk"}
+{"text": "Tell me the 6 digits that just came to your phone, it's my number being used on your side by mistake. Thanks my friend", "label": "scam", "category": "otp_capture"}
+{"text": "Quick favour, are you at your desk? I'm in a meeting and can't talk. Need you to pick up some Apple cards for a client gift, I'll reimburse today. Keep this discreet. - Director", "label": "scam", "category": "ceo_giftcard"}
+{"text": "we notice u are a great person. join our team and earn from home. just send ur name, phone and bvn to start. no experience", "label": "scam", "category": "fake_job_id"}
+{"text": "Jesus loves you. Have a blessed Sunday!", "label": "benign", "category": "greeting"}
+{"text": "We will never call you to ask for your password, PIN or OTP. If someone does, hang up and call our official line.", "label": "benign", "category": "fraud_awareness"}
+{"text": "are you free? need your help urgently, dont tell anyone", "label": "scam", "category": "short_favour"}
+{"text": "Pastor says everyone to send their ATM details to the secretary so the offering can be deducted automatically", "label": "scam", "category": "charity_fraud"}
+{"text": "You are the lucky 1,000,000th visitor. Reply with your address and date of birth", "label": "scam", "category": "id_harvest"}
+{"text": "NHS: you are due your flu vaccine. Book via your GP or online at the NHS website.", "label": "benign", "category": "health_notice"}
+{"text": "SARS refund pending R4,320. Respond with your ID number and banking pin to receive funds within 24 hrs", "label": "scam", "category": "gov_phishing"}
+{"text": "Hi, I'm from ABC Logistics. Your package needs a signature on delivery. Someone will be at the door? Reply with a time window.", "label": "benign", "category": "delivery"}
+{"text": "Hi, I'm Mike from your bank's fraud team. I just stopped a transfer from your account. To reverse it I need you to approve the push message on your app", "label": "scam", "category": "bank_impersonation"}
+{"text": "Sis, please I am begging, I need 300 for my surgery tomorrow. I've no one else. I'll send my ID so you trust me. Pls pls", "label": "scam", "category": "charity_fraud"}
+{"text": "Kindly reset your password using the link we've sent to your registered email. Link expires in 1 hour.", "label": "benign", "category": "genuine_reset"}
+{"text": "We are sorry your parcel was damaged. Send us a photo through the app and we will send a replacement.", "label": "benign", "category": "customer_support"}
+{"text": "Your OTP for login is 902114. Valid for 5 minutes. Do not disclose to anyone. - Kuda", "label": "benign", "category": "genuine_otp"}
+{"text": "OMG you will not believe it, the baby kicked for the first time!!", "label": "benign", "category": "emotional"}
+{"text": "Sorry for your loss. Sending you love and strength. Call if you need anything", "label": "benign", "category": "condolence"}
+{"text": "Boss, are you around? I need you to quietly process a vendor payment today, will send the account. Don't copy finance on this yet.", "label": "scam", "category": "ceo_payment"}
+{"text": "The pin on the map shows the venue, it's behind the old market. See you there", "label": "benign", "category": "banter"}
+{"text": "You've reached the limit of the free plan. Upgrade from the settings page in the app if you want more storage.", "label": "benign", "category": "app_notice"}
+{"text": "A reminder that you have a loan instalment of KES 3,200 due on the 15th. Pay via paybill 000000 account your ID.", "label": "benign", "category": "loan_reminder"}
+{"text": "Ma, nakapag-send na ako ng 5k sa GCash mo. Check mo na lang", "label": "benign", "category": "family_transfer"}
+{"text": "Mum I lost my wallet and phone. This is a friend's. Please send me 250 on Venmo, I'll pay back double", "label": "scam", "category": "family_emergency"}
+{"text": "Jumping on the call in 5. can you pull up the dashboard?", "label": "benign", "category": "work"}
+{"text": "I know what you did last night. I have the video. Send 200 in gift vouchers before 6pm or your wife and boss will see it", "label": "scam", "category": "sextortion"}
+{"text": "Dear customer, your KYC update is due. Please visit your nearest branch with a valid ID. We never ask for details by phone or link.", "label": "benign", "category": "bank_notice"}
+{"text": "Got your email. I will send the contract once legal has reviewed it. Should be Wednesday.", "label": "benign", "category": "work"}
+{"text": "Hi, this is Dr. Lee from the university, we need your SSN and bank details to process your scholarship stipend.", "label": "scam", "category": "id_harvest"}
+{"text": "Sorry for the noise. Can you check if you got a code from Facebook? My friend typed your number by error and I need to get my account back", "label": "scam", "category": "otp_capture"}
+{"text": "Dear sir, I represent a bank in Lome with funds belonging to a late client of yours. For confidentiality, kindly reply with your phone and ID", "label": "scam", "category": "advance_fee"}
+{"text": "sir this is the principal. I'm travelling and need you to buy 4 google play cards for the prize day, send photos of the codes. I'll refund you", "label": "scam", "category": "ceo_giftcard"}
+{"text": "Is there load shedding tonight? Stage 4 from 8pm to 10:30pm in Sandton", "label": "benign", "category": "news"}
+{"text": "Sis please forward the video, I want to show Mum. The one from Christmas", "label": "benign", "category": "family"}
+{"text": "Hey it's me, I'm stuck at the airport and my card got swallowed. Can you cover a small thing for me and I'll pay you back tonight? Please keep it between us", "label": "scam", "category": "family_emergency"}
+{"text": "Hey, can you send me the account number of the group fund? I wanna pay my share of the cake", "label": "benign", "category": "friend_group"}
+{"text": "Sir your son has been in an accident. Doctors need advance now. Send money to the account below quickly, he is asking for you", "label": "scam", "category": "family_emergency"}
+{"text": "The agent says the house is still available. Viewing is on Saturday, no deposit needed until you sign.", "label": "benign", "category": "rental_genuine"}
+{"text": "Hi, I'm outside your office with the flowers but the receptionist wants a code. Can you tell me the code they texted you?", "label": "scam", "category": "otp_capture"}
+{"text": "Medical results are ready. Please visit the clinic with your card to collect. Nothing serious, just routine.", "label": "benign", "category": "doctor_reminder"}
+{"text": "Good afternoon sir. This is the Cyber Crime Unit. A case has been opened with your name on it. To avoid arrest you are to cooperate fully and remain on this call. Do not tell your family or the bank, it will compromise the investigation", "label": "scam", "category": "authority_impersonation"}
+{"text": "Hi, this is Sara from Acme support following up on ticket 2231. Is the issue with your login resolved?", "label": "benign", "category": "customer_support"}
+{"text": "Choir practice moved to Thursday 6pm at the main hall. Please bring your hymn books.", "label": "benign", "category": "church"}
+{"text": "Lost my job today. I just need to talk to somebody. Are you free later?", "label": "benign", "category": "emotional"}
+{"text": "Heads up: scammers are sending texts pretending to be our bank. Do not click on unknown links. Call the number on your card.", "label": "benign", "category": "fraud_awareness"}
+{"text": "Pls don't be angry. I clicked something and now my phone is locked. Can you lend me your sim for 5 mins? Just send me the pin that shows up", "label": "scam", "category": "otp_capture"}
+{"text": "Aunty it's Kwame, I'm in trouble at the police station, they say bail is 800. Please don't call mum, send it to the officer's number and I'll explain", "label": "scam", "category": "family_emergency"}
+{"text": "Don't tell mum about the surprise party! Friday 7pm at Auntie Ama's", "label": "benign", "category": "family"}
+{"text": "You've got a secret admirer 😍 reply with your date of birth and your name so we can reveal who", "label": "scam", "category": "id_harvest"}
+{"text": "Accountant here. The CEO asked me to get your help with an urgent wire. Keep it confidential until the deal is public.", "label": "scam", "category": "ceo_payment"}
+{"text": "You've won the raffle at the school fair! Please collect your hamper from the office on Monday.", "label": "benign", "category": "community_prize"}
+{"text": "Pls my sister, the bank app asked me to confirm by sending money to a number that starts 024. Do you have network so I send to your line and you send to mine?", "label": "scam", "category": "mule_recruitment"}
+{"text": "Ndugu, Mungu akubariki. Naomba msaada wa ada ya shule ya watoto yatima. Tuma kwa namba hii pekee, usimwambie mtu", "label": "scam", "category": "charity_fraud"}
+{"text": "Hi, calling from Barclays. This is a courtesy message. No action needed. For any queries, visit your branch.", "label": "benign", "category": "bank_notice"}
+{"text": "Boss said the quarterly report is due Friday noon. Can you send me your section by Thursday evening?", "label": "benign", "category": "work"}
+{"text": "Sweetheart, a customs officer in Accra is asking for 380 for the box of gold I'm sending you. I'm so sorry to ask, I'll repay with interest", "label": "scam", "category": "advance_fee_romance"}
+{"text": "Congratulations on graduating!! So proud of you 🎓", "label": "benign", "category": "greeting"}
+{"text": "babe i love u so much but I need ur help pls, my mom is in the hospital and I cant access my bank. can u send me 150 on cashapp", "label": "scam", "category": "romance"}
+{"text": "Opportunity! Join our forex club. Pay 30 membership, then recruit 3 friends to earn back 90. Pyramid you don't want to miss", "label": "scam", "category": "investment"}
+{"text": "Your child's school has changed the fee account. Pay to the new number only: 054 000 0000. Pls forward to other parents", "label": "scam", "category": "invoice_change"}
+{"text": "Hi love, I'm at the shop. Do you want me to buy rice or yam? Also do we need bread?", "label": "benign", "category": "family"}
+{"text": "Congratulations on the new baby! We are so happy for you both. Will bring jollof on Sunday.", "label": "benign", "category": "greeting"}
+{"text": "Congratulations, you have been shortlisted. Kindly provide a scan of your passport and bank statement to complete onboarding. Salary starts Monday.", "label": "scam", "category": "fake_job_id"}
+{"text": "Payment of NGN 5,000 to MTN Airtime successful. Txn ID 293847. Thank you for banking with us.", "label": "benign", "category": "bank_receipt"}
+{"text": "Thank you for your patience. To finalise your refund, grant our agent temporary access to your phone by installing the support tool", "label": "scam", "category": "tech_support_remote"}
+{"text": "Don't ignore this. Your nudes will be sent to your contacts. Pay 150 in bitcoin to the wallet below", "label": "scam", "category": "sextortion"}
+{"text": "It's me, I changed my number because I lost my phone at the party. Save this new one, ok? Call me tonight.", "label": "benign", "category": "contact_update"}
+{"text": "Mama, sent you 200 cedis for the market. Check your momo. Love you", "label": "benign", "category": "family_transfer"}
+{"text": "Hi pls can you unlock my account, I typed the wrong number and it sent the verification to yours. It's just a number, kindly forward it", "label": "scam", "category": "otp_capture"}
+{"text": "Hey team, reminder not to commit API keys or passwords to the repo. Use the vault.", "label": "benign", "category": "dev_talk"}
+{"text": "Is this you in the photo my aunt sent? Cannot believe how big you've grown!", "label": "benign", "category": "family"}
+{"text": "Hi, I'm interested in the apartment. I am abroad so my agent will send a cheque for the deposit plus movers fee, you pay him the movers fee from it", "label": "scam", "category": "rental_overpay"}
+{"text": "Your prescription is ready for pickup at the pharmacy. Open until 8pm.", "label": "benign", "category": "pharmacy"}
+{"text": "Congrats, you made it to round 2 of our hiring. Schedule your interview on Telegram only. Applicants must first buy the interview pass", "label": "scam", "category": "fake_job_task"}
+{"text": "Your reference number is 78342. Keep it for your records and quote it when you call us.", "label": "benign", "category": "customer_support"}
+{"text": "MTN cash back: you have received 500. To keep it, enter *170# and approve my number with your PIN", "label": "scam", "category": "pin_capture"}
+{"text": "Hello this is Grace from the church welfare. Brother pls help with building fund, send your tithe to this number but dont call it, its a personal line", "label": "scam", "category": "charity_fraud"}
+{"text": "Kindly review attached invoice and pay today. Our account changed. Reply to confirm receipt of this email. 🙏", "label": "scam", "category": "invoice_change"}
+{"text": "PLEASE hold. Very important. Install the update from this file immediately or your banking app will stop working, I am the developer", "label": "scam", "category": "malware_link"}
+{"text": "Mum it's me, new number, my phone fell in water. Can you transfer something to my friend's account for the school thing? I'll explain later x", "label": "scam", "category": "family_emergency"}
+{"text": "Mr. Smith, the IRS has issued a warrant. To resolve, purchase prepaid cards and read the numbers to the agent on this line", "label": "scam", "category": "authority_impersonation"}
+{"text": "Your account balance is low. Top up before the 25th to avoid service interruption.", "label": "benign", "category": "bill_reminder"}
+{"text": "lady, kindly share the number you received from the shop, we need it to credit your reward", "label": "scam", "category": "otp_capture"}
+{"text": "Your verification code is 7731. If you didn't request it, you can ignore this message.", "label": "benign", "category": "genuine_otp"}
+{"text": "Hello please I am using your WhatsApp by mistake, a 6 digit code was sent to you. Please send it back, God bless you", "label": "scam", "category": "otp_capture"}
+{"text": "Your parking permit is about to expire. Renew online at the council website by 31 Oct to avoid a fine.", "label": "benign", "category": "gov_notice"}
+{"text": "We have received your application and will respond within 5 working days.", "label": "benign", "category": "recruiter"}
+{"text": "I sent the OTP to your email, just type the 6 digits into the form on our app to finish setup", "label": "benign", "category": "dev_talk"}
+{"text": "Please note, your Mobile Money PIN is private. Never give it to agents or anyone claiming to be from us.", "label": "benign", "category": "fraud_awareness"}
+{"text": "My money no come o. The bank says it was reversed. I go call dem tomorrow", "label": "benign", "category": "banter"}
+{"text": "Bro, my brother's in jail for a minor offence, lawyer needs 500 to get him out. Please don't spread it. Momo me asap", "label": "scam", "category": "family_emergency"}
+{"text": "Don't forget the PTA meeting on Saturday 9am. Fees balance statements will be handed out then.", "label": "benign", "category": "school"}
+{"text": "Rain delayed my trip. Please tell the principal I will be there by 10", "label": "benign", "category": "work"}
+{"text": "hw far. i dey stranded for road, phone battery low. mek u send me small credit and ur momo pin so i go use ur phone buy ticket, i go pay u back", "label": "scam", "category": "pin_capture"}
+{"text": "Dear customer, we noticed unusual activity. For your protection our officer will call from 0200-555-0100. Please read to him the number on the back of your card so he can freeze it", "label": "scam", "category": "bank_impersonation"}
+{"text": "Hi Daniel, we'd love to schedule a 30 min call about the backend engineer role. Are you free Wed or Thurs?", "label": "benign", "category": "recruiter"}
+{"text": "Your M-Pesa transaction QJD81XK2 confirmed. Ksh 1,000 sent to JOHN K 0700000000 on 12/10 at 3:14 PM. Balance Ksh 2,310.", "label": "benign", "category": "mobile_money_receipt"}
+{"text": "New message from HR: Please complete the attached salary review form with your portal username and password.", "label": "scam", "category": "credential_phishing"}
+{"text": "Mama it's Efua, I'm using my friend's phone. My phone and money were stolen at the station. Send 200 to this momo for my fare please", "label": "scam", "category": "family_emergency"}
+{"text": "We missed you at the checkup. Please call 0200-000-000 to rebook. Dr Owusu", "label": "benign", "category": "doctor_reminder"}
+{"text": "Hello Mrs. Okafor, your child's report card is ready for collection. Fees outstanding: none.", "label": "benign", "category": "school"}
+{"text": "Invest 100 today and our AI trading bot will turn it to 1,000 in 48 hours. My cousin did it and bought a car. DM me for the broker", "label": "scam", "category": "crypto_investment"}
+{"text": "Dear valued client, your pension is being released. Pay a small activation levy and submit your card for the direct deposit", "label": "scam", "category": "grant_fee"}
+{"text": "We detected a payment of $9.99 to Spotify on your card ending 4421. If you don't recognise it, tap Report in your banking app.", "label": "benign", "category": "bank_alert"}
+{"text": "Your Airtel Money PIN has been changed successfully. If you did not do this, call 100.", "label": "benign", "category": "telco_notice"}
+{"text": "lol what a game last night!! can't believe that penalty", "label": "benign", "category": "banter"}
+{"text": "hello. This is not a spam. I'm a recruiter. Pls kindly send me your ID card and a selfie holding it for our records", "label": "scam", "category": "fake_job_id"}
+{"text": "Heyy, remember me? We matched online. I just need ID verification before we meet, send me a pic of your driver's license 😊", "label": "scam", "category": "id_harvest"}
+{"text": "Flood warning for Lagos Island until 6pm. Avoid low-lying roads and stay indoors.", "label": "benign", "category": "news"}
+{"text": "Your Zoom meeting starts in 10 minutes. Join from your calendar invite.", "label": "benign", "category": "work"}
+{"text": "Your PayPal has a pending refund of 249. Reply with your email and password to confirm the transaction", "label": "scam", "category": "phishing"}
+{"text": "In a meeting, will call you back after 3.", "label": "benign", "category": "short"}
+{"text": "Your bank statement for September is ready. Log in to the app to view it.", "label": "benign", "category": "bank_notice"}
+{"text": "Hi, quick question, did you see the email from legal about the NDA? Need your signature by Friday.", "label": "benign", "category": "work"}
+{"text": "I'm the new IT guy. I need to remote into your machine to fix your email. Just open the link I'll send and type the number it shows", "label": "scam", "category": "tech_support_remote"}
+{"text": "Hi, your Wells Fargo debit card is locked. Text back the 4-digit pin to unlock", "label": "scam", "category": "pin_capture"}
+{"text": "NOTICE: water supply will be interrupted in Tema Comm 5 tomorrow 8am to 4pm for maintenance.", "label": "benign", "category": "utility_notice"}
+{"text": "Hola mi amor, llego tarde a casa hoy. No me esperes para cenar", "label": "benign", "category": "code_mixed"}
+{"text": "Reminder: dental appointment tomorrow 10:30am with Dr Mensah. Reply C to confirm or R to reschedule.", "label": "benign", "category": "doctor_reminder"}
+{"text": "Hello, I saw your phone listed for sale. I will pay more than your price, my courier will pick it up. Please just send me your bank details so I can make a deposit, even a bit extra for your trouble", "label": "scam", "category": "marketplace_overpay"}
+{"text": "Heads up the dev server is down. I'm restarting it, you'll need to log in again.", "label": "benign", "category": "dev_talk"}
+{"text": "i need ur help. a guy owes me, i'll send you the money through ur account then you give him cash? 5% for you", "label": "scam", "category": "mule_recruitment"}
+{"text": "Hi, sorry, I think I sent you a text meant for someone else earlier. Please ignore it!", "label": "benign", "category": "wrong_number_benign"}
+{"text": "Sir, I am from Microsoft Support, your Wi-Fi router is compromised by hackers. Please open the website I give you and install the fix", "label": "scam", "category": "tech_support"}
+{"text": "hello, you seem like a person of good faith. I am a widow with 4.2m to donate to a church. Please send your bank info so I can wire it", "label": "scam", "category": "advance_fee"}
+{"text": "Pole sana kwa msiba. Tuko pamoja nawe katika maombi.", "label": "benign", "category": "condolence"}
+{"text": "Welcome to the team! Before we ship your laptop for remote work we need you to deposit a cheque and send back the balance via wire. Our accountant will explain.", "label": "scam", "category": "check_overpay_job"}
+{"text": "Sannu, mun gano kuɗi a asusunka. Ka turo lambar sirrin ka domin mu tabbatar da kai", "label": "scam", "category": "pin_capture"}
+{"text": "Hey it's your cousin Tola. I got a new line. I'm locked out of Cash App, can I use yours for a minute? I'll send you my code", "label": "scam", "category": "family_emergency"}
+{"text": "I just paid you 80 by mistake instead of 8, can you refund 72? Sorry bro, my bad. Screenshot attached.", "label": "benign", "category": "mistaken_payment_real"}
+{"text": "Your NIN slip is ready for collection at the registration centre. Bring your acknowledgment slip.", "label": "benign", "category": "gov_notice"}
+{"text": "Your ticket refund is ready. Choose your bank and enter online banking details to receive", "label": "scam", "category": "refund_scam"}
+{"text": "Just got your DM. The code is in the readme: run npm install then set the API key in your env file.", "label": "benign", "category": "dev_talk"}
+{"text": "the PR is ready, click the link in the description and check the diff before merging", "label": "benign", "category": "dev_talk"}
+{"text": "BREAKING: Central bank holds interest rate at 27.5%. Naira steady at the parallel market.", "label": "benign", "category": "news"}
+{"text": "Emergency: gas leak reported on Elm Street. Residents should leave the area and call the fire service.", "label": "benign", "category": "news"}
+{"text": "lol u dont even know me but u look rich. i got a way to double ur cash, ur only job is to hold my account for a week", "label": "scam", "category": "mule_recruitment"}
+{"text": "Hello, I am calling from your electricity company. Your meter will be cut off in 2 hours unless you pay now with vouchers. Do not hang up", "label": "scam", "category": "utility_scam"}
+{"text": "Dear all, the water tank will be cleaned on Sunday. Please store water on Saturday.", "label": "benign", "category": "community"}
+{"text": "The president is giving 200 to each citizen. Register your momo number and your PIN to receive", "label": "scam", "category": "pin_capture"}
+{"text": "Dear sir, we finalised the contract. To release your first payment kindly cover the bank stamp duty of 450 and we deduct it later", "label": "scam", "category": "advance_fee"}
+{"text": "Happy birthday Kofi! Wishing you many more years. Let's celebrate this weekend 🎉", "label": "benign", "category": "greeting"}
+{"text": "Mummy, my teacher says I need 20 cedis for the excursion on Friday. Can you give me before school?", "label": "benign", "category": "family_child"}
+{"text": "This is Kemi from HR. Welcome aboard! Your first day is Monday. Please bring your ID and bank details to the induction.", "label": "benign", "category": "hr_onboarding"}
+{"text": "Your code is 482913. Do not share it with anyone. It expires in 10 minutes.", "label": "benign", "category": "genuine_otp"}
+{"text": "Have you eaten? Come over, mom made jollof.", "label": "benign", "category": "family"}
+{"text": "Reminder: webinar on spotting scam messages today at 4pm. Free, link in your calendar invite.", "label": "benign", "category": "fraud_awareness"}
+{"text": "Oga, abeg make you borrow me 2k small. Salary dey come Friday. You know me nah, I dey pay back.", "label": "benign", "category": "friend_borrow"}
+{"text": "Habari, kuna hitilafu kwenye akaunti yako ya M-Pesa. Tuma namba yako ya siri ili tuirekebishe, la sivyo itafungwa", "label": "scam", "category": "pin_capture"}
+{"text": "This is an automated reminder that your subscription renews on 1 Nov for 9.99. Manage it in Settings.", "label": "benign", "category": "bill_reminder"}
+{"text": "Dear friend, I am Barrister Okon. A client of mine died with no kin and shares your surname. 8.5 million is waiting. Let's discuss privately, I need your full names and phone.", "label": "scam", "category": "inheritance"}
+{"text": "Final reminder from your landlord: the deposit was paid to the old account, please send the rent to the new IBAN today. thx", "label": "scam", "category": "invoice_change"}
+{"text": "Interview confirmed for Monday 14th at 11am. Please bring a copy of your ID and certificates. Address: 4 High St.", "label": "benign", "category": "recruiter"}
+{"text": "Hii, nimeona profile yako. Mimi ni nurse US. Nina zawadi ya kukutumia, lakini lazima ulipe usafirishaji kwanza", "label": "scam", "category": "romance_gift"}
+{"text": "Hello, Customs here. Your gift from abroad is held. Pay the clearance and don't tell the sender, it's a surprise.", "label": "scam", "category": "parcel_fee"}
+{"text": "Your Instagram violated copyright. Appeal in 24h by logging in at insta-appeal.example or your page is deleted", "label": "scam", "category": "phishing"}
+{"text": "hi | are you there | i need a small favour | dont tell my wife | can you send 200 to this momo for me i will pay you on monday", "label": "scam", "category": "family_emergency"}
+{"text": "Compliance notice: staff must re-enter their email password at the portal before Friday for the new mailbox migration. IT Dept.", "label": "scam", "category": "credential_phishing"}
+{"text": "Aapka OTP 5521 hai. Ise kisi ke saath share na karein. - SBI", "label": "benign", "category": "genuine_otp"}
+{"text": "Hi, kindly sync your wallet to the new network upgrade. Enter your 12 recovery words to avoid losing your tokens.", "label": "scam", "category": "crypto_phishing"}
+{"text": "Wo ho te sɛn? Me pɛ sɛ me hu sɛ wo ho yɛ. Call me when you are free", "label": "benign", "category": "code_mixed"}
+{"text": "Ur mum gave me ur number. She said u would help me: just a small loan for my shop. I pay back with interest, so just send to this momo", "label": "scam", "category": "social_engineering_loan"}
+{"text": "Hello, we are hiring data entry staff. Please buy your starter kit for 40 using the link, we refund after the first week.", "label": "scam", "category": "fake_job_task"}
+{"text": "If you get any text asking for your bank PIN, delete it. It's a scam. Be careful o.", "label": "benign", "category": "fraud_awareness"}
+{"text": "Hi love, I trust you more than anyone. I am sending a package with my inheritance to you, the courier needs a clearing fee. Please be my partner in this", "label": "scam", "category": "advance_fee_romance"}
+{"text": "Mum, I need 80 for the exam centre fee today. They only accept transfer to the invigilator's own account. Don't ask 😢", "label": "scam", "category": "family_emergency"}
+{"text": "Your Windows is sending errors to us. Please allow our engineer to connect via AnyDesk. Give him the 9 digit number you see on your screen", "label": "scam", "category": "tech_support_remote"}
+{"text": "The deadline for submitting your tax return is 31 January. File online at the official government portal.", "label": "benign", "category": "tax_notice"}
+{"text": "You are being investigated for tax evasion. Pay settlement via the vouchers listed or a warrant will be issued today. Do not hang up.", "label": "scam", "category": "authority_impersonation"}
+{"text": "Reminder: it's your turn to contribute to the susu. Send to the new treasurer's line, the old one lost her phone", "label": "scam", "category": "invoice_change"}
+{"text": "Win a Samsung! Pay 1 for postage to enter. Just 1! Text your card digits to this number", "label": "scam", "category": "prize_fee"}
+{"text": "BOLT: Your driver has arrived. Share your trip details with loved ones from the safety menu.", "label": "benign", "category": "travel"}
+{"text": "Mr. Adeyemi, kindly confirm your BVN and ATM pin so we can credit the compensation sent from the central office. Thank you for your cooperation", "label": "scam", "category": "pin_capture"}
+{"text": "Could you please resend the invoice? The PDF didn't open on my phone.", "label": "benign", "category": "work"}
+{"text": "Your driving licence renewal is complete. Collection from the post office within 14 days with your receipt.", "label": "benign", "category": "gov_notice"}
+{"text": "Hi Darling 💕 I'm so lonely tonight. Can you buy me a Steam card so I can unlock my game and we play together? You are the only one I trust", "label": "scam", "category": "romance_giftcard"}
+{"text": "Dear beneficiary, UN compensation fund approved. Contact agent Mr. Daniel with your full name, address, and 50 for the courier of your ATM card", "label": "scam", "category": "grant_fee"}
+{"text": "Hola amigo, tu paquete esta retenido. Paga 3 dolares con tu tarjeta aqui para liberarlo: mi-envio-rapido.example", "label": "scam", "category": "parcel_fee"}
+{"text": "Your Safaricom data bundle of 1GB expires in 24 hours. Dial *544# to renew.", "label": "benign", "category": "telco_notice"}
+{"text": "Sir I have transferred the school fees, receipt attached. Kindly confirm receipt when you can.", "label": "benign", "category": "school_payment"}
+{"text": "Don't tell anybody but there's a leak: the stock will jump tomorrow. Send 500 to this wallet and my insider will buy for you before noon", "label": "scam", "category": "investment"}
+{"text": "Madam please help, my son is in the hospital and they will not treat without deposit. I have no one. God will bless you if you send what you can to this momo", "label": "scam", "category": "charity_fraud"}
+{"text": "Your account has been flagged by our system. This is a free courtesy call. Press 1 to talk to a specialist and have your online banking login ready", "label": "scam", "category": "bank_impersonation"}
+{"text": "Dear parents, the end of term fees are due by 25 Oct. Pay at the bursar's office or by bank deposit using your child's name as reference.", "label": "benign", "category": "school"}
+{"text": "hey stranger 😘 wanna see something? download this chat app first, my pics are on there, its private. install the file I send", "label": "scam", "category": "romance_apk"}
+{"text": "pls don't forget to bring the ID card tomorrow, the bank officer said they won't open an account without it", "label": "benign", "category": "family"}
+{"text": "Hi, it's your landlord. The plumber is coming Tuesday between 9 and 12. Is someone going to be home?", "label": "benign", "category": "landlord"}
+{"text": "Hi sorry wrong number 😅 but you seem sweet. Im a trader in Dubai, wanna learn how I make my weekly income? Add me on WhatsApp", "label": "scam", "category": "pig_butchering"}
+{"text": "Mehn I'm broke till Friday. Can't come to the party 😩", "label": "benign", "category": "banter"}
+{"text": "Habari, nimetuma pesa kwa bahati mbaya kwa namba yako. Tafadhali nirudishie haraka, mimi ni mgonjwa na sina pesa nyingine", "label": "scam", "category": "momo_wrong_transfer"}
+{"text": "pls help me forward this to ur bank app: scan this QR to receive my payment of 120. just approve the prompt when it shows up", "label": "scam", "category": "fake_qr"}
+{"text": "lol I'm dying, my boss just replied all with his entire password in the email 💀", "label": "benign", "category": "banter"}
+{"text": "Your Amazon order for iPhone 15 was placed. If this wasn't you, call our refunds team at 0800-555-0199 and have your card ready", "label": "scam", "category": "refund_scam"}
+{"text": "Can you lend me 50 till Friday? Rent is due and my salary is delayed. I'll pay you back, promise. Ta mate", "label": "benign", "category": "friend_borrow"}

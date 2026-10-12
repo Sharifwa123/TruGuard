@@ -1,6 +1,8 @@
 package com.shariftechnologies.scammonitor.domain.engine
 
 import com.shariftechnologies.scammonitor.core.TextSanitizer
+import com.shariftechnologies.scammonitor.domain.intent.IntentClassifier
+import com.shariftechnologies.scammonitor.domain.intent.IntentScoring
 import com.shariftechnologies.scammonitor.domain.model.DetectionResult
 import com.shariftechnologies.scammonitor.domain.model.DomainFinding
 import com.shariftechnologies.scammonitor.domain.model.DomainFlag
@@ -26,6 +28,8 @@ class ScamDetectionEngine(
     private val clock: () -> Long = System::currentTimeMillis,
     private val nanoTime: () -> Long = System::nanoTime,
     private val timeBudgetMillis: Long = 250,
+    /** The learned intent model, or null to run on rules alone. Read on every scan so it can be switched off. */
+    private val intent: () -> IntentClassifier? = { null },
 ) {
     fun analyze(input: ScanInput): DetectionResult {
         val ruleSet = rules()
@@ -85,6 +89,16 @@ class ScamDetectionEngine(
             if (!signals.containsAll(combo.requiresAll)) continue
             if (combo.requiresAny.isNotEmpty() && combo.requiresAny.none { it in signals }) continue
             matches += RuleMatch(combo.id, "combination", combo.score, combo.explanation)
+        }
+
+        // The learned model looks at how the message is built rather than which words it uses, so it also catches
+        // scams worded in ways no rule anticipated. It adds to what the rules found and never replaces it.
+        intent()?.let { model ->
+            val verdict = try { model.classify(rawText) } catch (e: RuntimeException) { null }
+            if (verdict != null) {
+                val add = IntentScoring.contribution(verdict.probability, matches.sumOf { it.score })
+                if (add > 0) matches += RuleMatch(IntentScoring.RULE_ID, "intent", add, IntentScoring.explanation(verdict.group))
+            }
         }
 
         val score = matches.sumOf { it.score }.coerceAtMost(100)

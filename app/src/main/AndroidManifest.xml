@@ -4,6 +4,10 @@
     <!-- Lets the app show its OWN warning notifications on Android 13+. Unrelated to reading other apps'
          notifications, which is the separate "notification access" grant given in system Settings. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Strong vibration with scam warnings. -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Optional: lets the warning pop-up appear over other apps even when the Accessibility service is off. -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <!-- Needed by the security audit to list every installed app and its permissions. Reads app metadata only
          (never app data). Google Play restricts this permission, so a Play Store release would need a declared
