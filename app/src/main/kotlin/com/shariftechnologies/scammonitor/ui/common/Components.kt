@@ -1,27 +1,15 @@
 package com.shariftechnologies.scammonitor.ui.common
 
 import android.text.format.DateUtils
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.shariftechnologies.scammonitor.domain.model.Severity
-import com.shariftechnologies.scammonitor.ui.theme.severityColor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -41,55 +29,32 @@ fun <T> Flow<T>.asLoadable(): Flow<Loadable<T>> =
 fun formatTime(context: android.content.Context, millis: Long): String =
     DateUtils.formatDateTime(context, millis, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_ABBREV_MONTH)
 
-@Composable
-fun SeverityBadge(severity: Severity, modifier: Modifier = Modifier) {
-    val color = severityColor(severity)
-    Surface(
-        modifier = modifier,
-        shape = RoundedCornerShape(6.dp),
-        color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, color),
-    ) {
-        Text(
-            text = severity.name,
-            color = color,
-            style = MaterialTheme.typography.labelMedium,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
-        )
-    }
-}
+/** "2 min. ago" style time, for lists where the exact clock time is noise. */
+fun relativeTime(millis: Long): String =
+    DateUtils.getRelativeTimeSpanString(millis, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString()
 
 @Composable
 fun CenteredLoading() {
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
+    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { ShieldBadge(Tone.Accent, size = 84.dp, pulsing = true) }
 }
 
 @Composable
 fun MessageState(title: String, message: String, modifier: Modifier = Modifier, action: (@Composable () -> Unit)? = null) {
-    Column(
-        modifier = modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        Text(title, style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
-        Text(message, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
+    Column(modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        EmptyState(title, message)
         action?.invoke()
     }
 }
 
 @Composable
-fun ErrorState(message: String) = MessageState("Something went wrong", message)
+fun ErrorState(message: String) = EmptyState("Something went wrong", message, icon = Icons.Filled.Warning, tone = Tone.Danger)
 
 @Composable
-fun SectionTitle(text: String, modifier: Modifier = Modifier) {
-    Text(text, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary, modifier = modifier.padding(vertical = 2.dp))
-}
+fun SectionTitle(text: String, modifier: Modifier = Modifier) = SectionLabel(text, modifier)
 
 @Composable
-fun OutlinedAction(text: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
-    OutlinedButton(onClick = onClick, modifier = modifier) { Text(text) }
-}
+fun OutlinedAction(text: String, onClick: () -> Unit, modifier: Modifier = Modifier) =
+    ClayButton(text, onClick, modifier, tone = Tone.Neutral, compact = true)
 
 /** Runs [action] each time the host screen returns to the foreground (e.g. after visiting system Settings). */
 @Composable

@@ -21,7 +21,19 @@ data class DashboardState(
     val totalScans: Int,
     val recentScans: List<ScanSummary>,
     val queueDropped: Long,
+    val screen: ScreenInfo,
 )
+
+/** Where screen monitoring stands, for the dashboard card. */
+data class ScreenInfo(
+    val consent: Boolean,
+    val paused: Boolean,
+    val serviceEnabled: Boolean,
+    val monitoredApps: List<String>,
+) {
+    /** Set up end to end: agreed to the disclosure and switched on in Accessibility settings. */
+    val ready: Boolean get() = consent && serviceEnabled
+}
 
 class DashboardViewModel(private val container: AppContainer) : ViewModel() {
     private val accessEnabled = MutableStateFlow(container.accessManager.isAccessEnabled())
@@ -37,7 +49,15 @@ class DashboardViewModel(private val container: AppContainer) : ViewModel() {
         container.scanRepository.observeRecentScans(severity = null, flaggedOnly = false, limit = 5),
     ) { flagged, total, recent -> Triple(flagged, total, recent) }
 
-    val state: StateFlow<Loadable<DashboardState>> = combine(status, data) { s, d ->
+    private val screenServiceEnabled = MutableStateFlow(container.accessManager.isScreenServiceEnabled())
+
+    private val screen = combine(
+        container.settings.screenConsent, container.settings.screenPaused, container.settings.screenConfig, screenServiceEnabled,
+    ) { consent, paused, config, enabled ->
+        ScreenInfo(consent, paused, enabled, config.enabledPackages.map { container.labels.labelOrPackage(it) }.sorted())
+    }
+
+    val state: StateFlow<Loadable<DashboardState>> = combine(status, data, screen) { s, d, sc ->
         DashboardState(
             accessEnabled = s[0] as Boolean,
             serviceConnected = s[1] as Boolean,
@@ -46,6 +66,7 @@ class DashboardViewModel(private val container: AppContainer) : ViewModel() {
             flaggedCount = d.first,
             totalScans = d.second,
             recentScans = d.third,
+            screen = sc,
         )
     }.asLoadable().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), Loadable.Loading)
 
@@ -53,7 +74,10 @@ class DashboardViewModel(private val container: AppContainer) : ViewModel() {
     fun refresh() {
         accessEnabled.value = container.accessManager.isAccessEnabled()
         notificationsAllowed.value = container.warningManager.canPostNotifications()
+        screenServiceEnabled.value = container.accessManager.isScreenServiceEnabled()
     }
+
+    fun setScreenPaused(paused: Boolean) = container.screenController.setPaused(paused)
 
     fun openAccessSettings(context: android.content.Context): Boolean = container.accessManager.openAccessSettings(context)
     fun openAppInfo(context: android.content.Context): Boolean = container.accessManager.openAppInfo(context)

@@ -10,11 +10,11 @@
     <string name="channel_standard_name">Low-risk notices</string>
     <string name="channel_standard_description">Quiet alerts for notifications with weak scam indicators</string>
 
-    <string name="warning_title_high">High-risk message detected</string>
-    <string name="warning_title_medium">Potential scam detected</string>
+    <string name="warning_title_high">High-risk message</string>
+    <string name="warning_title_medium">Possible scam</string>
     <string name="warning_title_low">Suspicious message</string>
     <string name="warning_text">From %1$s: %2$s</string>
-    <string name="warning_advice">Do not reply, open links or share any code. Check with the sender another way.</string>
+    <string name="warning_advice">Don\u2019t reply, tap links or share codes.</string>
     <string name="warning_public_title">Possible scam detected</string>
     <string name="warning_public_text">Unlock your phone to see details.</string>
 
@@ -33,5 +33,5 @@
     <string name="channel_screen_name">Screen monitoring status</string>
     <string name="channel_screen_description">Shown while TruGuard is checking on-screen text in the apps you chose</string>
     <string name="screen_notification_title">Screen monitoring is on</string>
-    <string name="screen_notification_text">Checking text in %1$d app(s) for scams, on this phone only. Nothing is stored or sent. Tap to manage.</string>
+    <string name="screen_notification_text">Watching %1$d app(s). Nothing is stored or sent.</string>
 </resources>

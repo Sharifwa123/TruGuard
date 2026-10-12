@@ -1,18 +1,20 @@
 package com.shariftechnologies.scammonitor.ui.flagged
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,45 +22,55 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.shariftechnologies.scammonitor.data.FlaggedItem
+import com.shariftechnologies.scammonitor.domain.model.Severity
 import com.shariftechnologies.scammonitor.ui.AppViewModelFactory
 import com.shariftechnologies.scammonitor.ui.common.CenteredLoading
+import com.shariftechnologies.scammonitor.ui.common.EmptyState
 import com.shariftechnologies.scammonitor.ui.common.ErrorState
+import com.shariftechnologies.scammonitor.ui.common.GlassCard
 import com.shariftechnologies.scammonitor.ui.common.Loadable
-import com.shariftechnologies.scammonitor.ui.common.MessageState
-import com.shariftechnologies.scammonitor.ui.common.SectionTitle
-import com.shariftechnologies.scammonitor.ui.common.SeverityBadge
+import com.shariftechnologies.scammonitor.ui.common.SectionLabel
+import com.shariftechnologies.scammonitor.ui.common.SeverityPill
+import com.shariftechnologies.scammonitor.ui.common.ShieldBadge
+import com.shariftechnologies.scammonitor.ui.common.Tone
 import com.shariftechnologies.scammonitor.ui.common.formatTime
-import com.shariftechnologies.scammonitor.ui.theme.Dimens
+import com.shariftechnologies.scammonitor.ui.common.relativeTime
+import com.shariftechnologies.scammonitor.ui.theme.LocalGlass
+import com.shariftechnologies.scammonitor.ui.theme.severityColor
 
 @Composable
 fun FlaggedListScreen(onOpenItem: (String) -> Unit) {
     val vm: FlaggedItemsViewModel = viewModel(factory = AppViewModelFactory.Factory)
     val state by vm.items.collectAsStateWithLifecycle()
-    val context = LocalContext.current
-    when (val s = state) {
-        Loadable.Loading -> CenteredLoading()
-        is Loadable.Failure -> ErrorState(s.message)
-        is Loadable.Success -> if (s.value.isEmpty()) {
-            MessageState(
-                "Nothing flagged",
-                "Notifications that look like scams will be listed here. Low-risk notifications are only counted in the security log.",
-            )
-        } else LazyColumn(contentPadding = PaddingValues(horizontal = Dimens.ScreenPadding, vertical = 4.dp)) {
-            items(s.value, key = { it.id }) { item ->
-                Column(Modifier.fillMaxWidth().heightIn(min = Dimens.MinTouch).clickable { onOpenItem(item.eventId) }.padding(vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        SeverityBadge(item.severity)
-                        Text(item.sourceLabel, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f), maxLines = 1)
+    val g = LocalGlass.current
+    Column(Modifier.fillMaxSize()) {
+        Text("Flagged", style = MaterialTheme.typography.titleLarge, color = g.ink, modifier = Modifier.padding(start = 20.dp, top = 8.dp, bottom = 4.dp))
+        when (val s = state) {
+            Loadable.Loading -> CenteredLoading()
+            is Loadable.Failure -> ErrorState(s.message)
+            is Loadable.Success -> if (s.value.isEmpty()) {
+                EmptyState("Nothing flagged", "Risky messages show up here.", icon = Icons.Filled.Check, tone = Tone.Good)
+            } else LazyColumn(
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                items(s.value, key = { it.id }) { item ->
+                    GlassCard(Modifier.fillMaxWidth(), onClick = { onOpenItem(item.eventId) }, tint = severityColor(item.severity), padding = PaddingValues(14.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            SeverityPill(item.severity)
+                            Spacer(Modifier.width(8.dp))
+                            Text(item.sourceLabel, style = MaterialTheme.typography.titleSmall, color = g.ink, modifier = Modifier.weight(1f), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            Text(relativeTime(item.detectedAt), style = MaterialTheme.typography.bodySmall, color = g.inkSoft)
+                        }
+                        Spacer(Modifier.padding(top = 6.dp))
+                        Text(item.summary, style = MaterialTheme.typography.bodyMedium, color = g.ink, maxLines = 2, overflow = TextOverflow.Ellipsis)
                     }
-                    Text(item.summary, maxLines = 2, style = MaterialTheme.typography.bodyMedium)
-                    Text("${formatTime(context, item.detectedAt)} · score ${item.riskScore}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
-                HorizontalDivider()
             }
         }
     }
@@ -73,34 +85,58 @@ fun FlaggedDetailScreen(eventId: String) {
         Loadable.Loading -> CenteredLoading()
         is Loadable.Failure -> ErrorState(s.message)
         is Loadable.Success -> s.value?.let { FlaggedDetail(it) }
-            ?: MessageState("Item not found", "It may have been cleared from history.")
+            ?: EmptyState("Item not found", "It may have been cleared from history.")
     }
 }
 
 @Composable
 private fun FlaggedDetail(item: FlaggedItem) {
-    val context = LocalContext.current
-    Column(Modifier.verticalScroll(rememberScrollState()).padding(Dimens.ScreenPadding), verticalArrangement = Arrangement.spacedBy(Dimens.ItemGap)) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            SeverityBadge(item.severity)
-            Text("Risk score ${item.riskScore} / 100", style = MaterialTheme.typography.titleMedium)
+    val g = LocalGlass.current
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val tone = when (item.severity) {
+        Severity.HIGH -> Tone.Danger
+        Severity.MEDIUM -> Tone.Warn
+        else -> Tone.Accent
+    }
+    Column(
+        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(14.dp),
+    ) {
+        GlassCard(Modifier.fillMaxWidth(), tint = severityColor(item.severity), padding = PaddingValues(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                ShieldBadge(tone, size = 72.dp)
+                Spacer(Modifier.width(12.dp))
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    SeverityPill(item.severity)
+                    Text("Risk ${item.riskScore} of 100", style = MaterialTheme.typography.titleLarge, color = g.ink)
+                    Text("${item.sourceLabel} · ${formatTime(context, item.detectedAt)}", style = MaterialTheme.typography.bodySmall, color = g.inkSoft)
+                }
+            }
         }
-        Text("From ${item.sourceLabel} · ${formatTime(context, item.detectedAt)}", color = MaterialTheme.colorScheme.onSurfaceVariant)
-        Text(
-            "This is an automated risk assessment, not proof of fraud. Do not tap links or share codes. " +
-                "Check with your provider using contact details from its official app or website.",
-            style = MaterialTheme.typography.bodySmall,
-        )
-        SectionTitle("Why it was flagged")
-        item.explanations.forEach { Text("• $it") }
+        GlassCard(Modifier.fillMaxWidth()) {
+            SectionLabel("Why it was flagged")
+            Spacer(Modifier.padding(top = 6.dp))
+            item.explanations.forEach { Text("•  $it", style = MaterialTheme.typography.bodyMedium, color = g.ink, modifier = Modifier.padding(bottom = 6.dp)) }
+        }
         if (item.domains.isNotEmpty()) {
-            SectionTitle("Suspicious links (not opened)")
-            item.domains.forEach { Text(it, style = MaterialTheme.typography.bodyMedium) }
+            GlassCard(Modifier.fillMaxWidth()) {
+                SectionLabel("Suspicious links (not opened)")
+                Spacer(Modifier.padding(top = 6.dp))
+                item.domains.forEach { Text(it, style = MaterialTheme.typography.bodyMedium, color = g.ink, modifier = Modifier.padding(bottom = 4.dp)) }
+            }
         }
         if (item.evidence.isNotEmpty()) {
-            SectionTitle("Masked excerpts")
-            item.evidence.forEach { Text("“$it”", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+            GlassCard(Modifier.fillMaxWidth()) {
+                SectionLabel("Masked excerpts")
+                Spacer(Modifier.padding(top = 6.dp))
+                item.evidence.forEach { Text("“$it”", style = MaterialTheme.typography.bodySmall, color = g.inkSoft, modifier = Modifier.padding(bottom = 4.dp)) }
+            }
         }
-        Text("Matched rules: ${item.matchedRuleIds.joinToString(", ")}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(
+            "An automated estimate, not proof. Don't tap links or share codes; check with the sender another way.",
+            style = MaterialTheme.typography.bodySmall,
+            color = g.inkSoft,
+            modifier = Modifier.padding(horizontal = 4.dp),
+        )
     }
 }

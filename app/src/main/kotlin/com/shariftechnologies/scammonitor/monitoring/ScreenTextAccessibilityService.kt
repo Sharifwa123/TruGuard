@@ -41,6 +41,9 @@ class ScreenTextAccessibilityService : AccessibilityService() {
 
     override fun onServiceConnected() {
         super.onServiceConnected()
+        // A reconnect must not leave a second shield (or a second collector) behind.
+        overlay?.destroy()
+        scope?.cancel()
         val c = container
         c.screenController.extraExcluded = enabledKeyboardPackages()
         c.monitorStatus.setScreenConnected(true)
