@@ -19,3 +19,7 @@ keystore.properties
 # OS noise
 .DS_Store
 *.log
+
+# ad-free supporter code signing key (never commit)
+supporter_private.pem
+*.pem

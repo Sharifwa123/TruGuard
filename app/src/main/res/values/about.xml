@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shown on the About screen. Edit these values; leave one empty and that row is simply hidden. -->
+<resources>
+    <string name="about_dev_name" translatable="false">Sharif Technologies</string>
+    <string name="about_dev_tagline" translatable="false"></string>
+    <string name="about_dev_email" translatable="false"></string>
+    <string name="about_dev_website" translatable="false"></string>
+    <!-- International format, digits only, e.g. 233241234567 -->
+    <string name="about_dev_whatsapp" translatable="false"></string>
+    <string name="about_dev_github" translatable="false">https://github.com/Sharifwa123</string>
+    <string name="about_project_url" translatable="false">https://github.com/Sharifwa123/TruGuard</string>
+    <string name="about_privacy_url" translatable="false"></string>
+
+    <!-- Going ad-free. A payment page (Paystack, Flutterwave, Buy Me a Coffee, a MoMo instruction page...). -->
+    <string name="support_payment_url" translatable="false"></string>
+    <!-- Short price text, e.g. "GHS 20, once" -->
+    <string name="support_price" translatable="false"></string>
+    <!-- Anything else people need to know, e.g. "Send your receipt on WhatsApp and you will get a code within a day." -->
+    <string name="support_payment_note" translatable="false"></string>
+</resources>

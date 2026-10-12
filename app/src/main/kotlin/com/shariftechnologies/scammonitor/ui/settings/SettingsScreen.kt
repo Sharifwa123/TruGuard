@@ -51,13 +51,14 @@ import com.shariftechnologies.scammonitor.ui.common.GlassCard
 import com.shariftechnologies.scammonitor.ui.common.GlassChip
 import com.shariftechnologies.scammonitor.ui.common.GlassDivider
 import com.shariftechnologies.scammonitor.ui.common.OnResume
+import com.shariftechnologies.scammonitor.ui.common.RestrictedSettingsHelp
 import com.shariftechnologies.scammonitor.ui.common.SectionLabel
 import com.shariftechnologies.scammonitor.ui.common.SwitchRow
 import com.shariftechnologies.scammonitor.ui.common.Tone
 import com.shariftechnologies.scammonitor.ui.theme.LocalGlass
 
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(onOpenAbout: () -> Unit) {
     val vm: SettingsViewModel = viewModel(factory = AppViewModelFactory.Factory)
     val context = LocalContext.current
     val g = LocalGlass.current
@@ -111,12 +112,13 @@ fun SettingsScreen() {
                     compact = true,
                 )
             }
-            if (!accessEnabled) {
-                Spacer(Modifier.size(8.dp))
-                Text("Switch greyed out? Open App info › ⋮ › Allow restricted settings first.", style = MaterialTheme.typography.bodySmall, color = g.inkSoft)
-                Spacer(Modifier.size(6.dp))
-                ClayButton("App info", { if (!vm.openAppInfo(context)) Toast.makeText(context, "App info is unavailable on this device.", Toast.LENGTH_LONG).show() }, tone = Tone.Neutral, compact = true)
-            }
+        }
+        if (!accessEnabled) {
+            RestrictedSettingsHelp(
+                what = "notification access",
+                onOpenSettings = { if (!vm.openAccessSettings(context)) Toast.makeText(context, "Open Settings > Notifications > Notification access manually.", Toast.LENGTH_LONG).show() },
+                onOpenAppInfo = { if (!vm.openAppInfo(context)) Toast.makeText(context, "App info is unavailable on this device.", Toast.LENGTH_LONG).show() },
+            )
         }
 
         // ---- Warnings
@@ -177,14 +179,12 @@ fun SettingsScreen() {
                 }
                 !screenServiceEnabled -> {
                     Text("Last step: switch on TruGuard under Accessibility.", style = MaterialTheme.typography.bodyMedium, color = g.ink)
-                    Text("Greyed out? App info › ⋮ › Allow restricted settings.", style = MaterialTheme.typography.bodySmall, color = g.inkSoft)
                     Spacer(Modifier.size(10.dp))
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        ClayButton("Accessibility", {
-                            if (!vm.openAccessibilitySettings(context)) Toast.makeText(context, "Open Settings › Accessibility manually.", Toast.LENGTH_LONG).show()
-                        }, compact = true)
-                        ClayButton("App info", { if (!vm.openAppInfo(context)) Toast.makeText(context, "App info is unavailable on this device.", Toast.LENGTH_LONG).show() }, tone = Tone.Neutral, compact = true)
-                    }
+                    RestrictedSettingsHelp(
+                        what = "Accessibility",
+                        onOpenSettings = { if (!vm.openAccessibilitySettings(context)) Toast.makeText(context, "Open Settings › Accessibility manually.", Toast.LENGTH_LONG).show() },
+                        onOpenAppInfo = { if (!vm.openAppInfo(context)) Toast.makeText(context, "App info is unavailable on this device.", Toast.LENGTH_LONG).show() },
+                    )
                 }
                 else -> {
                     val packages = screenConfig.enabledPackages.sortedBy { vm.appLabel(it).lowercase() }
@@ -262,6 +262,16 @@ fun SettingsScreen() {
             )
             Spacer(Modifier.size(10.dp))
             ClayButton("Clear history", { confirmClear = true }, tone = Tone.Danger, compact = true)
+        }
+
+        GlassCard(Modifier.fillMaxWidth(), onClick = onOpenAbout, padding = PaddingValues(horizontal = 16.dp, vertical = 14.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text("About TruGuard", style = MaterialTheme.typography.titleSmall, color = g.ink)
+                    Text("Developer, support, help", style = MaterialTheme.typography.bodySmall, color = g.inkSoft)
+                }
+                Text("›", style = MaterialTheme.typography.titleLarge, color = g.inkSoft)
+            }
         }
 
         Text(

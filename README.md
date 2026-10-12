@@ -62,9 +62,11 @@ Without the helper app: `scripts/post-test-notifications.sh` posts via `adb shel
 | `POST_NOTIFICATIONS` | Android 13+ runtime permission to show this app's own warnings. |
 | `BIND_ACCESSIBILITY_SERVICE` (on the screen-text `<service>`) | Lets only the Android system bind the optional screen-monitoring service. It does nothing until you agree to the in-app disclosure **and** switch it on under Accessibility, and it reads only apps you choose. It declares no gesture, key-event or touch-exploration ability. |
 | `QUERY_ALL_PACKAGES` | Lets the security audit list every installed app and its permissions (metadata only, never app data). Google Play restricts this permission and would require a declared justification, so this build is meant to be sideloaded. |
+| `VIBRATE` | Strong vibration with warnings (switch off in Settings). |
+| `SYSTEM_ALERT_WINDOW` (optional) | Lets the warning pop-up appear over other apps when the Accessibility service is off. It is not granted unless you allow “Display over other apps”; with the screen monitor on, the pop-up uses the Accessibility overlay instead and needs nothing extra. |
 | `<queries>` for launcher apps | Android 11+ package visibility for app names (also covered by the permission above). |
 
-Not requested: internet, SMS, contacts, call log, overlay permission (`SYSTEM_ALERT_WINDOW`; the floating shortcut is an accessibility overlay), foreground service.
+Not requested: internet, SMS, contacts, call log, foreground service. (The floating shield and the pop-up use the Accessibility overlay when that service is on.)
 
 ## Screen monitoring (optional, off by default)
 

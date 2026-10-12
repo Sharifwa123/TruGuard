@@ -2,6 +2,14 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.6.0 - 2026-10-12
+
+- **About screen** (Home ▸ ⓘ, and Settings ▸ About TruGuard): developer details, support, help, privacy and share. Developer details come from `app/src/main/res/values/about.xml` (empty values hide their rows); email, website, WhatsApp, privacy policy and the payment page still need your details.
+- **Ad slots and ad-free mode, without an ad SDK.** A labelled `AdSlot` on Home, Log and About (never on warnings, the pop-up, security findings, onboarding or the screen-monitor controls) draws nothing until you plug in an ad network (`AdsProvider`, default `NoAds`). Supporters can unlock ad-free mode with an **offline-verified code** (ECDSA signature checked against a public key, no server): `tools/license/keygen.sh` and `issue.sh`. Steps, trade-offs and the privacy changes an ad SDK requires are in `docs/MONETISATION.md`.
+- **Can't find the ⋮ menu?** Help card in onboarding, Settings and About: the ⋮ ▸ “Allow restricted settings” menu only appears in App info after you have tried to switch the access on once, and disappears once allowed. The card gives the three steps and buttons for each.
+- Fixed the Set up / About / Flagged item top bar being drawn under the status bar clock.
+- README permission table updated for `VIBRATE` and the optional `SYSTEM_ALERT_WINDOW` added in 1.5.0.
+
 ## 1.5.0 - 2026-10-12
 
 - **Intent detection that does not depend on exact words.** A small learned model (hashed word and character n-grams, trained on 1,600 example messages) scores how a message is built and what it asks for, so reworded, misspelled, shorthand or code-mixed scams that no phrase list anticipated can still be caught. It adds to the rules. On a separate blind test of 319 adversarially worded messages, the rules alone flagged 21% of scams and rules plus the model flag 85% (67% at MEDIUM and above), with false alarms on ordinary messages at 7.5% (2.5% at MEDIUM and above) on a test deliberately full of look-alikes. Training data is model-written, not real victims' messages, so expect real-world results to differ. Details, method and limits: `docs/INTENT_MODEL.md`. New Settings switch "Smart intent detection".

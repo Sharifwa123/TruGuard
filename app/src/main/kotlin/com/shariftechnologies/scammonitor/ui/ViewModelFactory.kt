@@ -6,6 +6,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.shariftechnologies.scammonitor.app.AppContainer
 import com.shariftechnologies.scammonitor.app.ScamMonitorApplication
+import com.shariftechnologies.scammonitor.ui.about.AboutViewModel
 import com.shariftechnologies.scammonitor.ui.dashboard.DashboardViewModel
 import com.shariftechnologies.scammonitor.ui.flagged.FlaggedItemsViewModel
 import com.shariftechnologies.scammonitor.ui.log.SecurityLogViewModel
@@ -22,5 +23,6 @@ object AppViewModelFactory {
         initializer { SecurityLogViewModel(container()) }
         initializer { SettingsViewModel(container()) }
         initializer { SecurityViewModel(container()) }
+        initializer { AboutViewModel(container()) }
     }
 }

@@ -34,6 +34,7 @@ import com.shariftechnologies.scammonitor.ui.common.ClayButton
 import com.shariftechnologies.scammonitor.ui.common.GlassCard
 import com.shariftechnologies.scammonitor.ui.common.Loadable
 import com.shariftechnologies.scammonitor.ui.common.OnResume
+import com.shariftechnologies.scammonitor.ui.common.RestrictedSettingsHelp
 import com.shariftechnologies.scammonitor.ui.common.ShieldBadge
 import com.shariftechnologies.scammonitor.ui.common.Tone
 import com.shariftechnologies.scammonitor.ui.dashboard.DashboardViewModel
@@ -72,13 +73,12 @@ fun OnboardingScreen(onDone: () -> Unit) {
         ClayButton("Open notification access", {
             if (!vm.openAccessSettings(context)) Toast.makeText(context, "Open Settings > Notifications > Notification access manually.", Toast.LENGTH_LONG).show()
         }, modifier = Modifier.fillMaxWidth())
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            ClayButton("App info", {
-                if (!vm.openAppInfo(context)) Toast.makeText(context, "App info is unavailable on this device.", Toast.LENGTH_LONG).show()
-            }, Modifier.weight(1f), tone = Tone.Neutral, compact = true)
-            ClayButton("Recheck", { vm.refresh() }, Modifier.weight(1f), tone = Tone.Neutral, compact = true)
-        }
-        Text("Switch greyed out? App info › ⋮ › Allow restricted settings (Android 13+).", style = MaterialTheme.typography.bodySmall, color = g.inkSoft, textAlign = TextAlign.Center)
+        ClayButton("Recheck", { vm.refresh() }, Modifier.fillMaxWidth(), tone = Tone.Neutral, compact = true)
+        RestrictedSettingsHelp(
+            what = "notification access",
+            onOpenSettings = { if (!vm.openAccessSettings(context)) Toast.makeText(context, "Open Settings > Notifications > Notification access manually.", Toast.LENGTH_LONG).show() },
+            onOpenAppInfo = { if (!vm.openAppInfo(context)) Toast.makeText(context, "App info is unavailable on this device.", Toast.LENGTH_LONG).show() },
+        )
         ClayButton(if (enabled) "Continue" else "Continue without access", {
             vm.completeOnboarding()
             onDone()

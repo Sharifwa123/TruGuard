@@ -31,6 +31,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.shariftechnologies.scammonitor.domain.model.Severity
 import com.shariftechnologies.scammonitor.ui.AppViewModelFactory
+import com.shariftechnologies.scammonitor.ui.common.AdSlot
 import com.shariftechnologies.scammonitor.ui.common.CenteredLoading
 import com.shariftechnologies.scammonitor.ui.common.Chevron
 import com.shariftechnologies.scammonitor.ui.common.ClayButton
@@ -103,6 +104,7 @@ fun SecurityLogScreen(onOpenFlagged: (String) -> Unit) {
                         }
                     }
                 }
+                item { AdSlot("log") }
             }
         }
     }

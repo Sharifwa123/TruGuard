@@ -27,7 +27,10 @@ import com.shariftechnologies.scammonitor.monitoring.ScreenMonitorController
 import com.shariftechnologies.scammonitor.notifications.ScreenMonitorNotifier
 import com.shariftechnologies.scammonitor.monitoring.pipeline.NotificationEventDispatcher
 import com.shariftechnologies.scammonitor.monitoring.pipeline.NotificationScanProcessor
+import com.shariftechnologies.scammonitor.ads.AdsProvider
+import com.shariftechnologies.scammonitor.ads.NoAds
 import com.shariftechnologies.scammonitor.alerts.AlertCoordinator
+import com.shariftechnologies.scammonitor.supporter.SupporterManager
 import com.shariftechnologies.scammonitor.domain.intent.IntentClassifier
 import com.shariftechnologies.scammonitor.alerts.AlertEffects
 import com.shariftechnologies.scammonitor.alerts.AlertPopup
@@ -61,6 +64,9 @@ class AppContainer(context: Context) {
     val screenController = ScreenMonitorController(settings, scope, appContext.packageName)
     val screenNotifier = ScreenMonitorNotifier(appContext)
     val warningManager = WarningNotificationManager(appContext, labels) { settings.warningPreferences.value.showOnLockScreen }
+    val supporter = SupporterManager(settings, assets, scope)
+    /** The ad network, if any. [NoAds] by default: no ad SDK and no internet permission. See docs/MONETISATION.md. */
+    val ads: AdsProvider = NoAds
     val alertEffects = AlertEffects(appContext)
     val alertPopup = AlertPopup(appContext)
     val alerts = AlertCoordinator(warningManager, alertEffects, alertPopup, labels) { settings.warningPreferences.value }
