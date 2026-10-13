@@ -23,3 +23,6 @@ keystore.properties
 # ad-free supporter code signing key (never commit)
 supporter_private.pem
 *.pem
+
+__pycache__/
+*.pyc

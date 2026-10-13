@@ -62,7 +62,15 @@ class SettingsViewModel(private val container: AppContainer) : ViewModel() {
     val intentEnabled: StateFlow<Boolean> = container.settings.intentEnabled
     fun setIntentEnabled(enabled: Boolean) { viewModelScope.launch { container.settings.setIntentEnabled(enabled) } }
     val deepEnabled: StateFlow<Boolean> = container.settings.deepEnabled
-    fun setDeepEnabled(enabled: Boolean) { viewModelScope.launch { container.settings.setDeepEnabled(enabled) } }
+    private val _deepProblem = kotlinx.coroutines.flow.MutableStateFlow(container.semanticProblem())
+    /** Why Deep check turned itself off last time, or null. */
+    val deepProblem: StateFlow<String?> = _deepProblem
+    fun setDeepEnabled(enabled: Boolean) {
+        viewModelScope.launch {
+            if (enabled && _deepProblem.value != null) { _deepProblem.value = null; container.retrySemantic() }
+            container.settings.setDeepEnabled(enabled)
+        }
+    }
     fun setSecurityAlertsEnabled(enabled: Boolean) { viewModelScope.launch { container.settings.setSecurityAlertsEnabled(enabled) } }
     // Screen monitoring: consent, pause, shortcut, and the apps chosen through the floating shortcut.
     val screenConsent: StateFlow<Boolean> = container.settings.screenConsent

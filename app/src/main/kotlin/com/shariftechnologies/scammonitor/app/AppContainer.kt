@@ -92,14 +92,31 @@ class AppContainer(context: Context) {
     /** The learned intent model, parsed once on first use (always on a background thread); null if the file is damaged. */
     private val intentModel: IntentClassifier? by lazy { IntentClassifier.parse(assets.readOrNull("intent_model.json")) }
 
+    private val semanticLock = Any()
+    private var semanticTried = false
+    private var semanticValue: com.shariftechnologies.scammonitor.domain.semantic.SemanticModel? = null
+
     /** The on-device language model, loaded once on first use (always on a background thread); null if it cannot run here. */
-    private val semanticModel: com.shariftechnologies.scammonitor.domain.semantic.SemanticModel? by lazy { SemanticLoader.load(appContext) }
+    private fun semanticModel(): com.shariftechnologies.scammonitor.domain.semantic.SemanticModel? = synchronized(semanticLock) {
+        if (!semanticTried) { semanticValue = SemanticLoader.load(appContext); semanticTried = true }
+        semanticValue
+    }
+
+    /** Why the language model switched itself off last time, in a few words, or null. */
+    fun semanticProblem(): String? = SemanticLoader.problem(appContext)
+
+    /** The user switched the language model back on after a problem: forget the problem and try loading again. */
+    fun retrySemantic() {
+        SemanticLoader.clear(appContext)
+        synchronized(semanticLock) { semanticTried = false; semanticValue = null }
+        scope.launch { runCatching { semanticModel() } }
+    }
 
     private val engine = ScamDetectionEngine(
         rules = { ruleRepository.current() },
         reputation = { reputation.checker },
         intent = { if (settings.intentEnabled.value) intentModel else null },
-        semantic = { if (settings.intentEnabled.value && settings.deepEnabled.value) semanticModel else null },
+        semantic = { if (settings.intentEnabled.value && settings.deepEnabled.value) semanticModel() else null },
     )
 
     private val processor = NotificationScanProcessor(
@@ -122,7 +139,13 @@ class AppContainer(context: Context) {
     fun start() {
         if (!started.compareAndSet(false, true)) return
         // Load the model and rules off the main thread now, so the first message is judged without a cold start.
-        scope.launch { runCatching { intentModel; ruleRepository.current(); reputation.checker; if (settings.deepEnabled.value) semanticModel } }
+        scope.launch {
+            runCatching { intentModel; ruleRepository.current(); reputation.checker }
+            settings.awaitLoaded()
+            // If the language model took the app down last time it stays off (and Settings says why); otherwise load it now.
+            if (SemanticLoader.tripped(appContext)) settings.setDeepEnabled(false)
+            else if (settings.intentEnabled.value && settings.deepEnabled.value) runCatching { semanticModel() }
+        }
         scope.launch {
             settings.awaitLoaded()
             warningManager.ensureChannels()

@@ -19,6 +19,9 @@ class OrtSemanticScorer(modelPath: String, private val tokenizer: SemanticTokeni
         OrtSession.SessionOptions().apply {
             setIntraOpNumThreads(threads)
             setOptimizationLevel(OrtSession.SessionOptions.OptLevel.ALL_OPT)
+            // Keep memory small on phones: no pre-reserved arena, no per-shape planning.
+            setCPUArenaAllocator(false)
+            setMemoryPatternOptimization(false)
         },
     )
     private val cache = object : LinkedHashMap<String, SemanticVerdict>(64, 0.75f, true) {
