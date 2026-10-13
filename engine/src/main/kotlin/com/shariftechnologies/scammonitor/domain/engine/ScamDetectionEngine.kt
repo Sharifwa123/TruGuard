@@ -16,6 +16,8 @@ import com.shariftechnologies.scammonitor.domain.rules.CompiledRule
 import com.shariftechnologies.scammonitor.domain.rules.CompiledRuleSet
 import com.shariftechnologies.scammonitor.domain.rules.LinkSignals
 import com.shariftechnologies.scammonitor.domain.rules.MatchMode
+import com.shariftechnologies.scammonitor.domain.semantic.SemanticModel
+import com.shariftechnologies.scammonitor.domain.intent.IntentThresholdsDto
 
 /**
  * Deterministic, offline risk scoring. Pure CPU work: call it from a background dispatcher.
@@ -31,10 +33,12 @@ class ScamDetectionEngine(
     private val timeBudgetMillis: Long = 250,
     /** The learned intent model, or null to run on rules alone. Read on every scan so it can be switched off. */
     private val intent: () -> IntentClassifier? = { null },
+    /** The on-device language model that refines the fast model's verdict, or null to use the fast model alone. */
+    private val semantic: () -> SemanticModel? = { null },
 ) {
     fun analyze(input: ScanInput): DetectionResult {
         val segments = input.segments
-        if (segments == null || segments.size < 2) return analyzeOne(input)
+        if (segments == null || segments.size < 2) return analyzeOne(input, useSemantic = true)
         return analyzeWindows(segments)
     }
 
@@ -49,17 +53,33 @@ class ScamDetectionEngine(
             windows += segments.subList(i, minOf(i + WINDOW, segments.size)).joinToString("\n")
             if (windows.size >= MAX_WINDOWS) break
         }
-        var best: DetectionResult? = null
+        // Pass 1: every window with the fast model. Pass 2: the language model re-judges the windows that matter most
+        // (the ones the fast model finds worrying, then the longest others) while its time budget lasts; its verdict
+        // replaces the fast one, which is how a false alarm from the fast model gets cleared.
         val started = nanoTime()
-        for (text in windows) {
-            val r = analyzeOne(ScanInput("", text))
-            if (best == null || r.riskScore > best.riskScore) best = r
+        val texts = windows.toList()
+        val cheap = ArrayList<DetectionResult>(texts.size)
+        for (text in texts) {
+            cheap += analyzeOne(ScanInput("", text), useSemantic = false)
             if (nanoTime() - started > WINDOWS_BUDGET_NANOS) break
         }
-        return requireNotNull(best)
+        val results = ArrayList(cheap)
+        if (semantic() != null) {
+            val order = cheap.indices.sortedWith(
+                compareByDescending<Int> { cheap[it].severity.atLeast(Severity.LOW) }
+                    .thenByDescending { cheap[it].riskScore }
+                    .thenByDescending { texts[it].length },
+            ).take(MAX_SEMANTIC_WINDOWS)
+            val semanticStart = nanoTime()
+            for (i in order) {
+                if (nanoTime() - semanticStart > SEMANTIC_BUDGET_NANOS) break
+                results[i] = analyzeOne(ScanInput("", texts[i]), useSemantic = true)
+            }
+        }
+        return results.maxByOrNull { it.riskScore } ?: emptyResult(clock())
     }
 
-    private fun analyzeOne(input: ScanInput): DetectionResult {
+    private fun analyzeOne(input: ScanInput, useSemantic: Boolean): DetectionResult {
         val ruleSet = rules()
         val now = clock()
         if (input.isEmpty) return emptyResult(now)
@@ -121,8 +141,17 @@ class ScamDetectionEngine(
 
         val ordered = matches.sortedByDescending { it.score }
         val model = intent()
-        val verdict = model?.let { m -> try { m.classify(rawText, matches.map { it.ruleId }) } catch (e: RuntimeException) { null } }
-        if (model != null && verdict != null) return modelResult(ruleSet, model, verdict, matches, domains, blocked != null, now)
+        val fast = model?.let { m -> try { m.classify(rawText, matches.map { it.ruleId }) } catch (e: RuntimeException) { null } }
+        if (model != null && fast != null) {
+            var verdict = fast
+            var thresholds = model.thresholds
+            if (useSemantic) {
+                val sem = semantic()
+                val refined = sem?.let { try { it.judge(rawText, fast) } catch (e: RuntimeException) { null } }
+                if (sem != null && refined != null) { verdict = refined; thresholds = sem.thresholds }
+            }
+            return modelResult(ruleSet, model, verdict, thresholds, matches, domains, blocked != null, now)
+        }
 
         val score = matches.sumOf { it.score }.coerceAtMost(100)
         val severity = ruleSet.thresholds.severityFor(score)
@@ -146,14 +175,15 @@ class ScamDetectionEngine(
         ruleSet: CompiledRuleSet,
         model: IntentClassifier,
         verdict: IntentVerdict,
+        thresholds: IntentThresholdsDto,
         ruleMatches: List<RuleMatch>,
         domains: List<DomainFinding>,
         blocklisted: Boolean,
         now: Long,
     ): DetectionResult {
         val p = verdict.probability
-        var severity = model.severityFor(p)
-        var score = model.riskScore(p)
+        var severity = model.severityFor(p, thresholds)
+        var score = model.riskScore(p, thresholds)
         if (blocklisted) {
             val floor = ruleSet.blocklistedDomainScore
             if (floor > score) score = floor
@@ -236,5 +266,8 @@ class ScamDetectionEngine(
         const val WINDOW = 3
         const val MAX_WINDOWS = 40
         private const val WINDOWS_BUDGET_NANOS = 900_000_000L
+        /** The language model is slower, so it gets its own, separate budget and a cap on how many windows it re-judges. */
+        const val MAX_SEMANTIC_WINDOWS = 12
+        private const val SEMANTIC_BUDGET_NANOS = 1_500_000_000L
     }
 }

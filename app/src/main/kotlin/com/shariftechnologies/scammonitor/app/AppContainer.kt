@@ -92,10 +92,14 @@ class AppContainer(context: Context) {
     /** The learned intent model, parsed once on first use (always on a background thread); null if the file is damaged. */
     private val intentModel: IntentClassifier? by lazy { IntentClassifier.parse(assets.readOrNull("intent_model.json")) }
 
+    /** The on-device language model, loaded once on first use (always on a background thread); null if it cannot run here. */
+    private val semanticModel: com.shariftechnologies.scammonitor.domain.semantic.SemanticModel? by lazy { SemanticLoader.load(appContext) }
+
     private val engine = ScamDetectionEngine(
         rules = { ruleRepository.current() },
         reputation = { reputation.checker },
         intent = { if (settings.intentEnabled.value) intentModel else null },
+        semantic = { if (settings.intentEnabled.value && settings.deepEnabled.value) semanticModel else null },
     )
 
     private val processor = NotificationScanProcessor(
@@ -118,7 +122,7 @@ class AppContainer(context: Context) {
     fun start() {
         if (!started.compareAndSet(false, true)) return
         // Load the model and rules off the main thread now, so the first message is judged without a cold start.
-        scope.launch { runCatching { intentModel; ruleRepository.current(); reputation.checker } }
+        scope.launch { runCatching { intentModel; ruleRepository.current(); reputation.checker; if (settings.deepEnabled.value) semanticModel } }
         scope.launch {
             settings.awaitLoaded()
             warningManager.ensureChannels()

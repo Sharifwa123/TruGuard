@@ -2,6 +2,16 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.8.0 - 2026-10-13
+
+- **TruGuard now reads for meaning with an on-device language model.** Device screenshots showed the word-fragment model still guessing: an app-store page for a "free data" VPN was flagged as a payment demand, a stranger fishing for a picture was labelled "offers a reward", and a warm trust-building opener only reached LOW. A small multilingual language model (50+ languages) now runs on the phone alongside the fast model. Nothing is sent anywhere and there is still no internet permission.
+  - Fine-tuned on 4,100 labelled examples, including about 900 new ones written for exactly these cases: ordinary app screens, flirting and chat between people who know each other, and strangers' grooming and picture-fishing openers.
+  - The two models are blended; the language model can clear the fast model's false alarms and catch reworded lures.
+  - New Settings switch "Deep check (on-device AI)" (on by default). Phones that cannot run it fall back to the fast model.
+  - Cost: the app grows by roughly 45 MB (a 40 MB model plus the ONNX Runtime libraries for ARM phones), and uses more memory while the model is loaded.
+  - Measured on three blind sets (details and limits in `docs/INTENT_MODEL.md`): clearly better on two, worse on long multi-bubble chats. Not yet measured on a real device.
+- The fast model is retrained on the new data as well, and its regression cases pass.
+
 ## 1.7.2 - 2026-10-12
 
 - **Faster detection.** Measured on a desktop JVM (phones are several times slower): judging one message dropped from 2.4 ms to 0.9 ms and a 60-piece screen from 120 ms to 55 ms. Features are now hashed straight from the characters without building a string per feature, and the model's seven weight tables are read in a single lookup per feature instead of seven boxed map lookups. Scores are unchanged (the golden test against the Python trainer still passes at 1e-6).

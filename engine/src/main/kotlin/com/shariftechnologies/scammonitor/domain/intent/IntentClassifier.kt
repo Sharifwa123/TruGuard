@@ -51,16 +51,15 @@ class IntentClassifier private constructor(
     val thresholds: IntentThresholdsDto,
 ) {
     /** Probability bands, calibrated on held-out data at training time (see docs/INTENT_MODEL.md). */
-    fun severityFor(probability: Double): com.shariftechnologies.scammonitor.domain.model.Severity = when {
-        probability >= thresholds.high -> com.shariftechnologies.scammonitor.domain.model.Severity.HIGH
-        probability >= thresholds.medium -> com.shariftechnologies.scammonitor.domain.model.Severity.MEDIUM
-        probability >= thresholds.low -> com.shariftechnologies.scammonitor.domain.model.Severity.LOW
+    fun severityFor(probability: Double, t: IntentThresholdsDto = thresholds): com.shariftechnologies.scammonitor.domain.model.Severity = when {
+        probability >= t.high -> com.shariftechnologies.scammonitor.domain.model.Severity.HIGH
+        probability >= t.medium -> com.shariftechnologies.scammonitor.domain.model.Severity.MEDIUM
+        probability >= t.low -> com.shariftechnologies.scammonitor.domain.model.Severity.LOW
         else -> com.shariftechnologies.scammonitor.domain.model.Severity.INFO
     }
 
     /** A 0..100 score whose bands line up with the severities (15 = LOW, 35 = MEDIUM, 60 = HIGH). */
-    fun riskScore(probability: Double): Int {
-        val t = thresholds
+    fun riskScore(probability: Double, t: IntentThresholdsDto = thresholds): Int {
         return when {
             probability >= t.high -> 60 + ((probability - t.high) / (1.0 - t.high) * 40).toInt().coerceIn(0, 40)
             probability >= t.medium -> 35 + ((probability - t.medium) / (t.high - t.medium) * 24).toInt().coerceIn(0, 24)

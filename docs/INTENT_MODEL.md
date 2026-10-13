@@ -64,9 +64,8 @@ split-bubble "send us the message you just received / there's a code in it we ne
 - The monitor reads *all* text in a monitored app, including messages you send yourself, so a message-yourself chat used
   for testing is scanned like any other. Single threatening bubbles with no ask ("We have blocked your account") are
   rated low on their own and are caught mainly when they sit next to the lure.
-- An on-device language model could understand intent much more deeply, but it needs a model file of several hundred
-  megabytes, a phone with enough memory, seconds of processing per message and battery, and cannot be tested without a
-  device. It is not part of this release.
+- Deeper understanding needs the language model described below; it is on by default but can be switched off in
+  Settings (Deep check), and phones that cannot run it silently fall back to the fast model.
 
 ## Retraining
 ```
@@ -78,3 +77,49 @@ python3 tools/intent/evaluate.py tools/intent/data/test_blind2.jsonl
 Then regenerate `tools/intent/data/golden.json` (see `tools/intent/README.md`) so the Kotlin port is checked against the
 new weights. Retrain whenever rules are added, changed or removed (the model was fitted to what they fire on). Needs only
 Python 3, numpy and the Gradle build.
+
+## The on-device language model (1.8.0)
+
+The fast model above scores word fragments. Reworded, code-mixed or unusual lures, and ordinary screens that happen to
+contain "free", "data" or "loan", need something that reads for meaning, so 1.8.0 adds a small multilingual language
+model that runs entirely on the phone (no network, nothing leaves the device).
+
+- **Model:** `paraphrase-multilingual-MiniLM-L12-v2` (12 layers, 384 wide, 50+ languages) fine-tuned on the same labelled
+  examples with a scam/benign head and a six-way "what kind of manipulation" head. Its vocabulary is pruned from 250k to
+  about 47k pieces and the weights are int8, so the shipped file is 40 MB (`semantic_model.onnx`, run with ONNX Runtime).
+- **Tokenizer:** a Kotlin port of the XLM-R SentencePiece-unigram tokenizer over the pruned vocabulary
+  (`SemanticTokenizer`), checked against `tools/intent/semantic/tokenizer.py` on 92 texts in many scripts and emoji.
+- **Use:** the fast model judges everything; the language model then re-judges the single message, or on a screen the
+  windows the fast model finds worrying plus the longest others (at most 12 windows, 1.5 s budget). The two logits are
+  blended 60/40 (`semantic_meta.json`) and the blend has its own calibrated cut-offs. A language-model verdict replaces a
+  fast-model one, which is how a fast-model false alarm (for example an app-store page) gets cleared.
+- **Speed (desktop JVM, one thread):** 3 ms for a short message, 25 ms for a full 128-token window. Phones are several
+  times slower; this was not measured on a device.
+
+### How well it works (leave-one-set-out: cut-offs fitted on the other two blind sets)
+
+Recall (R) of scams and false-alarm rate (FA) of ordinary messages at the LOW cut-off (4% false-alarm budget):
+
+| Model | blind (319) | blind2 (400) | blind3 (240) |
+|---|---|---|---|
+| fast model alone | R 0.86 / FA 0.069 | R 0.79 / FA 0.015 | R 0.88 / FA 0.050 |
+| language model alone | R 0.85 / FA 0.044 | R 0.64 / FA 0.060 | R 0.71 / FA 0.025 |
+| **60/40 blend (shipped)** | **R 0.93 / FA 0.088** | R 0.71 / FA 0.035 | **R 0.93 / FA 0.017** |
+
+Read this honestly: the blend is clearly better on `blind` and `blind3`, but worse than the fast model alone on `blind2`
+(long multi-bubble chats, where the language model's 128-token window and lack of sender context hurt). False-alarm rates at
+one cut-off differ by several points between sets, so the real-world rate is uncertain. The blind files were written by
+language-model agents, not collected from real victims. `blind3` was written independently of all training data. The
+screens that earlier releases got wrong (an app-store page, a podcast player, an offline-messenger screen, a friends' chat) and
+the lures they missed (a stranger fishing for a picture, a trust-building opener, a reworded code request) are fixed
+as regression tests in `RealWorldCasesTest`.
+
+### Retraining the language model
+```
+pip install torch transformers safetensors onnx onnxscript tokenizers numpy onnxruntime==1.22.0   # use the app's ONNX Runtime version
+python3 tools/intent/semantic/build_vocab.py <hf model dir>/tokenizer.json <work dir>
+python3 tools/intent/semantic/train_semantic.py --base <hf model dir> --vocab <work dir> --out <out dir>   # ~25 min on 4 CPU cores
+python3 tools/intent/semantic/evaluate_semantic.py <out dir>          # also writes blind_scores.npz
+python3 tools/intent/semantic/make_assets.py <out dir>                # app assets, calibrated cut-offs, golden file
+```
+The Kotlin tests (`SemanticParityTest`) fail if the tokenizer or ONNX Runtime output drift from Python.

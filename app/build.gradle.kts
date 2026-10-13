@@ -24,6 +24,8 @@ android {
         targetSdk = 35
         versionCode = appVersionCode
         versionName = appVersionName
+        // ONNX Runtime ships a native library per CPU; phones are ARM, so x86 emulator builds are left out to save size.
+        ndk { abiFilters += listOf("arm64-v8a", "armeabi-v7a") }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -61,6 +63,9 @@ android {
 
     lint { abortOnError = false }
 
+    // The language model is read straight from the APK, so it must not be compressed.
+    androidResources { noCompress += "onnx" }
+
     packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
 }
 
@@ -88,6 +93,7 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.onnxruntime.android)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)

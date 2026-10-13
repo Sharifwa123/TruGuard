@@ -55,6 +55,10 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
     /** Use the learned intent model alongside the rules (catches scams worded in ways no rule anticipated). */
     val intentEnabled: StateFlow<Boolean> = _intentEnabled.asStateFlow()
 
+    private val _deepEnabled = MutableStateFlow(true)
+    /** Also judge messages with the on-device language model (slower, understands intent whatever the wording). */
+    val deepEnabled: StateFlow<Boolean> = _deepEnabled.asStateFlow()
+
     private val _supporterCode = MutableStateFlow<String?>(null)
     /** The ad-free supporter code the user entered, if any (checked against a public key elsewhere). */
     val supporterCode: StateFlow<String?> = _supporterCode.asStateFlow()
@@ -88,6 +92,7 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
                 _screenConfig.value = ScreenMonitorConfig.fromJson(prefs[SCREEN_CONFIG])
                 _securityAlertsEnabled.value = prefs[SECURITY_ALERTS] ?: true
                 _intentEnabled.value = prefs[INTENT_ENABLED] ?: true
+                _deepEnabled.value = prefs[DEEP_ENABLED] ?: true
                 _supporterCode.value = prefs[SUPPORTER_CODE]
                 _disabledRuleIds.value = prefs[DISABLED_RULES] ?: emptySet()
                 _onboardingCompleted.value = prefs[ONBOARDING_DONE] ?: false
@@ -105,6 +110,7 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
 
     suspend fun setSupporterCode(code: String) { store.edit { it[SUPPORTER_CODE] = code } }
     suspend fun setIntentEnabled(on: Boolean) { store.edit { it[INTENT_ENABLED] = on } }
+    suspend fun setDeepEnabled(on: Boolean) { store.edit { it[DEEP_ENABLED] = on } }
     suspend fun setAlertPopup(on: Boolean) { store.edit { it[ALERT_POPUP] = on } }
     suspend fun setAlertVibrate(on: Boolean) { store.edit { it[ALERT_VIBRATE] = on } }
     suspend fun setAlertTone(on: Boolean) { store.edit { it[ALERT_TONE] = on } }
@@ -142,6 +148,7 @@ class SettingsRepository(context: Context, scope: CoroutineScope) {
         val WARNING_MIN_SEVERITY = stringPreferencesKey("warning_min_severity")
         val SUPPORTER_CODE = stringPreferencesKey("supporter_code")
         val INTENT_ENABLED = booleanPreferencesKey("intent_enabled")
+        val DEEP_ENABLED = booleanPreferencesKey("deep_enabled")
         val ALERT_POPUP = booleanPreferencesKey("alert_popup")
         val ALERT_VIBRATE = booleanPreferencesKey("alert_vibrate")
         val ALERT_TONE = booleanPreferencesKey("alert_tone")
