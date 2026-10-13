@@ -2,6 +2,13 @@
 
 Versions follow `version.properties`; each entry corresponds to a `vX.Y.Z` git tag and GitHub Release.
 
+## 1.8.1 - 2026-10-13
+
+- **1.8.0 closed itself a few seconds after opening on a phone, with no error.** I could not see the phone's logs, so the cause is not yet known; a silent close with no message points to the new language model crashing in native code or the system ending the app for memory. This release does two things about it:
+  - **The app now protects itself.** Every step of loading the language model (copying it, reading the vocabulary, starting it, a first test run) and every message it reads is marked in a small file. If the app finds a step still marked on the next start, that step took the app down: Deep check switches itself off, the app keeps working on the fast model, and Settings says which step it stopped at ("Turned itself off: it stopped the app while starting the model. Switch on to try again."). Switching it on again retries.
+  - The model now uses less memory while it runs (no pre-reserved arena or per-shape planning), and the model is loaded after settings are read, so a user who switched Deep check off no longer pays for a load at startup.
+- If it still closes at launch, 1.8.1 will work the second time you open it, and the Settings message tells me where it failed.
+
 ## 1.8.0 - 2026-10-13
 
 - **TruGuard now reads for meaning with an on-device language model.** Device screenshots showed the word-fragment model still guessing: an app-store page for a "free data" VPN was flagged as a payment demand, a stranger fishing for a picture was labelled "offers a reward", and a warm trust-building opener only reached LOW. A small multilingual language model (50+ languages) now runs on the phone alongside the fast model. Nothing is sent anywhere and there is still no internet permission.

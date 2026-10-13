@@ -72,6 +72,7 @@ fun SettingsScreen(onOpenAbout: () -> Unit) {
     val securityAlerts by vm.securityAlertsEnabled.collectAsStateWithLifecycle()
     val intentEnabled by vm.intentEnabled.collectAsStateWithLifecycle()
     val deepEnabled by vm.deepEnabled.collectAsStateWithLifecycle()
+    val deepProblem by vm.deepProblem.collectAsStateWithLifecycle()
     val screenConsent by vm.screenConsent.collectAsStateWithLifecycle()
     val screenPaused by vm.screenPaused.collectAsStateWithLifecycle()
     val screenShortcut by vm.screenShortcut.collectAsStateWithLifecycle()
@@ -127,7 +128,7 @@ fun SettingsScreen(onOpenAbout: () -> Unit) {
             SectionLabel("Warnings")
             SwitchRow("Warn me about scams", prefs.enabled, vm::setWarningsEnabled)
             SwitchRow("Smart intent detection", intentEnabled, vm::setIntentEnabled, hint = "Spots scams by what they ask for, not exact words")
-            SwitchRow("Deep check (on-device AI)", deepEnabled, vm::setDeepEnabled, hint = "A language model on your phone reads for meaning. Slower, smarter. Nothing is sent anywhere", enabled = intentEnabled)
+            SwitchRow("Deep check (on-device AI)", deepEnabled, vm::setDeepEnabled, hint = deepProblem?.let { "Turned itself off: $it. Switch on to try again." } ?: "A language model on your phone reads for meaning. Slower, smarter. Nothing is sent anywhere", enabled = intentEnabled)
             SwitchRow("Show on lock screen", prefs.showOnLockScreen, vm::setShowOnLockScreen, hint = "Who and why, without unlocking", enabled = prefs.enabled)
             Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("Warn from", style = MaterialTheme.typography.titleSmall, color = g.ink, modifier = Modifier.weight(1f))
