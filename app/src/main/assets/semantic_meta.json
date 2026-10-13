@@ -1,0 +1,18 @@
+{
+ "version": "1.0",
+ "groups": [
+  "secret_request",
+  "payment_request",
+  "threat_pressure",
+  "reward_bait",
+  "impersonation_trust",
+  "access_install"
+ ],
+ "thresholds": {
+  "low": 0.5886,
+  "medium": 0.8762,
+  "high": 0.9638
+ },
+ "wFast": 0.6,
+ "wSemantic": 0.4
+}

@@ -61,6 +61,8 @@ class SettingsViewModel(private val container: AppContainer) : ViewModel() {
     val securityAlertsEnabled: StateFlow<Boolean> = container.settings.securityAlertsEnabled
     val intentEnabled: StateFlow<Boolean> = container.settings.intentEnabled
     fun setIntentEnabled(enabled: Boolean) { viewModelScope.launch { container.settings.setIntentEnabled(enabled) } }
+    val deepEnabled: StateFlow<Boolean> = container.settings.deepEnabled
+    fun setDeepEnabled(enabled: Boolean) { viewModelScope.launch { container.settings.setDeepEnabled(enabled) } }
     fun setSecurityAlertsEnabled(enabled: Boolean) { viewModelScope.launch { container.settings.setSecurityAlertsEnabled(enabled) } }
     // Screen monitoring: consent, pause, shortcut, and the apps chosen through the floating shortcut.
     val screenConsent: StateFlow<Boolean> = container.settings.screenConsent

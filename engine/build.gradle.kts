@@ -17,7 +17,10 @@ kotlin {
 dependencies {
     api(libs.kotlinx.coroutines.core)
     api(libs.kotlinx.serialization.json)
+    // The Java API is identical on desktop and Android; the app supplies the Android runtime, the tests the desktop one.
+    compileOnly(libs.onnxruntime.desktop)
 
+    testImplementation(libs.onnxruntime.desktop)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
 }
