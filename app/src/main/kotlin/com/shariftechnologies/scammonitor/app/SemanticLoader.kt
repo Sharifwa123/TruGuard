@@ -17,20 +17,22 @@ internal object SemanticLoader {
     private const val VOCAB = "semantic_vocab.txt"
     private const val META = "semantic_meta.json"
 
-    fun load(context: Context): SemanticModel? = try {
-        val assets = context.assets
-        val meta = SemanticModel.parseMeta(assets.open(META).bufferedReader(Charsets.UTF_8).use { it.readText() }) ?: return null
-        val target = File(context.filesDir, "semantic_${meta.version}.onnx")
-        if (!target.exists() || target.length() == 0L) {
-            val tmp = File(context.filesDir, "semantic_${meta.version}.tmp")
-            assets.open(MODEL).use { input -> tmp.outputStream().use { input.copyTo(it) } }
-            if (!tmp.renameTo(target)) return null
-            context.filesDir.listFiles { f -> f.name.startsWith("semantic_") && f.name != target.name }?.forEach { it.delete() }
+    fun load(context: Context): SemanticModel? {
+        return try {
+            val assets = context.assets
+            val meta = SemanticModel.parseMeta(assets.open(META).bufferedReader(Charsets.UTF_8).use { it.readText() }) ?: return null
+            val target = File(context.filesDir, "semantic_${meta.version}.onnx")
+            if (!target.exists() || target.length() == 0L) {
+                val tmp = File(context.filesDir, "semantic_${meta.version}.tmp")
+                assets.open(MODEL).use { input -> tmp.outputStream().use { input.copyTo(it) } }
+                if (!tmp.renameTo(target)) return null
+                context.filesDir.listFiles { f -> f.name.startsWith("semantic_") && f.name != target.name }?.forEach { it.delete() }
+            }
+            val tokenizer = assets.open(VOCAB).bufferedReader(Charsets.UTF_8).use { SemanticTokenizer.parse(it.lineSequence()) }
+            SemanticModel(OrtSemanticScorer(target.absolutePath, tokenizer), meta)
+        } catch (t: Throwable) {
+            Log.w("ScamMonitor", "Language model unavailable: ${t.javaClass.simpleName}")
+            null
         }
-        val tokenizer = assets.open(VOCAB).bufferedReader(Charsets.UTF_8).use { SemanticTokenizer.parse(it.lineSequence()) }
-        SemanticModel(OrtSemanticScorer(target.absolutePath, tokenizer), meta)
-    } catch (t: Throwable) {
-        Log.w("ScamMonitor", "Language model unavailable: ${t.javaClass.simpleName}")
-        null
     }
 }
