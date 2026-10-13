@@ -122,4 +122,10 @@ python3 tools/intent/semantic/train_semantic.py --base <hf model dir> --vocab <w
 python3 tools/intent/semantic/evaluate_semantic.py <out dir>          # also writes blind_scores.npz
 python3 tools/intent/semantic/make_assets.py <out dir>                # app assets, calibrated cut-offs, golden file
 ```
-The Kotlin tests (`SemanticParityTest`) fail if the tokenizer or ONNX Runtime output drift from Python.
+The Kotlin tests (`SemanticParityTest`) fail if the tokenizer drifts from Python at all, or if ONNX Runtime's output differs from Python's
+by more than one logit.
+
+**Known limitation - int8 results depend on the CPU.** The same text scores slightly differently on different CPUs, because
+int8 matrix kernels (AVX2, AVX-512/VNNI, ARM dot-product) round differently: two CI runners disagreed with Python by 0.12 and
+0.67 on scores near 6. The cut-offs were calibrated on the machine that trained the model, so a phone may sit a little
+off them. The blend gives the language model 40% of the weight, which limits the effect; it has not been measured on a phone.
